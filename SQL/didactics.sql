@@ -19,25 +19,26 @@ CREATE TABLE scuola(
   nome text
 );
 
--- Definizione tabella Attività Formativa
+-- Definizione tabella Attivita Formativa
 
-CREATE TABLE attività_formativa(
+CREATE TABLE attivita_formativa(
   codice varchar(10) PRIMARY KEY,
   descrizione text,
-  tipo text, /*enumerazione da controllare: viene dala specializzazione, aggiungere attributi*/
+  tipo ENUM('insegnamento', 'tirocinio', 'lingua', 'prova_finale') NOT NULL,
   tipo_valutazione text,
-  dipartimento text, /*sul sito didattica specificano il dipartimento sarebbe da inserire come entità*/
+  dipartimento text, /*sul sito didattica specificano il dipartimento sarebbe da inserire come entita*/
   frequenza_obbligo boolean,
-  lingua text,
-  sede text,
-  corso_singolo boolean,
-  corso_libero boolean,
+  lingua varchar(10),
+  sede text, /* se e' un indirizzo va modificato*/
+  corso_singolo boolean, --Se e' possibile iscriversi come corso singolo
+  corso_libero boolean,  --Se e' possiile utilizzare l'insegnamento come libera scelta
+  -- Seguono attributi relativi alla scheda del corso
   prerequisiti text, /*dove il prof speifica quali conoscenze servano al di la di corsi specifici*/
-  aquisire text,
-  modalità_esame text,
+  aquisire text, -- Conoscenze e abilita' da acquisire
+  modalita_esame text, 
   criterio_valutazione text,
   contenuti text,
-  attività text,
+  attivita text, -- Attivita' di apprendimento previste
   materiali text,
   testi text
 );
@@ -45,26 +46,26 @@ CREATE TABLE attività_formativa(
 -- Definizione tabella corte
 
 CREATE TABLE corte(
-  anno int PRIMARY KEY
+  anno smallint PRIMARY KEY
 );
 
 -- Definizione tabella curriculum
 
 CREATE TABLE curriculum(
-  codice text PRIMARY KEY,
+  codice varchar(10) PRIMARY KEY,
   nome text
 );
 
 -- Definizione tabella docente
 
 CREATE TABLE docente(
-  matricola int PRIMARY KEY,
-  cognome text,
-  nome text,
-  email text,
-  dipartimento text, /*sarebbe da legare a entità*/
-  telefono text,
-  qualifica text,
+  matricola varchar(10) PRIMARY KEY,
+  cognome varchar(20),
+  nome varchar(20),
+  email varchar(30),
+  dipartimento text, /*sarebbe da legare a entita*/
+  telefono varchar(15),
+  qualifica varchar(100),
   ssd text, /*presente nella scheda del docente aggiungere relazione*/
   ufficio text,
   tesi text,

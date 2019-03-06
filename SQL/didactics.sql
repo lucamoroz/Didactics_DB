@@ -1,5 +1,5 @@
 -- Pulitura db
-DROP TABLE IF EXISTS classe, ssd, scuola, attivita_formativa, coorte, docente, percorso, corsolaurea, curriculum, istanza_attivita_formativa, attiva, propone CASCADE;
+DROP TABLE IF EXISTS classe, ssd, scuola, attivita_formativa, coorte, docente, percorso, corsolaurea, curriculum, istanza_attivita_formativa, attiva, propone, comprende, requisito, partecipa CASCADE;
 
 -- Definizione tabella Classe ministeriale (MIUR)
 
@@ -155,7 +155,57 @@ CREATE TABLE attiva(
   -- instanza att. form. FKs
   FOREIGN KEY (attivita_formativa, canale, anno_accademico, responsabile) REFERENCES istanza_attivita_formativa(attivita_formativa, canale, anno_accademico, responsabile)
     ON DELETE NO ACTION ON UPDATE CASCADE
-)
+);
+
+-- Definizione associazione comprende tra attività formativa e ssd
+
+CREATE TYPE tipo_crediti AS ENUM ('base', 'affine', 'caratterizzante');
+
+CREATE TABLE comprende(
+	attivita_formativa varchar(10), --foreign key
+	ssd text, --foreign key
+	gruppo tipo_crediti NOT NULL, --enum
+	cfu smallint NOT NULL, --intero compreso tra 0 e 20/50(?)
+	PRIMARY KEY(attivita_formativa, ssd),
+	FOREIGN KEY (attivita_formativa) REFERENCES attivita_formativa(codice)
+		ON DELETE NO ACTION ON UPDATE CASCADE,
+	FOREIGN KEY (ssd) REFERENCES ssd(codice)
+		ON DELETE NO ACTION ON UPDATE CASCADE
+);
+
+-- Definizione associazione ricorsiva requisito su attività formativa
+
+CREATE TABLE requisito(
+	attivita_formativa varchar(10), --foreign key attivita con requisito
+	attivita_formativa_richiesta varchar(10), --foreign key attivita richiesta
+	PRIMARY KEY (attivita_formativa, attivita_formativa_richiesta),
+	FOREIGN KEY (attivita_formativa) REFERENCES attivita_formativa(codice)
+		ON DELETE NO ACTION ON UPDATE CASCADE,
+	FOREIGN KEY (attivita_formativa_richiesta) REFERENCES attivita_formativa(codice)
+		ON DELETE NO ACTION ON UPDATE CASCADE
+);
+
+-- Definizione associazione partecipa tra istanza dell'attività formativa e docente
+
+CREATE TABLE partecipa(
+	attivita_formativa varchar(10),
+	canale smallint,
+	anno_accademico smallint,
+	responsabile varchar(10),
+	docente varchar(10),
+	ruolo ruolo_docente NOT NULL,
+	PRIMARY KEY (attivita_formativa, canale, anno_accademico, responsabile, docente)
+	FOREIGN KEY (attivita_formativa) REFERENCES istanza_attivita_formativa(attivita_formativa)
+		ON DELETE NO ACTION ON UPDATE CASCADE,
+	FOREIGN KEY (canale) REFERENCES istanza_attivita_formativa(canale)
+		ON DELETE NO ACTION ON UPDATE CASCADE,
+	FOREIGN KEY (anno_accademico) REFERENCES istanza_attivita_formativa(anno_accademico)
+		ON DELETE NO ACTION ON UPDATE CASCADE,
+	FOREIGN KEY (responsabile) REFERENCES istanza_attivita_formativa(responsabile)
+		ON DELETE NO ACTION ON UPDATE CASCADE,
+	FOREIGN KEY (docente) REFERENCES docente(matricola)
+		ON DELETE NO ACTION ON UPDATE CASCADE
+);
 
 
 

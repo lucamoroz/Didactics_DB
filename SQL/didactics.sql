@@ -1,5 +1,5 @@
 -- Pulitura db
-DROP TABLE IF EXISTS classe, ssd, scuola, attivita_formativa, coorte, docente, percorso, corsolaurea, curriculum, istanza_attivita_formativa, attiva, propone, comprende, requisito, partecipa CASCADE;
+DROP TABLE IF EXISTS classe, ssd, scuola, attivita_formativa, coorte, docente, percorso, corsolaurea, curriculum, istanza_attivita_formativa, attiva, propone, comprende, requisito, partecipa, appartiene, offre CASCADE;
 
 -- Definizione tabella Classe ministeriale (MIUR)
 CREATE TABLE classe(
@@ -9,7 +9,7 @@ CREATE TABLE classe(
 
 -- Definizione tabella SSD
 CREATE TABLE ssd(
-  codice text PRIMARY KEY,
+  codice varchar(10) PRIMARY KEY,
   descrizione text
 );
 
@@ -159,7 +159,7 @@ CREATE TYPE tipo_crediti AS ENUM ('base', 'affine', 'caratterizzante');
 
 CREATE TABLE comprende(
 	attivita_formativa varchar(10), --foreign key
-	ssd text, --foreign key
+	ssd varchar(10), --foreign key
 	gruppo tipo_crediti NOT NULL, --enum
 	cfu smallint NOT NULL, --intero compreso tra 0 e 20/50(?)
 	PRIMARY KEY(attivita_formativa, ssd),

@@ -198,8 +198,7 @@ CREATE TABLE partecipa(
 );
 
 
-
-
+-- Definizione tabella APPARTIENE
 CREATE TABLE appartiene(
   classe varchar(5),
   corso_laurea varchar(6),
@@ -209,7 +208,7 @@ CREATE TABLE appartiene(
   FOREIGN KEY (corso_laurea) REFERENCES corso_laurea(codice)
     ON DELETE NO ACTION ON UPDATE CASCADE
 );
--- Definizione tabella APPARTIENE
+
 -- Definizione tabella OFFRE
 CREATE TABLE offre(
   corso_laurea varchar(6),

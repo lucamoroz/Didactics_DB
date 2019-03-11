@@ -182,7 +182,7 @@ CREATE TABLE requisito(
 );
 
 -- Definizione associazione partecipa tra istanza dell'attività formativa e docente
-
+CREATE TYPE ruolo_docente AS ENUM ('presidente', 'membro_effettivo', 'supplente');
 CREATE TABLE partecipa(
 	attivita_formativa varchar(10),
 	canale smallint,
@@ -190,14 +190,8 @@ CREATE TABLE partecipa(
 	responsabile varchar(10),
 	docente varchar(10),
 	ruolo ruolo_docente NOT NULL,
-	PRIMARY KEY (attivita_formativa, canale, anno_accademico, responsabile, docente)
-	FOREIGN KEY (attivita_formativa) REFERENCES istanza_attivita_formativa(attivita_formativa)
-		ON DELETE NO ACTION ON UPDATE CASCADE,
-	FOREIGN KEY (canale) REFERENCES istanza_attivita_formativa(canale)
-		ON DELETE NO ACTION ON UPDATE CASCADE,
-	FOREIGN KEY (anno_accademico) REFERENCES istanza_attivita_formativa(anno_accademico)
-		ON DELETE NO ACTION ON UPDATE CASCADE,
-	FOREIGN KEY (responsabile) REFERENCES istanza_attivita_formativa(responsabile)
+	PRIMARY KEY (attivita_formativa, canale, anno_accademico, responsabile, docente),
+	FOREIGN KEY (attivita_formativa, canale, anno_accademico, responsabile) REFERENCES istanza_attivita_formativa(attivita_formativa, canale, anno_accademico, responsabile)
 		ON DELETE NO ACTION ON UPDATE CASCADE,
 	FOREIGN KEY (docente) REFERENCES docente(matricola)
 		ON DELETE NO ACTION ON UPDATE CASCADE

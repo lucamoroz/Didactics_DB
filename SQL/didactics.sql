@@ -1,5 +1,5 @@
 -- Pulitura db
-DROP TABLE IF EXISTS classe, ssd, scuola, attivita_formativa, coorte, docente, percorso, corsolaurea, curriculum, istanza_attivita_formativa, attiva, propone, comprende, requisito, partecipa, appartiene, offre CASCADE;
+DROP TABLE IF EXISTS classe, ssd, scuola, attivita_formativa, coorte, docente, percorso, corso_laurea, curriculum, istanza_attivita_formativa, attiva, propone, comprende, requisito, partecipa, appartiene, offre CASCADE;
 
 -- Definizione tabella Classe ministeriale (MIUR)
 CREATE TABLE classe(
@@ -21,22 +21,7 @@ CREATE TABLE attivita_formativa(
   codice varchar(10) PRIMARY KEY,
   descrizione text,
   tipo tipo_insegnamento NOT NULL, -- ENUM
-  tipo_valutazione text,
-  dipartimento text, /*sul sito didattica specificano il dipartimento sarebbe da inserire come entita*/
-  frequenza_obbligo boolean,
-  lingua varchar(10),
-  sede text, /* se e' un indirizzo va modificato*/
-  corso_singolo boolean, --Se e' possibile iscriversi come corso singolo
-  corso_libero boolean,  --Se e' possiile utilizzare l'insegnamento come libera scelta
-  -- Seguono attributi relativi alla scheda del corso
-  prerequisiti text, /*dove il prof speifica quali conoscenze servano al di la di corsi specifici*/
-  aquisire text, -- Conoscenze e abilita' da acquisire
-  modalita_esame text, 
-  criterio_valutazione text,
-  contenuti text,
-  attivita text, -- Attivita' di apprendimento previste
-  materiali text,
-  testi text
+  lingua varchar(10)
 );
 
 -- Definizione tabella coorte
@@ -48,20 +33,20 @@ CREATE TABLE coorte(
 -- Definizione tabella curriculum
 CREATE TABLE curriculum(
   codice varchar(10) PRIMARY KEY,
-  nome text
+  nome varchar(20) NOT NULL
 );
 
 -- Definizione tabella docente
 CREATE TABLE docente(
   matricola varchar(10) PRIMARY KEY,
-  cognome varchar(20),
-  nome varchar(20),
+  cognome varchar(20) NOT NULL,
+  nome varchar(20) NOT NULL,
   email varchar(30),
-  dipartimento text, /*sarebbe da legare a entita*/
-  telefono varchar(15),
-  qualifica varchar(100),
-  ssd text, /*presente nella scheda del docente aggiungere relazione*/
-  ufficio text,
+  dipartimento text  NOT NULL, /*sarebbe da legare a entita*/
+  telefono varchar(15)  NOT NULL,
+  qualifica varchar(100)  NOT NULL,
+  ssd text NOT NULL, /*presente nella scheda del docente aggiungere relazione*/
+  ufficio text NOT NULL,
   tesi text,
   aree_ricerca text,
   curriculum text,
@@ -76,13 +61,13 @@ CREATE TABLE scuola(
 );
 
 -- Definizione entita' corso di laurea
-CREATE TYPE tipo_corsolaurea AS ENUM ('LT', 'LM', 'CU');
-CREATE TABLE corsolaurea(
+CREATE TYPE tipo_corso_laurea AS ENUM ('LT', 'LM', 'CU');
+CREATE TABLE corso_laurea(
   codice varchar(10) PRIMARY KEY, -- sul sito i codici sono tutti lunghi 6, scelgo 10 per sicurezza
   scuola varchar(5) NOT NULL, -- FK scuola
   ordinamento smallint NOT NULL, -- dovrebbe essere un anno, controllare
   cfu smallint NOT NULL, -- potrebbe essere un ENUM
-  tipo tipo_corsolaurea NOT NULL, -- e' un ENUM: LT laurea triennale, LM magistrale, CU ciclo unico
+  tipo tipo_corso_laurea NOT NULL, -- e' un ENUM: LT laurea triennale, LM magistrale, CU ciclo unico
   FOREIGN KEY (scuola) REFERENCES scuola(codice)
     ON DELETE NO ACTION ON UPDATE CASCADE
 );
@@ -90,11 +75,11 @@ CREATE TABLE corsolaurea(
 -- Definizione entita' percorso
 
 CREATE TABLE percorso(
-  corsolaurea varchar(10) NOT NULL,
+  corso_laurea varchar(10) NOT NULL,
   curriculum varchar(10) NOT NULL,
   coorte smallint NOT NULL,
-  PRIMARY KEY (corsolaurea, curriculum, coorte),
-  FOREIGN KEY (corsolaurea) REFERENCES corsolaurea(codice)
+  PRIMARY KEY (corso_laurea, curriculum, coorte),
+  FOREIGN KEY (corso_laurea) REFERENCES corso_laurea(codice)
     ON DELETE NO ACTION ON UPDATE CASCADE,
   FOREIGN KEY (curriculum) REFERENCES curriculum(codice)
     ON DELETE NO ACTION ON UPDATE CASCADE,
@@ -103,16 +88,17 @@ CREATE TABLE percorso(
 );
 
 -- Definizione relazione propone
+CREATE TYPE semestre AS ENUM ('I', 'II');
 CREATE TABLE propone(
-  corsolaurea varchar(10) NOT NULL,
-  curriculum varchar(10) NOT NULL,
-  coorte smallint NOT NULL,
-  attivita_formativa varchar(10) NOT NULL,
+  corso_laurea varchar(10),
+  curriculum varchar(10),
+  coorte smallint,
+  attivita_formativa varchar(10),
   anno smallint NOT NULL,
-  semestre smallint NOT NULL, -- potrebbe essere anche varchar: 'I', 'II'
+  semestre semestre NOT NULL, -- potrebbe essere anche varchar: 'I', 'II'
   canali_previsti smallint NOT NULL,
-  PRIMARY KEY (corsolaurea, curriculum, coorte, attivita_formativa),
-  FOREIGN KEY (corsolaurea) REFERENCES corsolaurea(codice)
+  PRIMARY KEY (corso_laurea, curriculum, coorte, attivita_formativa),
+  FOREIGN KEY (corso_laurea) REFERENCES corso_laurea(codice)
     ON DELETE NO ACTION ON UPDATE CASCADE,
   FOREIGN KEY (curriculum) REFERENCES curriculum(codice)
     ON DELETE NO ACTION ON UPDATE CASCADE,
@@ -124,10 +110,25 @@ CREATE TABLE propone(
 
 -- Definizione entita' istanza
 CREATE TABLE istanza_attivita_formativa(
-  attivita_formativa varchar(10) NOT NULL,
-  canale smallint NOT NULL,
-  anno_accademico smallint NOT NULL,
-  responsabile varchar(10) NOT NULL,
+  attivita_formativa varchar(10),
+  canale smallint,
+  anno_accademico smallint,
+  responsabile varchar(10),
+  tipo_valutazione text,
+  dipartimento text, /*sul sito didattica specificano il dipartimento sarebbe da inserire come entita*/
+  frequenza_obbligo boolean,
+  sede text, /* se e' un indirizzo va modificato*/
+  corso_singolo boolean, --Se e' possibile iscriversi come corso singolo
+  corso_libero boolean,  --Se e' possiile utilizzare l'insegnamento come libera scelta
+  -- Seguono attributi relativi alla scheda del corso
+  prerequisiti text, /*dove il prof speifica quali conoscenze servano al di la di corsi specifici*/
+  aquisire text, -- Conoscenze e abilita' da acquisire
+  modalita_esame text, 
+  criterio_valutazione text,
+  contenuti text,
+  attivita text, -- Attivita' di apprendimento previste
+  materiali text,
+  testi text,
   PRIMARY KEY (attivita_formativa, canale, anno_accademico, responsabile),
   FOREIGN KEY (attivita_formativa) REFERENCES attivita_formativa(codice)
     ON DELETE NO ACTION ON UPDATE CASCADE,
@@ -137,16 +138,16 @@ CREATE TABLE istanza_attivita_formativa(
 
 -- Definizione relazione attiva
 CREATE TABLE attiva(
-  corsolaurea varchar(10) NOT NULL,
-  coorte smallint NOT NULL,
-  curriculum varchar(10) NOT NULL,
-  attivita_formativa varchar(10) NOT NULL,
-  canale smallint NOT NULL,
-  anno_accademico smallint NOT NULL,
-  responsabile varchar(10) NOT NULL,
-  PRIMARY KEY (corsolaurea, coorte, curriculum, attivita_formativa, canale, anno_accademico, responsabile),
+  corso_laurea varchar(10),
+  coorte smallint,
+  curriculum varchar(10),
+  attivita_formativa varchar(10),
+  canale smallint,
+  anno_accademico smallint,
+  responsabile varchar(10),
+  PRIMARY KEY (corso_laurea, coorte, curriculum, attivita_formativa, canale, anno_accademico, responsabile),
   -- percorso FKs
-  FOREIGN KEY (corsolaurea, coorte, curriculum) REFERENCES percorso(corsolaurea, coorte, curriculum)
+  FOREIGN KEY (corso_laurea, coorte, curriculum) REFERENCES percorso(corso_laurea, coorte, curriculum)
     ON DELETE NO ACTION ON UPDATE CASCADE,
   -- instanza att. form. FKs
   FOREIGN KEY (attivita_formativa, canale, anno_accademico, responsabile) REFERENCES istanza_attivita_formativa(attivita_formativa, canale, anno_accademico, responsabile)

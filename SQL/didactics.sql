@@ -21,7 +21,6 @@ CREATE TABLE attivita_formativa(
   codice varchar(10) PRIMARY KEY,
   descrizione text,
   tipo tipo_insegnamento NOT NULL, -- ENUM
-  lingua varchar(10)
 );
 
 -- Definizione tabella coorte
@@ -75,9 +74,9 @@ CREATE TABLE corso_laurea(
 -- Definizione entita' percorso
 
 CREATE TABLE percorso(
-  corso_laurea varchar(10) NOT NULL,
-  curriculum varchar(10) NOT NULL,
-  coorte smallint NOT NULL,
+  corso_laurea varchar(10),
+  curriculum varchar(10),
+  coorte smallint,
   PRIMARY KEY (corso_laurea, curriculum, coorte),
   FOREIGN KEY (corso_laurea) REFERENCES corso_laurea(codice)
     ON DELETE NO ACTION ON UPDATE CASCADE,
@@ -114,6 +113,7 @@ CREATE TABLE istanza_attivita_formativa(
   canale smallint,
   anno_accademico smallint,
   responsabile varchar(10),
+
   tipo_valutazione text,
   dipartimento text, /*sul sito didattica specificano il dipartimento sarebbe da inserire come entita*/
   frequenza_obbligo boolean,
@@ -129,6 +129,8 @@ CREATE TABLE istanza_attivita_formativa(
   attivita text, -- Attivita' di apprendimento previste
   materiali text,
   testi text,
+  lingua varchar(10),
+
   PRIMARY KEY (attivita_formativa, canale, anno_accademico, responsabile),
   FOREIGN KEY (attivita_formativa) REFERENCES attivita_formativa(codice)
     ON DELETE NO ACTION ON UPDATE CASCADE,

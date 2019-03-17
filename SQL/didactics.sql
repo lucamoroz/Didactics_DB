@@ -1,6 +1,8 @@
 -- Pulitura db
 DROP TABLE IF EXISTS classe, ssd, scuola, attivita_formativa, coorte, docente, percorso, corso_laurea, curriculum, istanza_attivita_formativa, attiva, propone, comprende, requisito, partecipa, appartiene, offre CASCADE;
 
+DROP TYPE IF EXISTS tipo_insegnamento, tipo_corso_laurea, semestre, tipo_crediti, ruolo_docente CASCADE;
+
 -- Definizione tabella Classe ministeriale (MIUR)
 CREATE TABLE classe(
   codice varchar(5) PRIMARY KEY,
@@ -20,7 +22,7 @@ CREATE TYPE tipo_insegnamento AS ENUM ('insegnamento', 'tirocinio', 'lingua', 'p
 CREATE TABLE attivita_formativa(
   codice varchar(10) PRIMARY KEY,
   descrizione text,
-  tipo tipo_insegnamento NOT NULL, -- ENUM
+  tipo tipo_insegnamento NOT NULL -- ENUM
 );
 
 -- Definizione tabella coorte

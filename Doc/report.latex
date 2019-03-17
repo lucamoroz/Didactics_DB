@@ -1,7 +1,14 @@
-\documentclass[a4paper,12pt,italian]{article}
+\documentclass[a4paper,12pt,italian,towside]{article}
 \usepackage[latin1]{inputenc}
 % Comment the following line to deny the usage of umlauts and other non-ASCII characters
 \usepackage[italian]{babel}
+
+%pack per link
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue}
+
+%pack per colori
+\usepackage{xcolor}
 
 % Uncomment the following line to allow the usage of graphics (.jpg, .png, etc.)
 %\usepackage{graphicx}
@@ -16,14 +23,10 @@
 %intestazioni e pie pagina
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\lhead{*1*}
-\chead{*2*}
-\rhead{*3*}
-\lfoot{*4*}
-\cfoot{*5*}
-\rfoot{*6*}
+\chead{}
+\cfoot{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
-\renewcommand{\footrulewidth}{0.4pt}
+
 
 %*************************************************************************%
 % Start the document
@@ -32,12 +35,7 @@
 
 %generiamo il titolo
 \maketitle
-
-%abstract
 \newpage
-\begin{abstract}
-In questa zona inseriamo il sommario del nostro documento.
-\end{abstract}
 
 %indice
 \tableofcontents
@@ -45,20 +43,55 @@ In questa zona inseriamo il sommario del nostro documento.
 \newpage
 % *****sezione1*****
 \section{Descrizione del progetto}
+Si vuole realizzare una base di dati per modellare correttamete i Corsi di Caurea dell'Universit\'a di Padova.
+Si vogliono rappresentare tutti i dati funzionali ai Corso di Laurea come Scuole, Classi, Curriculum, Attivit\'a formative e relativi SSD, Coorti, Percorsi e Docenti.
+In questo progetto non vengono coinvolti studenti o piani di studio.
+\newline
+La modellazione viene fatta coerentemente al sito  \href{https://didattica.unipd.it/}{didattica.unipd.it}, fonte partanto di tutti i requisiti del progetto.
 
-Your text goes here...
+
 
 \subsection{Requisiti strutturati}
 
-Your text goes here...
+\textbf{Scuola}
+\par Le Scuole hanno funzioni di coordinamento e di razionalizzazione delle attivit\'a didattiche, compresa la proposta di istituzione, attivazione, modifica, disattivazione o soppressione di corsi di laurea, nonch\'e di gestione dei servizi comuni.\textcolor{red!50}{Ogni Scuola pu\'o attivare diversi corsi di laurea in linea con il settore accademico di interesse.}
+\newline
+
+\textbf{Classe}
+\par
+\textcolor{red!50}{Le Classi sono dei contenitori che raggruppano i corsi di studio dello stesso ciclo, comunque denominati dagli Atenei, aventi gli stessi obiettivi formativi qualificanti e attivit\'a formative attivate per un numero di crediti e in settori individuati come indispensabili. Le caratteristiche delle Classi sono fissate a livello nazionale, con appositi Decreti Ministeriali, e sono quindi comuni a tutti gli atenei.I corsi di laurea appartenenti alla stessa Classe hanno identico valore legale.}
+\\
+
+\textbf{Attivit\'a Formativa}
+\par
+\textcolor{red!50} {Le Attivit\'a Formative sono il cuore di un Corso di Laure e rappresentano tutti gli step che uno studente deve superare per conseguire la Laurea. Esse possono essere: Tirocinio, Lingua, Prova Finale e Insegnamenti. Ogni attività formativa si inserisce in un Corso di Laurea in un anno (I, II, II IV o V a seconda del tipo di Laurea) e in un semestre ( I o II). Ogni Attivit\'a Formativa \'e riferita a un Docente che ha il compito di definirla in termini di: tipo di valutazione, prerequisiti, conoscenze e abilit\'a da acquisire, modalit\'a di esame, criterio di valutazione, contenuti, attivit\'a, materiali, testi consigliati e lingua di emissione. Ogni Attivit\'a formativa si riferisce poi a un Dipartimento some sede fisica delle lezioni. Infine ogni Attivit\'a formativa  legata a uno o pi\'u SSD dai quali, al conseguimento da parte dello studente dell' esame, vengono rilasciati CFU.
+} 
+
 
 \subsection{Operazioni sulle basi di dati}
 
 Your text goes here...
 
 \subsection{Glossario}
-
 Your text goes here...
+
+
+
+\begin{table}[]
+	\begin{tabular}{lllll}
+		\cline{1-4}
+		\multicolumn{1}{c}{\textbf{Termine}} & \multicolumn{1}{c}{\textbf{Descrizione}} & \multicolumn{1}{c}{\textbf{Sinonimi}} & \multicolumn{1}{c}{\textbf{Collegamenti}} &  \\ \cline{1-4}
+		Corso di  studi                      &                                          &                                       &                                           &  \\ \cline{1-4}
+		Curriculum                           &                                          &                                       &                                           &  \\ \cline{1-4}
+		SSD                                  &                                          &                                       &                                           &  \\ \cline{1-4}
+		CFU                                  &                                          &                                       &                                           & 
+	\end{tabular}
+\end{table}
+
+
+
+
+\newpage
 
 % *****sezione2*****
 \section{Progettazione concettuale}
@@ -84,7 +117,7 @@ Your text goes here...
 \subsection{Schema concettuale, regole di vincolo}
 
 Your text goes here...
-
+\newpage
 % *****sezione3****
 \section{Progettazione logica}
 
@@ -99,7 +132,7 @@ Your text goes here...
 \subsection{Schema logico e regole di vincolo}
 
 Your text goes here...
-
+\newpage
 % *****sezione4****
 \section{SQL}
 
@@ -112,7 +145,7 @@ Your text goes here...
 \subsection{Query}
 
 Your text goes here...
-
+\newpage
 % *****sezione 5*****
 
 \section{Note}
@@ -126,4 +159,3 @@ Your text goes here...
 
 % End of the document
 \end{document}
-

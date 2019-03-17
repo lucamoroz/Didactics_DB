@@ -1,6 +1,7 @@
 -- Pulitura db
 DROP TABLE IF EXISTS classe, ssd, scuola, attivita_formativa, coorte, docente, percorso, corso_laurea, curriculum, istanza_attivita_formativa, attiva, propone, comprende, requisito, partecipa, appartiene, offre CASCADE;
 
+DROP TYPE IF EXISTS tipo_insegnamento, tipo_corso_laurea, semestre, tipo_crediti, ruolo_docente CASCADE;
 
 -- Definizione tabella Classe ministeriale (MIUR)
 CREATE TABLE classe(

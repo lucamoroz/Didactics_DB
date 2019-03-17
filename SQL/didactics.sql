@@ -18,10 +18,9 @@ CREATE TABLE ssd(
 -- Definizione tabella Attivita Formativa
 -- Enumerazione tipi di insegnamento
 CREATE TYPE tipo_insegnamento AS ENUM ('insegnamento', 'tirocinio', 'lingua', 'prova_finale');
-
 CREATE TABLE attivita_formativa(
   codice varchar(10) PRIMARY KEY,
-  descrizione text,
+  nome text,
   tipo tipo_insegnamento NOT NULL -- ENUM
 );
 
@@ -34,7 +33,7 @@ CREATE TABLE coorte(
 -- Definizione tabella curriculum
 CREATE TABLE curriculum(
   codice varchar(10) PRIMARY KEY,
-  nome varchar(20) NOT NULL
+  nome varchar(30) NOT NULL
 );
 
 -- Definizione tabella docente
@@ -58,7 +57,7 @@ CREATE TABLE docente(
 -- Definizione entita' scuola
 CREATE TABLE scuola(
   codice varchar(5) PRIMARY KEY, -- sul sito i codici sono tutti lunghi 2, scelgo 5 per sicurezza
-  nome varchar(30)
+  nome varchar(50)
 );
 
 -- Definizione entita' corso di laurea
@@ -99,11 +98,7 @@ CREATE TABLE propone(
   semestre semestre NOT NULL, -- potrebbe essere anche varchar: 'I', 'II'
   canali_previsti smallint NOT NULL,
   PRIMARY KEY (corso_laurea, curriculum, coorte, attivita_formativa),
-  FOREIGN KEY (corso_laurea) REFERENCES corso_laurea(codice)
-    ON DELETE NO ACTION ON UPDATE CASCADE,
-  FOREIGN KEY (curriculum) REFERENCES curriculum(codice)
-    ON DELETE NO ACTION ON UPDATE CASCADE,
-  FOREIGN KEY (coorte) REFERENCES coorte(anno)
+  FOREIGN KEY (corso_laurea, curriculum, coorte) REFERENCES percorso(corso_laurea,curriculum,coorte)
     ON DELETE NO ACTION ON UPDATE CASCADE,
   FOREIGN KEY (attivita_formativa) REFERENCES attivita_formativa(codice)
     ON DELETE NO ACTION ON UPDATE CASCADE
@@ -227,3 +222,8 @@ CREATE TABLE offre(
   FOREIGN KEY (attivita_formativa) REFERENCES attivita_formativa(codice)
     ON DELETE NO ACTION ON UPDATE CASCADE
 );
+
+
+
+
+

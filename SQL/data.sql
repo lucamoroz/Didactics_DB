@@ -1,9 +1,4 @@
 -- Inserimento dati
-CREATE TABLE curriculum(
-  codice varchar(10) PRIMARY KEY,
-  nome varchar(20) NOT NULL
-);
-
 
 INSERT INTO coorte (anno)
 VALUES
@@ -37,10 +32,10 @@ VALUES
 
 
 
-INSERT INTO corso_laurea (codice,scuola,ordinamento,cfu,tipo)
+INSERT INTO corso_laurea (codice,nome,scuola,ordinamento,cfu,tipo)
 VALUES
-    ('IN0508', 'IN', 2011, 180, 'LT'),
-    ('IN2374', 'IN', 2017, 180, 'LT');
+    ('IN0508', 'Ingegneria Informatica', 'IN', 2011, 180, 'LT'),
+    ('IN2374', 'Ingegneria Biomedica', 'IN', 2017, 180, 'LT');
     
     
 INSERT INTO percorso (corso_laurea, curriculum, coorte)

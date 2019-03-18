@@ -64,6 +64,7 @@ CREATE TABLE scuola(
 CREATE TYPE tipo_corso_laurea AS ENUM ('LT', 'LM', 'CU');
 CREATE TABLE corso_laurea(
   codice varchar(10) PRIMARY KEY, -- sul sito i codici sono tutti lunghi 6, scelgo 10 per sicurezza
+  nome varchar(40) NOT NULL,
   scuola varchar(5) NOT NULL, -- FK scuola
   ordinamento smallint NOT NULL, -- dovrebbe essere un anno, controllare
   cfu smallint NOT NULL, -- potrebbe essere un ENUM

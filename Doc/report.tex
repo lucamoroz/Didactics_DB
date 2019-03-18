@@ -46,7 +46,7 @@
 Si vuole realizzare una base di dati per modellare correttamete i Corsi di Caurea dell'Universit\'a di Padova.
 Si vogliono rappresentare tutti i dati funzionali ai Corso di Laurea come Scuole, Classi, Curriculum, Attivit\'a formative e relativi SSD, Coorti, Percorsi e Docenti.
 In questo progetto non vengono coinvolti studenti o piani di studio.
-\newline
+\par
 La modellazione viene fatta coerentemente al sito  \href{https://didattica.unipd.it/}{didattica.unipd.it}, fonte partanto di tutti i requisiti del progetto.
 
 
@@ -62,15 +62,34 @@ La modellazione viene fatta coerentemente al sito  \href{https://didattica.unipd
 \textcolor{red!50}{Le Classi sono dei contenitori che raggruppano i corsi di studio dello stesso ciclo, comunque denominati dagli Atenei, aventi gli stessi obiettivi formativi qualificanti e attivit\'a formative attivate per un numero di crediti e in settori individuati come indispensabili. Le caratteristiche delle Classi sono fissate a livello nazionale, con appositi Decreti Ministeriali, e sono quindi comuni a tutti gli atenei.I corsi di laurea appartenenti alla stessa Classe hanno identico valore legale.}
 \\
 
-\textbf{Attivit\'a Formativa}
+\textbf{Corso di Laurea}
 \par
-\textcolor{red!50} {Le Attivit\'a Formative sono il cuore di un Corso di Laure e rappresentano tutti gli step che uno studente deve superare per conseguire la Laurea. Esse possono essere: Tirocinio, Lingua, Prova Finale e Insegnamenti. Ogni attivitÃ  formativa si inserisce in un Corso di Laurea in un anno (I, II, II IV o V a seconda del tipo di Laurea) e in un semestre ( I o II). Ogni Attivit\'a Formativa \'e riferita a un Docente che ha il compito di definirla in termini di: tipo di valutazione, prerequisiti, conoscenze e abilit\'a da acquisire, modalit\'a di esame, criterio di valutazione, contenuti, attivit\'a, materiali, testi consigliati e lingua di emissione. Ogni Attivit\'a formativa si riferisce poi a un Dipartimento some sede fisica delle lezioni. Infine ogni Attivit\'a formativa  legata a uno o pi\'u SSD dai quali, al conseguimento da parte dello studente dell' esame, vengono rilasciati CFU.
+\textcolor{red!50} { I Corsi di Laure sono l'insieme di tutte le attivit\'a formative, obbligatorie e non, proposte da un ateneo per conseguire la laurea. La laurea rilasciata \'e coerente al Corso di Laurea scelto. I Corsi di Laurea sono inquadrati in Classi ministeriali, possono prvedere più percorsi e afferiscono a una scuola. Per il conseguimento della Laurea, e quindi il completamento del relativo corso, lo studente deve conseguire un numero prefissato di CFU (180 per le lauree triennali). Ogni corso di Laurea appartiene ad un ordinamento legislativo che ne definisce la struttura e la valiidità legale. Ogni Corso di Laurea pu\'o avere, a driscrezione della Suola, pi\'u Curricula.
 } 
+\\
+\\
+\\
+
+
+\textbf{Curriculum}
+\par
+\textcolor{red!50} { Un Curriculum è una denominazione di un Corso di Laurea che ne definisce gli obbiettivi oltre che a diffirenziare lo stesso in un insieme di attivit\'a formative differenti. Più studenti possono dunque conseguire la stessa larea con percorsi alternativi a seconda dei loro interessi e attitudini scegliendo, ad esempio, un Curriculum Generale piuttosto che un Curriculum Applicativo.
+} 
+\\
+
 
 \textbf{Attivit\'a Formativa}
 \par
-\textcolor{red!50} {Le Attivit\'a Formative sono il cuore di un Corso di Laure e rappresentano tutti gli step che uno studente deve superare per conseguire la Laurea. Esse possono essere: Tirocinio, Lingua, Prova Finale e Insegnamenti. Ogni attivitÃ  formativa si inserisce in un Corso di Laurea in un anno (I, II, II IV o V a seconda del tipo di Laurea) e in un semestre ( I o II). Ogni Attivit\'a Formativa \'e riferita a un Docente che ha il compito di definirla in termini di: tipo di valutazione, prerequisiti, conoscenze e abilit\'a da acquisire, modalit\'a di esame, criterio di valutazione, contenuti, attivit\'a, materiali, testi consigliati e lingua di emissione. Ogni Attivit\'a formativa si riferisce poi a un Dipartimento some sede fisica delle lezioni. Infine ogni Attivit\'a formativa  legata a uno o pi\'u SSD dai quali, al conseguimento da parte dello studente dell' esame, vengono rilasciati CFU.
+\textcolor{red!50} {Le Attivit\'a Formative sono il cuore di un Corso di Laure e rappresentano tutti gli step che uno studente deve superare per conseguire la Laurea. Esse possono essere: Tirocinio, Lingua, Prova Finale e Insegnamenti. Ogni attivit\'a  formativa si inserisce in un Corso di Laurea in un anno (I, II, II IV o V a seconda del tipo di Laurea) e in un semestre ( I o II). Ogni Attivit\'a Formativa \'e riferita a un Docente che ha il compito di definirla in termini di: tipo di valutazione, prerequisiti, conoscenze e abilit\'a da acquisire, modalit\'a di esame, criterio di valutazione, contenuti, attivit\'a, materiali, testi consigliati e lingua di emissione. Ogni Attivit\'a formativa si riferisce poi a un Dipartimento some sede fisica delle lezioni. Infine ogni Attivit\'a formativa  legata a uno o pi\'u SSD dai quali, al conseguimento da parte dello studente dell' esame, vengono rilasciati CFU.
 } 
+\\
+
+\textbf{Docenti}
+\par
+\textcolor{red!50} { 
+} 
+\\
+
 
 
 
@@ -81,17 +100,6 @@ Your text goes here...
 \subsection{Glossario}
 Your text goes here...
 
-
-\begin{table}[]
-	\begin{tabular}{lllll}
-		\cline{1-4}
-		\multicolumn{1}{c}{\textbf{Termine}} & \multicolumn{1}{c}{\textbf{Descrizione}} & \multicolumn{1}{c}{\textbf{Sinonimi}} & \multicolumn{1}{c}{\textbf{Collegamenti}} &  \\ \cline{1-4}
-		Corso di  studi                      &                                          &                                       &                                           &  \\ \cline{1-4}
-		Curriculum                           &                                          &                                       &                                           &  \\ \cline{1-4}
-		SSD                                  &                                          &                                       &                                           &  \\ \cline{1-4}
-		CFU                                  &                                          &                                       &                                           & 
-	\end{tabular}
-\end{table}
 
 
 

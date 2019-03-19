@@ -13,8 +13,7 @@
 %pack tabelle
 \usepackage{graphicx}
 
-% Uncomment the following line to allow the usage of graphics (.jpg, .png, etc.)
-\usepackage{graphicx}
+
 
 \setcounter{tocdepth}{3}
 
@@ -84,42 +83,60 @@ La modellazione viene fatta coerentemente al sito  \href{https://didattica.unipd
 
 \textbf{Attivit\'a Formativa}
 \par
-\textcolor{red!50} {Le Attivit\'a Formative sono il cuore di un Corso di Laure e rappresentano tutti gli step che uno studente deve superare per conseguire la Laurea. Esse possono essere: Tirocinio, Lingua, Prova Finale e Insegnamenti. Ogni attivit\'a  formativa si inserisce in un Corso di Laurea in un anno (I, II, II IV o V a seconda del tipo di Laurea) e in un semestre ( I o II). Ogni Attivit\'a Formativa \'e riferita a un Docente responsabile che ha il compito di definirla in termini di: tipo di valutazione, prerequisiti, conoscenze e abilit\'a da acquisire, modalit\'a di esame, criterio di valutazione, contenuti, attivit\'a, materiali, testi consigliati e lingua di emissione. Ogni Attivit\'a formativa si riferisce poi a un Dipartimento some sede fisica delle lezioni. Infine ogni Attivit\'a formativa  legata a uno o pi\'u SSD dai quali, al conseguimento da parte dello studente dell' esame, vengono rilasciati CFU. Le Attivit\'a Formative sono sono soggette a vincoli, decisi dalla Scuola, in termini di superamento di altre Attivit\'a formative precedenti.
+\textcolor{red!50} {Le Attivit\'a Formative sono il cuore di un Corso di Laure e rappresentano tutti gli step che uno studente deve superare per conseguire la Laurea. Le Attivit\'a formative possono essere di quattro tipi: Tirocinio, Lingua, Prova Finale e Insegnamenti. Ogni attivit\'a  formativa si inserisce in un Corso di Laurea in un anno (I, II, II IV o V a seconda del tipo di Laurea) e in un semestre ( I o II). Ogni Attivit\'a Formativa \'e riferita a un Docente responsabile che ha il compito di definirla in termini di: tipo di valutazione, prerequisiti, conoscenze e abilit\'a da acquisire, modalit\'a di esame, criterio di valutazione, contenuti, attivit\'a, materiali, testi consigliati e lingua di emissione. Ogni Attivit\'a formativa si riferisce poi a un Dipartimento some sede fisica delle lezioni. Infine ogni Attivit\'a formativa  legata a uno o pi\'u SSD dai quali, al conseguimento da parte dello studente dell' esame, vengono rilasciati CFU. Le Attivit\'a Formative sono sono soggette a vincoli, decisi dalla Scuola, in termini di superamento di altre Attivit\'a formative precedenti.
 } 
 \\
 
 \textbf{Docente}
 \par
-\textcolor{red!50} { I Docenti sono gli attuatori di un Attivit\'a Formativa. Piu Docenti possono essere coinvolti in una stessaAttivit\'a Formativa con ruoli differenti. Dei Docenti coinvolti di un Attivit\'a, uno e uno solo è il Responsabile della stessa e ha il compito di definirla come descritto dal paragrafo Attivit\'a formativa. Dei docenti si vogliono poi poter conoscere tutti i dati relativi ai contatti e agli ambiti di ricerca. Ogni docente può partecipare a più attività formative.
+\textcolor{red!50} { I Docenti sono gli attuatori di un Attivit\'a Formativa. Piu Docenti possono essere coinvolti in una stessa Attivit\'a Formativa con ruoli differenti. Dei Docenti coinvolti di un Attivit\'a, uno e uno solo è il Responsabile della stessa e ha il compito di definirla come descritto dal paragrafo Attivit\'a formativa. Dei docenti si vogliono poi poter conoscere tutti i dati relativi ai contatti e agli ambiti di ricerca. Ogni docente può partecipare a più attività formative.
 } 
 \\
 
 
-
-
+\newpage
 \subsection{Operazioni sulle basi di dati}
 
-Your text goes here...
-
-\subsection{Glossario}
-Your text goes here...
-
-
-
-\begin{table}[]
+\begin{table}[!h] %!h forza la figura sotto il titolo
 	\resizebox{\textwidth}{!}{%
-		\begin{tabular}{llll}
+		\begin{tabular}{lll}
 			\hline
-			\multicolumn{1}{c}{\textbf{Termine}} & \multicolumn{1}{c}{\textbf{Descrizione}}                                                                 & \multicolumn{1}{c}{\textbf{Sinonimi}} & \multicolumn{1}{c}{\textbf{Collegamenti}}                                                                     \\ \hline
-			Corso di  Laurea                     & \begin{tabular}[c]{@{}l@{}}insieme di tutte le attivita formative \\ necessarie a Laurearsi\end{tabular} & Corso di studi                        & \begin{tabular}[c]{@{}l@{}}Scuola, Classe, \\ Attivit\textbackslash{}'a formativa, \\ Curriculum\end{tabular} \\ \hline
-			Curriculum                           &                                                                                                          &                                       &                                                                                                               \\ \hline
-			Attivit\textbackslash{}'a formativa  &                                                                                                          & Insegnamento                          &                                                                                                               \\ \hline
-			SSD                                  &                                                                                                          &                                       &                                                                                                               \\ \hline
-			CFU                                  &                                                                                                          &                                       &                                                                                                              
+			\textbf{Operazione} & \textbf{Tipo} & \textbf{Frequenza} \\ \hline
+			Lista dei prodotti pi`u richiesti & Interrogazione & 4/Mese \\ \hline
+			Lista delle materie prime pi`u utilizzate & interrogazione & 1/Mese \\ \hline
+			Lista clienti che, pur avendone richiesto almeno uno, non richiedono un ordine da almeno 10 anni & Interrogazione & 1/Anno \\ \hline
+			Catalogo di prodotti divisi per categoria con nome e prezzo & Interrogazione & 1/Mese \\ \hline
+			Lista ordini non ancora evasi in ordine temporale & Interrogazione & 1/Giorno \\ \hline
+			Elenco prodotti con numero di dipendenti dedicati & Interrogazione & 1/Mese \\ \hline
+			Lista dipendenti addetti dato un codice prodotto & Interrogazione & 1/Mese \\ \hline
+			Aggiornamento Dipendenti & Modifica & 1/Mese \\ \hline
+			Aggiornamento Clienti & Modifica & 1/Mese \\ \hline
+			Aggiornamento Fornitori & Modifica & 1/Mese \\ \hline
+			Aggiornamento Categorie & Modifica & 1/Anno \\ \hline
+			Aggiornamento Prodotti & Modifica & 1/Settimana \\ \hline
+			Aggiornamento Materie Prime & Modifica & 1/Settimana \\ \hline
+			Aggiornamento Ordini & Modifica & 10/Giorno \\ \hline
+			Inserimento Forniture & Modifica & 10/Giorno \\ \hline
 		\end{tabular}%
 	}
 \end{table}
 
+\subsection{Glossario}
+\begin{table}[!h] %!h forza la figura sotto il titolo
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{llll}
+			\hline
+			\multicolumn{1}{c}{\textbf{Termine}} & \multicolumn{1}{c}{\textbf{Descrizione}} & \multicolumn{1}{c}{\textbf{Sinonimi}} & \multicolumn{1}{c}{\textbf{Collegamenti}} \\ \hline
+			Corso di  Laurea & \begin{tabular}[c]{@{}l@{}}Insieme di tutte le attivita formative ne-\\ cessarie a Laurearsi.\end{tabular} & Corso di studi. & \begin{tabular}[c]{@{}l@{}}Scuola, Classe, \\ Attività formativa, \\ Curriculum.\end{tabular} \\ \hline
+			\begin{tabular}[c]{@{}l@{}}Istanza attività \\ formativa\end{tabular} & \begin{tabular}[c]{@{}l@{}}Insegnamento, Prova finale, Tirocino o \\ Lingua che uno studente troverà effetti-\\ vamente nel suo piando si studi.\end{tabular} & Esame, Corso. & \begin{tabular}[c]{@{}l@{}}Docente, Percorso,\\ Attività formativa\end{tabular} \\ \hline
+			Responsabile & \begin{tabular}[c]{@{}l@{}}Docente incaricato di istanziare un'at-\\ tività formativa e responsabile di tale \\ attività per quell anno.\end{tabular} & \multicolumn{1}{c}{-} & \begin{tabular}[c]{@{}l@{}}Atttività formativa,\\ Istanza Attività \\ formativa, ruolo\end{tabular} \\ \hline
+			Coorte & \begin{tabular}[c]{@{}l@{}}Insieme di studenti immatricolatisi nl \\ medesimo anno. Riferendosi a Coorte\\ come anno si identifica il momento di \\ di schedulazione di tutti le Attività che\\ gli studenti di quella Coorte vedranno \\ proposte durantela propria carriera.\end{tabular} & Anno, Classe. & \begin{tabular}[c]{@{}l@{}}Attività formativa,\\ Percorso, Corso di\\ Laurea.\end{tabular} \\ \hline
+			SSD & \begin{tabular}[c]{@{}l@{}}Settore Scentifico Disciplinare:\\ Distinzione disciplinare utilizzata nell\\ università in Italia per organizzare l'is-\\ truzione superiore.\end{tabular} & \multicolumn{1}{c}{-} & \begin{tabular}[c]{@{}l@{}}Attività formativa,\\ CFU.\end{tabular} \\ \hline
+			CFU & \begin{tabular}[c]{@{}l@{}}Credito Formativo Universitario:\\ modalità utilizzata nelle università ita-\\ liane per misurare il carico di lavoro \\ richiesto allo studente.\end{tabular} & Crediti. & \begin{tabular}[c]{@{}l@{}}SSD, Prcorso,\\ Attività formativa\end{tabular} \\ \hline
+			Percorso & \begin{tabular}[c]{@{}l@{}}Istanza del Corso di Laurea relativa ad\\ un dato Curriculum e a una Coorte.\end{tabular} & Indirizzo. & \begin{tabular}[c]{@{}l@{}}Attività formativa,\\ Curriculum Corso \\ di Laurea, Coorte.\end{tabular} \\ \hline
+		\end{tabular}%
+	}
+\end{table}
 
 
 \newpage
@@ -128,10 +145,10 @@ Your text goes here...
 \section{Progettazione concettuale}
 Di seguito lo schema concettuale prodotto per la rappresentazione della realt`a di interesse:
 
-\begin{figure}
+\begin{figure}[!h] %!h forza la figura sotto il titolo
 	\caption{Schema E-R completo}
 	\begin{center}
-		\includegraphics[]{ER diagram.jpg}
+		\includegraphics[scale=0.533,angle=90]{ERdiagram.jpg}
 	\end{center}
 \end{figure}
 
@@ -162,9 +179,15 @@ Your text goes here...
 
 Your text goes here...
 
+\newpage
 \subsection{Modello logico: Relazionale}
 
-Your text goes here...
+\begin{figure} [!h] %!h forza la figura sotto il titolo
+	\caption{Schema E-R completo}
+	\begin{center}
+		\includegraphics[scale=0.455,angle=90]{relationalmodel.png} %file va rinominato senza spazio senno viene plottato il nome file
+	\end{center}
+\end{figure}
 
 \subsection{Schema logico e regole di vincolo}
 

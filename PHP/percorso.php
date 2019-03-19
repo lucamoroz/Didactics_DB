@@ -46,54 +46,72 @@ function get_course_form($conn) {
 	return $course_form;
 }
 
+/**
+	Dati un 'corso di studi' e una 'coorte' trovare tutte le attività formative ordinate per anno e semestre,
+	mostrare canale, anno accademico, nome e cognome del docente se il corso è attivato.
+	@return String: html della tabella contenente le attività formative
+*/
 function get_percorso($conn, $year, $course) {
 	$result = pg_prepare($conn, 
-            			"querypercorso", 
-            			'SELECT a.nome, p.anno, p.semestre
-				 FROM propone as p JOIN attivita_formativa as a ON p.attivita_formativa = a.codice
-				 WHERE p.coorte = $1 and p.corso_laurea = $2
-				 ORDER BY p.anno ASC, p.semestre ASC;');
-	    $result = pg_execute($conn, "querypercorso", array($year, $course));
-	    
-	    $html_table = "<table class='table' style='width:80%'><thead class='thead-dark'><tr><th>Nome</th><th>Anno</th><th>Semestre</th></tr></thead><tbody>";
-	    while($row = pg_fetch_row($result)) {
-	    	$html_table .= "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td></tr>";
-	    }
-	    $html_table .= "</tbody></table>";
-	    return $html_table;
-}
+									"querypercorso", 
+									'SELECT af.nome as nomeatt, p.anno, p.semestre, a.canale, a.anno_accademico, 
+													d.nome as nomedoc, d.cognome as cognomedoc, af.codice, d.matricola
+									FROM propone as p 
+									JOIN attivita_formativa as af ON p.attivita_formativa = af.codice
+									LEFT JOIN attiva as a 
+											ON p.corso_laurea = a.corso_laurea
+													AND p.curriculum = a.curriculum
+													AND p.coorte = a.coorte
+													AND p.attivita_formativa = a.attivita_formativa
+									LEFT JOIN docente as d ON a.responsabile = d.matricola
+									WHERE p.coorte = $1 and p.corso_laurea = $2
+									ORDER BY p.anno ASC, p.semestre ASC;');
+	$result = pg_execute($conn, "querypercorso", array($year, $course));
+	
+	$html_table = "<table class='table' style='width:80%'><thead class='thead-dark'><tr>
+											<th>Nome</th>
+											<th>Anno</th>
+											<th>Semestre</th>
+											<th>Canale</th>
+											<th>Anno accademico</th>
+											<th>Responsabile</th>
+											<th>Scheda corso</th>
+										</tr></thead><tbody>";
 
-function get_corsi_attivati($conn, $year, $course) {
-	$result = pg_prepare($conn, 
-            			"queryattivate", 
-            			"SELECT af.codice, af.nome, i.canale, i.anno_accademico, CONCAT(d.nome, ' ', d.cognome) as responsabile
-				 FROM attiva as a JOIN istanza_attivita_formativa as i 
-					ON a.attivita_formativa = i.attivita_formativa 
-						AND a.canale = i.canale 
-						AND a.anno_accademico = i.anno_accademico 
-				 		AND a.responsabile = i.responsabile
-					JOIN attivita_formativa as af ON i.attivita_formativa = af.codice
-					JOIN docente as d ON i.responsabile = d.matricola
-				WHERE a.coorte = $1 and a.corso_laurea = $2
-				ORDER BY i.anno_accademico ASC;");
-	$result = pg_execute($conn, "queryattivate", array($year, $course));
-	$html_table = "<table style='width:80%'><tr>
-	<th>Codice</th>
-	<th>Nome</th>
-	<th>Canale</th>
-	<th>Anno accademico</th>
-	<th>Responsabile</th>
-	</tr>";
-	while($row = pg_fetch_row($result)) {
-		$html_table .= "<tr><td>$row[0]</td>
-		<td>$row[1]</td>
-		<td>$row[2]</td>
-		<td>$row[3]</td>
-		<td>$row[4]</td></tr>";
+	while($row = pg_fetch_assoc($result)) {
+		$html_table .= "<tr>
+												<td>{$row['nomeatt']}</td>
+												<td>{$row['anno']}</td>
+												<td>{$row['semestre']}</td>
+												<td>{$row['canale']}</td>
+												<td>{$row['anno_accademico']}</td>
+												<td>{$row['nomedoc']} {$row['cognomedoc']}</td> ";
+
+		$html_table .= "<td>";
+		if($row['nomedoc'] != null) {
+			$url_scheda_corso = build_istanza_attform_query($row['codice'], $row['canale'], $row['anno_accademico'], $row['matricola']);
+			$html_table .= "<a href=\"$url_scheda_corso\"> Scheda corso </a>";
+		}
+		$html_table .= '</td></tr>';
 	}
-	$html_table .= "</table>";
+	$html_table .= "</tbody></table>";
 	return $html_table;
 }
+
+/**
+	Costruisce l'href per reindirizzare alla scheda del corso
+*/
+function build_istanza_attform_query($attivita_formativa, $canale, $annoacc, $responsabile) {
+	$data = array(
+		'attform' => $attivita_formativa,
+		'canale' => $canale,
+		'annoacc' => $responsabile,
+		'resp' => $responsabile
+	);
+	$url = "schedacorso.php/" . http_build_query($data);
+	return $url;
+}
+
 ?>
 
 
@@ -156,38 +174,36 @@ function get_corsi_attivati($conn, $year, $course) {
       </nav>
 	
 	
-	<!-- CONTENT -->
-	<div class="container-fluid">
-	<br><br>
-	<form action="#" method="GET" enctype="multipart/form-data">
-		<div class="form-row">
-			<div class="form-group col-md-2">
-				<?php
-				echo get_year_form($conn);
-				?>
-			</div>
-			<div class="form-group col-md-2">
-				<?php
-				echo get_course_form($conn);
-				?>
-			</div>
-		</div>
-		<input type="submit" class="btn btn-primary" value="Submit">
-	</form>
-	<br>
+			<!-- CONTENT -->
+			<div class="container-fluid">
+			<br><br>
+			<form action="#" method="GET" enctype="multipart/form-data">
+				<div class="form-row">
+					<div class="form-group col-md-2">
+						<?php
+						echo get_year_form($conn);
+						?>
+					</div>
+					<div class="form-group col-md-2">
+						<?php
+						echo get_course_form($conn);
+						?>
+					</div>
+				</div>
+				<input type="submit" class="btn btn-primary" value="Submit">
+			</form>
+			<br>
 	
-	<?php
-	//show result table if requested
-	if($_SERVER["REQUEST_METHOD"] == "GET" and isset($_GET['year']) and isset($_GET['course'])) {
-	echo '<hr> <h3> Corsi proposti </h3>';
-	echo get_percorso($conn, $_GET['year'], $_GET['course']);
-	echo '<hr> <h3> Corsi attivati </h3>';
-	echo get_corsi_attivati($conn, $_GET['year'], $_GET['course']);
-	}
-	?>
+			<?php
+				//show result table if requested
+				if($_SERVER["REQUEST_METHOD"] == "GET" and isset($_GET['year']) and isset($_GET['course'])) {
+					echo '<hr> <h3> Corsi proposti </h3>';
+					echo get_percorso($conn, $_GET['year'], $_GET['course']);
+				}
+			?>
 
-	</div>
-<!-- /#page-content-wrapper -->
+		</div>
+		<!-- /#page-content-wrapper -->
 
   </div>
   <!-- /#wrapper -->

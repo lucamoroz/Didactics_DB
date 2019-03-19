@@ -4,6 +4,20 @@ FROM propone as p JOIN attivita_formativa as a ON p.attivita_formativa = a.codic
 WHERE p.coorte = 2015 and p.corso_laurea = 'IN0508'
 ORDER BY p.anno ASC, p.semestre ASC;
 
+-- Dati un 'corso di studi' e una 'coorte' trovare tutte le attività formative ordinate per anno e semestre,
+-- mostrare canale, anno accademico, nome e cognome del docente se il corso è attivato
+SELECT af.nome, p.anno, p.semestre, a.canale, a.anno_accademico, d.nome, d.cognome
+FROM propone as p 
+JOIN attivita_formativa as af ON p.attivita_formativa = af.codice
+LEFT JOIN attiva as a 
+    ON p.corso_laurea = a.corso_laurea
+        AND p.curriculum = a.curriculum
+        AND p.coorte = a.coorte
+        AND p.attivita_formativa = a.attivita_formativa
+LEFT JOIN docente as d ON a.responsabile = d.matricola
+WHERE p.coorte = 2015 and p.corso_laurea = 'IN0508'
+ORDER BY p.anno ASC, p.semestre ASC;
+
 -- Dati un 'corso di studi' e una 'coorte': trovare le attività formative attivate ordinate per anno
 -- mostrando codice, nome, canale e anno accademico dell'istanza attività formativa e nome + cognome del responsabile
 SELECT af.codice, af.nome, i.canale, i.anno_accademico, CONCAT(d.nome, ' ', d.cognome) as responsabile

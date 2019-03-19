@@ -2,15 +2,12 @@
 //include db connection data
 include 'env.php';
 
+//show errors (disable in production)
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-
-
 error_reporting(E_ALL);
 
-
-
-$conn=pg_connect($env) or die('Could not connect: ' . pg_last_error());
+$conn=pg_connect($GLOBALS['connection_string']) or die('Could not connect: ' . pg_last_error());
 
 function get_year_form($conn) {
 	/**
@@ -51,16 +48,49 @@ function get_course_form($conn) {
 
 function get_percorso($conn, $year, $course) {
 	$result = pg_prepare($conn, 
-            			"query", 
+            			"querypercorso", 
             			'SELECT a.nome, p.anno, p.semestre
 				 FROM propone as p JOIN attivita_formativa as a ON p.attivita_formativa = a.codice
 				 WHERE p.coorte = $1 and p.corso_laurea = $2
 				 ORDER BY p.anno ASC, p.semestre ASC;');
-	    $result = pg_execute($conn, "query", array($year, $course));
+	    $result = pg_execute($conn, "querypercorso", array($year, $course));
 	    
 	    $html_table = "<table style='width:80%'><tr><th>Nome</th><th>Anno</th><th>Semestre</th></tr>";
 	    while($row = pg_fetch_row($result)) {
-	    	$html_table .= "<tr><th>$row[0]</th><th>$row[1]</th><th>$row[2]</th></tr>";
+	    	$html_table .= "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td></tr>";
+	    }
+	    $html_table .= "</table>";
+	    return $html_table;
+}
+
+function get_corsi_attivati($conn, $year, $course) {
+	$result = pg_prepare($conn, 
+            			"queryattivate", 
+            			"SELECT af.codice, af.nome, i.canale, i.anno_accademico, CONCAT(d.nome, ' ', d.cognome) as responsabile
+									FROM attiva as a JOIN istanza_attivita_formativa as i 
+											ON a.attivita_formativa = i.attivita_formativa 
+													AND a.canale = i.canale 
+													AND a.anno_accademico = i.anno_accademico 
+													AND a.responsabile = i.responsabile
+									JOIN attivita_formativa as af ON i.attivita_formativa = af.codice
+									JOIN docente as d ON i.responsabile = d.matricola
+									WHERE a.coorte = $1 and a.corso_laurea = $2
+									ORDER BY i.anno_accademico ASC;");
+	    $result = pg_execute($conn, "queryattivate", array($year, $course));
+	    
+			$html_table = "<table style='width:80%'><tr>
+												<th>Codice</th>
+												<th>Nome</th>
+												<th>Canale</th>
+												<th>Anno accademico</th>
+												<th>Responsabile</th>
+											</tr>";
+	    while($row = pg_fetch_row($result)) {
+				$html_table .= "<tr><td>$row[0]</td>
+														<td>$row[1]</td>
+														<td>$row[2]</td>
+														<td>$row[3]</td>
+														<td>$row[4]</td></tr>";
 	    }
 	    $html_table .= "</table>";
 	    return $html_table;
@@ -127,34 +157,34 @@ function get_percorso($conn, $year, $course) {
       </nav>
 	
 	
-	<!-- CONTENT -->
-      <div class="container-fluid">
-        
-       	<form action="#" method="GET" enctype="multipart/form-data">
-	<?php
-	echo get_year_form($conn);
-	echo get_course_form($conn);
-	?>
+			<!-- CONTENT -->
+			<div class="container-fluid">
+				<form action="#" method="GET" enctype="multipart/form-data">
 
-	<input type="submit" value="Submit">
-	</form>
-	
-	<?php
-	//show result table if requested
-	
-	if($_SERVER["REQUEST_METHOD"] == "GET" and isset($_GET['year']) and isset($_GET['course'])) {
-		echo get_percorso($conn, $_GET['year'], $_GET['course']);
-	}
-	?>
-	
-       
-       
-      </div>
-    </div>
-    <!-- /#page-content-wrapper -->
+					<?php
+						echo get_year_form($conn);
+						echo get_course_form($conn);
+					?>
 
-  </div>
-  <!-- /#wrapper -->
+					<input type="submit" value="Submit">
+				</form>
+
+				<?php
+					//show result table if requested
+
+					if($_SERVER["REQUEST_METHOD"] == "GET" and isset($_GET['year']) and isset($_GET['course'])) {
+						echo '<hr> <h3> Corsi proposti </h3>';
+						echo get_percorso($conn, $_GET['year'], $_GET['course']);
+						echo '<hr> <h3> Corsi attivati </h3>';
+						echo get_corsi_attivati($conn, $_GET['year'], $_GET['course']);
+					}
+				?>
+
+			</div>
+			<!-- /#page-content-wrapper -->
+
+			</div>
+			<!-- /#wrapper -->
 
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>

@@ -63,3 +63,8 @@ VALUES
     ('IN0508', 'COMUNE', '2015', 'IN04111234', '2', 'I', '2'), -- dati e alg
     ('IN0508', 'COMUNE', '2015', 'INM0014874', '3', 'II', '0'); -- prova finale
     
+INSERT INTO attiva(corso_laurea, curriculum, coorte, attivita_formativa, canale, anno_accademico, responsabile)
+VALUES
+    ('IN0508', 'COMUNE', '2015', 'IN10100190', 1, 2015, '1139048'), -- analisi
+    ('IN0508', 'COMUNE', '2015', 'IN10100190', 2, 2015, '1139049'), -- analisi
+    ('IN0508', 'COMUNE', '2015', 'IN04111234', 1, 2016, '1139048'); -- dati e alg

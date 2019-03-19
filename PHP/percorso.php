@@ -20,7 +20,7 @@ function get_year_form($conn) {
 		array_push($years, $row[0]);	
 	}
 	
-	$year_form = "<select name='year'>";
+	$year_form = "<select class='form-control' name='year'>";
 	foreach($years as $year) {
 		$year_form .= "<option value='$year'>$year</option>";
 	}
@@ -38,7 +38,7 @@ function get_course_form($conn) {
 	while($row = pg_fetch_row($ret)) {
 		$courses[$row[1]] = $row[0];
 	}
-	$course_form = "<select name='course'>";
+	$course_form = "<select class='form-control' name='course'>";
 	foreach($courses as $c_name => $c_cod) {
 		$course_form .= "<option value='$c_cod'>$c_name</option>";
 	}
@@ -55,11 +55,11 @@ function get_percorso($conn, $year, $course) {
 				 ORDER BY p.anno ASC, p.semestre ASC;');
 	    $result = pg_execute($conn, "querypercorso", array($year, $course));
 	    
-	    $html_table = "<table style='width:80%'><tr><th>Nome</th><th>Anno</th><th>Semestre</th></tr>";
+	    $html_table = "<table class='table' style='width:80%'><thead class='thead-dark'><tr><th>Nome</th><th>Anno</th><th>Semestre</th></tr></thead><tbody>";
 	    while($row = pg_fetch_row($result)) {
 	    	$html_table .= "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td></tr>";
 	    }
-	    $html_table .= "</table>";
+	    $html_table .= "</tbody></table>";
 	    return $html_table;
 }
 
@@ -67,33 +67,32 @@ function get_corsi_attivati($conn, $year, $course) {
 	$result = pg_prepare($conn, 
             			"queryattivate", 
             			"SELECT af.codice, af.nome, i.canale, i.anno_accademico, CONCAT(d.nome, ' ', d.cognome) as responsabile
-									FROM attiva as a JOIN istanza_attivita_formativa as i 
-											ON a.attivita_formativa = i.attivita_formativa 
-													AND a.canale = i.canale 
-													AND a.anno_accademico = i.anno_accademico 
-													AND a.responsabile = i.responsabile
-									JOIN attivita_formativa as af ON i.attivita_formativa = af.codice
-									JOIN docente as d ON i.responsabile = d.matricola
-									WHERE a.coorte = $1 and a.corso_laurea = $2
-									ORDER BY i.anno_accademico ASC;");
-	    $result = pg_execute($conn, "queryattivate", array($year, $course));
-	    
-			$html_table = "<table style='width:80%'><tr>
-												<th>Codice</th>
-												<th>Nome</th>
-												<th>Canale</th>
-												<th>Anno accademico</th>
-												<th>Responsabile</th>
-											</tr>";
-	    while($row = pg_fetch_row($result)) {
-				$html_table .= "<tr><td>$row[0]</td>
-														<td>$row[1]</td>
-														<td>$row[2]</td>
-														<td>$row[3]</td>
-														<td>$row[4]</td></tr>";
-	    }
-	    $html_table .= "</table>";
-	    return $html_table;
+				 FROM attiva as a JOIN istanza_attivita_formativa as i 
+					ON a.attivita_formativa = i.attivita_formativa 
+						AND a.canale = i.canale 
+						AND a.anno_accademico = i.anno_accademico 
+				 		AND a.responsabile = i.responsabile
+					JOIN attivita_formativa as af ON i.attivita_formativa = af.codice
+					JOIN docente as d ON i.responsabile = d.matricola
+				WHERE a.coorte = $1 and a.corso_laurea = $2
+				ORDER BY i.anno_accademico ASC;");
+	$result = pg_execute($conn, "queryattivate", array($year, $course));
+	$html_table = "<table style='width:80%'><tr>
+	<th>Codice</th>
+	<th>Nome</th>
+	<th>Canale</th>
+	<th>Anno accademico</th>
+	<th>Responsabile</th>
+	</tr>";
+	while($row = pg_fetch_row($result)) {
+		$html_table .= "<tr><td>$row[0]</td>
+		<td>$row[1]</td>
+		<td>$row[2]</td>
+		<td>$row[3]</td>
+		<td>$row[4]</td></tr>";
+	}
+	$html_table .= "</table>";
+	return $html_table;
 }
 ?>
 
@@ -127,7 +126,7 @@ function get_corsi_attivati($conn, $year, $course) {
     <div class="bg-light border-right" id="sidebar-wrapper">
       <div class="sidebar-heading">Menu </div>
       <div class="list-group list-group-flush">
-        <a href="percorso.php" class="list-group-item list-group-item-action bg-light">Percorso</a>
+        <a href="percorso.php" class="list-group-item list-group-item-action bg-light">Offerta formativa</a>
         <a href="#" class="list-group-item list-group-item-action bg-light">Query2</a>
         <a href="#" class="list-group-item list-group-item-action bg-light">Query3</a>
       </div>
@@ -157,34 +156,41 @@ function get_corsi_attivati($conn, $year, $course) {
       </nav>
 	
 	
-			<!-- CONTENT -->
-			<div class="container-fluid">
-				<form action="#" method="GET" enctype="multipart/form-data">
-
-					<?php
-						echo get_year_form($conn);
-						echo get_course_form($conn);
-					?>
-
-					<input type="submit" value="Submit">
-				</form>
-
+	<!-- CONTENT -->
+	<div class="container-fluid">
+	<br><br>
+	<form action="#" method="GET" enctype="multipart/form-data">
+		<div class="form-row">
+			<div class="form-group col-md-2">
 				<?php
-					//show result table if requested
-
-					if($_SERVER["REQUEST_METHOD"] == "GET" and isset($_GET['year']) and isset($_GET['course'])) {
-						echo '<hr> <h3> Corsi proposti </h3>';
-						echo get_percorso($conn, $_GET['year'], $_GET['course']);
-						echo '<hr> <h3> Corsi attivati </h3>';
-						echo get_corsi_attivati($conn, $_GET['year'], $_GET['course']);
-					}
+				echo get_year_form($conn);
 				?>
-
 			</div>
-			<!-- /#page-content-wrapper -->
-
+			<div class="form-group col-md-2">
+				<?php
+				echo get_course_form($conn);
+				?>
 			</div>
-			<!-- /#wrapper -->
+		</div>
+		<input type="submit" class="btn btn-primary" value="Submit">
+	</form>
+	<br>
+	
+	<?php
+	//show result table if requested
+	if($_SERVER["REQUEST_METHOD"] == "GET" and isset($_GET['year']) and isset($_GET['course'])) {
+	echo '<hr> <h3> Corsi proposti </h3>';
+	echo get_percorso($conn, $_GET['year'], $_GET['course']);
+	echo '<hr> <h3> Corsi attivati </h3>';
+	echo get_corsi_attivati($conn, $_GET['year'], $_GET['course']);
+	}
+	?>
+
+	</div>
+<!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
 
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>

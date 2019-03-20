@@ -24,6 +24,9 @@
       return $year_form;
     }
 
+    /**
+     * restituisce il codice html della select contenente le tipologie dei corsi di laurea
+     */
     function get_tipicorsi_form() {
       $tipi =  array('LT'=>'Laurea triennale', 
                     'LM'=>'Laurea magistrale', 
@@ -36,17 +39,38 @@
       return $select_html;
     }
 
+    /**
+     * Dato un corso restituisce un array con le sue classi di appartenenza
+     */
+    function get_classi_appartenenza($conn, $corso) {
+      $sql = "SELECT cl.codice, cl.descrizione
+              FROM classe AS cl
+              JOIN appartiene AS a ON cl.codice = a.classe
+              WHERE a.corso_laurea = $1;";
+      $result = pg_prepare($conn, "", $sql);
+      $result = pg_execute($conn, "", array($corso));
+      $classi = array();
+      while($row = pg_fetch_row($result)) {
+        array_push($classi, $row[0]);
+      }
+      return $classi;
+    }
+
+    /**
+     * restituisce il codice html della tabella dei corsi di laurea
+     */
     function get_corsi_laurea($conn, $scuola, $tipo) {
 
         $sql = "SELECT * FROM corso_laurea AS C WHERE c.scuola = $1 AND c.tipo = $2;";
-        $result = pg_prepare($conn, "querypercorso", $sql);
-        $result = pg_execute($conn, "querypercorso", array($scuola, $tipo));
+        $result = pg_prepare($conn, "querycorsi", $sql);
+        $result = pg_execute($conn, "querycorsi", array($scuola, $tipo));
 
         $html_table = "<table class='table' style='width:90%'><thead class='thead-dark'><tr>
                 <th>Codice</th>
                 <th>Nome</th>
                 <th>Ordinamento</th>
                 <th>CFU</th>
+                <th>Classe</th>
               </tr></thead><tbody>";
 
         while($row = pg_fetch_assoc($result)) {
@@ -54,7 +78,12 @@
                     <td>{$row['codice']}</td>
                     <td>{$row['nome']}</td>
                     <td>{$row['ordinamento']}</td>
-                    <td>{$row['cfu']}</td></tr>";
+                    <td>{$row['cfu']}</td>";
+          $html_table .= '<td><ul class="list-unstyled">';
+          $classi = get_classi_appartenenza($conn, $row['codice']);
+          foreach($classi as $classe)
+            $html_table .= "<li>$classe</li>";
+          $html_table .= '</ul></td></tr>';
         }
         $html_table .= "</tbody></table>";
 

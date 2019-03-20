@@ -56,9 +56,13 @@ WHERE p.corso_laurea = cod_corso
   AND p.curriculum = curriculum
   AND p.attivita_formativa = cod_attivita_formativa;
 
--- dato una scuola e un tipo (LT/LM/CU) elencare i corsi di laurea e le loro classi di appartenenza
-SELECT 
+-- dato una scuola e un tipo (LT/LM/CU) elencare i corsi di laurea
+SELECT c.codice, c.nome, c.ordinamento, c.cfu
 FROM corso_laurea AS c
-LEFT JOIN appartiene AS a ON c.codice = a.corso_laurea
-LEFT JOIN classe as cl ON cl.codice = a.classe
-WHERE 
+WHERE c.scuola = 'IN' AND c.tipo = 'LT';
+
+-- dato un corso di laurea elencare le classi di appartenenza
+SELECT cl.codice, cl.descrizione
+FROM classe AS cl
+JOIN appartiene AS a ON cl.codice = a.classe
+WHERE a.corso_laurea = 'IN2374';

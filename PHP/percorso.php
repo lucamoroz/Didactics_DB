@@ -63,7 +63,7 @@ function get_percorso($conn, $year, $course) {
 						AND p.attivita_formativa = a.attivita_formativa
 					LEFT JOIN docente as d ON a.responsabile = d.matricola
 					WHERE p.coorte = $1 and p.corso_laurea = $2
-					ORDER BY p.anno ASC, p.semestre ASC;'
+					ORDER BY p.anno ASC, p.semestre ASC;';
 	$result = pg_prepare($conn, "querypercorso", $sql);
 	$result = pg_execute($conn, "querypercorso", array($year, $course));
 	
@@ -143,8 +143,9 @@ function build_istanza_attform_query($attivita_formativa, $canale, $annoacc, $re
     <div class="bg-light border-right" id="sidebar-wrapper">
       <div class="sidebar-heading">Menu </div>
       <div class="list-group list-group-flush">
+				<a href="corsilaurea.php" class="list-group-item list-group-item-action bg-light">Corsi di laurea</a>
         <a href="percorso.php" class="list-group-item list-group-item-action bg-light">Offerta formativa</a>
-        <a href="schedacorso.php" class="list-group-item list-group-item-action bg-light">Corsi</a>
+        <a href="schedacorso.php" class="list-group-item list-group-item-action bg-light">Attività formative</a>
         <a href="#" class="list-group-item list-group-item-action bg-light">Query3</a>
       </div>
     </div>

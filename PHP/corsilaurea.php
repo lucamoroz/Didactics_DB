@@ -118,8 +118,9 @@
     <div class="bg-light border-right" id="sidebar-wrapper">
       <div class="sidebar-heading">Menu </div>
       <div class="list-group list-group-flush">
-        <a href="percorso.php" class="list-group-item list-group-item-action bg-light">Percorso</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Query2</a>
+        <a href="corsilaurea.php" class="list-group-item list-group-item-action bg-light">Corsi di laurea</a>
+        <a href="percorso.php" class="list-group-item list-group-item-action bg-light">Offerta formativa</a>
+        <a href="schedacorso.php" class="list-group-item list-group-item-action bg-light">Attività formative</a>
         <a href="#" class="list-group-item list-group-item-action bg-light">Query3</a>
       </div>
     </div>
@@ -138,7 +139,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
             <li class="nav-item active">
-              <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="https://github.com/lucamoroz/Didactics_DB">Github</a>

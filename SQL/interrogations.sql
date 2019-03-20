@@ -31,6 +31,22 @@ JOIN docente as d ON i.responsabile = d.matricola
 WHERE a.coorte = 2015 and a.corso_laurea = 'IN0508'
 ORDER BY i.anno_accademico ASC;
 
+-- Dati il codice di una attivita' formativa, il canale, l'anno accademico e il responsabile ritorna i dettagli dell'attivita' formativa
+SELECT af.nome as nome, iaf.canale as canale, iaf.anno_accademico as anno_accademico, CONCAT(d.nome, ' ', d.cognome) as responsabile, iaf.acquisire as acquisire, iaf.contenuti as contenuti, iaf.testi as testi
+FROM istanza_attivita_formativa as iaf JOIN attivita_formativa as af
+	ON iaf.attivita_formativa = af.codice
+	JOIN docente as d ON d.matricola = iaf.responsabile
+WHERE iaf.attivita_formativa = $1
+	AND iaf.canale = $2
+	AND iaf.anno_accademico = $3
+	AND iaf.responsabile = $4;
+
+-- Ritorna tutti i corsi attivati con il relativo codice, nome, anno accademico, canale e responsabile
+SELECT iaf.attivita_formativa as codice, af.nome as nome, iaf.anno_accademico as anno_accademico, iaf.canale as canale, CONCAT(d.nome, ' ', d.cognome) as responsabile, d.matricola as matricola
+FROM istanza_attivita_formativa as iaf JOIN attivita_formativa as af
+	ON iaf.attivita_formativa =af.codice
+	JOIN docente as d ON d.matricola = iaf.responsabile;
+
 -- Dati un percorso e il codice di una attivita' formativa, controlla che una attivita' formativa sia proposta dal percorso. Tale funzione è utilizzata a livello applicativo per controllare che sia possibile attivare un corso per un percorso.
 
 SELECT COUNT(*)

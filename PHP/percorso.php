@@ -144,7 +144,7 @@ function build_istanza_attform_query($attivita_formativa, $canale, $annoacc, $re
       <div class="sidebar-heading">Menu </div>
       <div class="list-group list-group-flush">
         <a href="percorso.php" class="list-group-item list-group-item-action bg-light">Offerta formativa</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Query2</a>
+        <a href="schedacorso.php" class="list-group-item list-group-item-action bg-light">Corsi</a>
         <a href="#" class="list-group-item list-group-item-action bg-light">Query3</a>
       </div>
     </div>

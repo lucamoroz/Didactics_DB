@@ -29,25 +29,47 @@ function get_istanza_attivita_formativa($conn, $cod, $can, $year, $resp) {
 	}
 	
 }
+function build_istanza_attform_query($attivita_formativa, $canale, $annoacc, $responsabile) {
+	$data = array(
+		'attform' => $attivita_formativa,
+		'canale' => $canale,
+		'annoacc' => $annoacc,
+		'resp' => $responsabile
+	);
+	$url = "schedacorso.php?" . http_build_query($data);
+	return $url;
+}
 
-/**
-SELECT af.nome, iaf.canale, iaf.anno_accademico, iaf.responsabile
-FROM istanza_attivita_formativa as iaf JOIN attivita_formativa as af
-	ON iaf.attivita_formativa = af.codice
-        WHERE iaf.attivita_formativa = 'IN10100190'
-         AND iaf.canale = 2
-         AND iaf.anno_accademico = 2015
-         AND iaf.responsabile = '1139049';
-         
-SELECT af.nome, iaf.canale, iaf.anno_accademico, CONCAT(d.nome, ' ', d.cognome) as responsabile, iaf.acquisire, iaf.contenuti, iaf.testi
-            			 FROM istanza_attivita_formativa as iaf JOIN attivita_formativa as af
-            			 	ON iaf.attivita_formativa = af.codice
-            			 	JOIN docente as d ON d.matricola = iaf.responsabile
-            			 WHERE iaf.attivita_formativa = 'IN10100190'
-            			 	AND iaf.canale = 2
-            			 	AND iaf.anno_accademico = 2015
-            			 	AND iaf.responsabile = '1139049';
-*/
+function get_tabella_istanze_attivita_formative($conn) {
+	
+	$result = pg_query($conn,
+				"SELECT iaf.attivita_formativa as codice, af.nome as nome, iaf.anno_accademico as anno_accademico, iaf.canale as canale, CONCAT(d.nome, ' ', d.cognome) as responsabile, d.matricola as matricola
+				 FROM istanza_attivita_formativa as iaf JOIN attivita_formativa as af
+				 	ON iaf.attivita_formativa =af.codice
+				 	JOIN docente as d ON d.matricola = iaf.responsabile;");
+				 	
+	//build table
+	$html_table = "<table class='table' style='width:90%'><thead class='thead-dark'><tr>
+											<th>Nome</th>
+											<th>Anno accademico</th>
+											<th>Canale</th>
+											<th>Responsabile</th>
+										</tr></thead><tbody>";
+	while($row = pg_fetch_assoc($result)) {
+		$url_scheda_corso = build_istanza_attform_query($row['codice'], $row['canale'], $row['anno_accademico'], $row['matricola']);
+		
+		$html_table .= "<tr>";
+		$html_table .= "<td><a href=\"$url_scheda_corso\">{$row['nome']}</a></td>
+				<td>{$row['anno_accademico']}</td>
+				<td>{$row['canale']}</td>
+				<td>{$row['responsabile']}</td>";
+		
+		$html_table .= "</tr>";
+	}
+	$html_table .= "</tbody></table>";
+	return $html_table;
+	
+}
 ?>
 
 
@@ -80,7 +102,7 @@ SELECT af.nome, iaf.canale, iaf.anno_accademico, CONCAT(d.nome, ' ', d.cognome) 
       <div class="sidebar-heading">Menu </div>
       <div class="list-group list-group-flush">
         <a href="percorso.php" class="list-group-item list-group-item-action bg-light">Offerta formativa</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Query2</a>
+        <a href="schedacorso.php" class="list-group-item list-group-item-action bg-light">Corsi</a>
         <a href="#" class="list-group-item list-group-item-action bg-light">Query3</a>
       </div>
     </div>
@@ -136,6 +158,8 @@ SELECT af.nome, iaf.canale, iaf.anno_accademico, CONCAT(d.nome, ' ', d.cognome) 
 		$html_table .= "</tbody></table>";
 		echo $html_table;
 		
+	} else {
+		echo get_tabella_istanze_attivita_formative($conn);
 	}
 	?>
 

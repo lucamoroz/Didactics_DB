@@ -9,25 +9,56 @@
 
     $conn=pg_connect($GLOBALS['connection_string']) or die('Could not connect: ' . pg_last_error());
 
-    function getCorsiLaurea() {
+    function get_schools_form($conn) {
+      /**
+      @return String: a 'select' form, each option has 'codice' as value and 'nome' as text
+      */
+      $ret = pg_query($conn, "SELECT codice, nome FROM scuola;");
+    
+      $year_form = "<select class='form-control' name='school'>";
+      while($row = pg_fetch_assoc($ret)) {
+        $year_form .= "<option value={$row['codice']}>{$row['nome']}</option>";
+      }
+      $year_form .= "</select>";
+      
+      return $year_form;
+    }
 
-        $sql = "SELECT * FROM corso_laurea";
+    function get_tipicorsi_form() {
+      $tipi =  array('LT'=>'Laurea triennale', 
+                    'LM'=>'Laurea magistrale', 
+                    'CU'=>'Laurea magistrale a ciclo unico');
+      $select_html = "<select class='form-control' name='type'>";
+      foreach($tipi as $codice => $nome) {
+        $select_html .= "<option value=$codice>$nome</option>";
+      }
+      $select_html .= "</select>";
+      return $select_html;
+    }
+
+    function get_corsi_laurea($conn, $scuola, $tipo) {
+
+        $sql = "SELECT * FROM corso_laurea AS C WHERE c.scuola = $1 AND c.tipo = $2;";
         $result = pg_prepare($conn, "querypercorso", $sql);
-        $result = pg_execute($conn, "querypercorso", array($year, $course));
+        $result = pg_execute($conn, "querypercorso", array($scuola, $tipo));
 
-        //start print
-        echo '<ul>';
-        while($row = pg_fetch_assoc($ret)) {
-            echo '<li>';
-            echo 'Codice corso: '. $row['codice'] . ' ';
-            echo 'Scuola: '. $row['scuola'] . ' ';
-            echo 'Ordinamento: '. $row['ordinamento'] . ' ';
-            echo 'CFU: '. $row['cfu'] . ' ';
-            echo 'Tipologia di corso: '. $row['tipo'] . ' ';
-            echo '</li>';
+        $html_table = "<table class='table' style='width:90%'><thead class='thead-dark'><tr>
+                <th>Codice</th>
+                <th>Nome</th>
+                <th>Ordinamento</th>
+                <th>CFU</th>
+              </tr></thead><tbody>";
+
+        while($row = pg_fetch_assoc($result)) {
+          $html_table .= "<tr>
+                    <td>{$row['codice']}</td>
+                    <td>{$row['nome']}</td>
+                    <td>{$row['ordinamento']}</td>
+                    <td>{$row['cfu']}</td></tr>";
         }
-        echo '</ul>';
-        pg_close($db);
+        $html_table .= "</tbody></table>";
+
+        return $html_table;
     }
 ?>
 <!DOCTYPE html>
@@ -88,8 +119,32 @@
       </nav>
 
       <div class="container-fluid">
+          <h3> Corsi di laurea </h3>
 
-          <?php printCorsiLaurea() ?>
+          <form action="#" method="GET" enctype="multipart/form-data">
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                <?php
+                echo get_schools_form($conn);
+                ?>
+              </div>
+              <div class="form-group col-md-2">
+                <?php
+                  echo get_tipicorsi_form();
+                ?>
+              </div>
+              <input type="submit" class="btn btn-primary" value="Submit">
+            </div>
+          </form>
+
+          <hr>
+
+          <?php
+            //show result table if requested
+            if($_SERVER["REQUEST_METHOD"] == "GET" and isset($_GET['school']) and isset($_GET['type'])) {
+              echo get_corsi_laurea($conn, $_GET['school'], $_GET['type']);
+            }
+          ?>
 
       </div>
     </div>

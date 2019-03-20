@@ -11,7 +11,8 @@ VALUES
 INSERT INTO scuola (codice,nome)
 VALUES
     ('IN', 'Scuola di Ingegneria'),
-    ('ME', 'Scuola di Medicina e Chirurgia');
+    ('ME', 'Scuola di Medicina e Chirurgia'),
+    ('SC', 'Scuola di Scienze');
     
     
 INSERT INTO curriculum (codice, nome)
@@ -35,7 +36,8 @@ VALUES
 INSERT INTO corso_laurea (codice,nome,scuola,ordinamento,cfu,tipo)
 VALUES
     ('IN0508', 'Ingegneria Informatica', 'IN', 2011, 180, 'LT'),
-    ('IN2374', 'Ingegneria Biomedica', 'IN', 2017, 180, 'LT');
+    ('IN2374', 'Ingegneria Biomedica', 'IN', 2017, 180, 'LT'),
+    ('SC1167', 'Informatica', 'SC', 2011, 180, 'LT');
     
     
 INSERT INTO percorso (corso_laurea, curriculum, coorte)
@@ -69,22 +71,15 @@ VALUES
     ('IN0508', 'COMUNE', '2015', 'IN10100190', 2, 2015, '1139049'), -- analisi
     ('IN0508', 'COMUNE', '2015', 'IN04111234', 1, 2016, '1139048'); -- dati e alg
     
+INSERT INTO classe(codice, descrizione)
+VALUES
+    ('L-8', 'Ingegneria dell''informazione'),
+    ('L-9', 'Ingegneria industriale'),
+    ('L-31', 'Scienze e tecnologie informatiche');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
+INSERT INTO appartiene(classe, corso_laurea)
+VALUES
+    ('L-8','IN0508'),
+    ('L-8','IN2374'),
+    ('L-9','IN2374'),
+    ('L-31','SC1167');

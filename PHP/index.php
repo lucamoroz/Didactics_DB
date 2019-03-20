@@ -58,7 +58,7 @@
       <div class="container-fluid">
 
           <h2> Database didattica </h2>
-          Questo è il database dei corsi di laurea e attività formative proposte.
+          Questo è il database dei corsi di laurea e attività formative proposte. <br>
           Francesco Pham - Luca Moroldo - Giovanni Sissa - Piero Soravia © 2019 - All rights reserved
 
       </div>

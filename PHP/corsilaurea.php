@@ -1,3 +1,35 @@
+<?php
+    //include db connection data
+    include 'env.php';
+
+    //show errors (disable in production)
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+
+    $conn=pg_connect($GLOBALS['connection_string']) or die('Could not connect: ' . pg_last_error());
+
+    function getCorsiLaurea() {
+
+        $sql = "SELECT * FROM corso_laurea";
+        $result = pg_prepare($conn, "querypercorso", $sql);
+        $result = pg_execute($conn, "querypercorso", array($year, $course));
+
+        //start print
+        echo '<ul>';
+        while($row = pg_fetch_assoc($ret)) {
+            echo '<li>';
+            echo 'Codice corso: '. $row['codice'] . ' ';
+            echo 'Scuola: '. $row['scuola'] . ' ';
+            echo 'Ordinamento: '. $row['ordinamento'] . ' ';
+            echo 'CFU: '. $row['cfu'] . ' ';
+            echo 'Tipologia di corso: '. $row['tipo'] . ' ';
+            echo '</li>';
+        }
+        echo '</ul>';
+        pg_close($db);
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,7 +78,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
             <li class="nav-item active">
-              <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="https://github.com/lucamoroz/Didactics_DB">Github</a>
@@ -57,9 +89,7 @@
 
       <div class="container-fluid">
 
-          <h2> Database didattica </h2>
-          Questo è il database dei corsi di laurea e attività formative proposte.
-          Francesco Pham - Luca Moroldo - Giovanni Sissa - Piero Soravia © 2019 - All rights reserved
+          <?php printCorsiLaurea() ?>
 
       </div>
     </div>

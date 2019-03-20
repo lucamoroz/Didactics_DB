@@ -52,20 +52,19 @@ function get_course_form($conn) {
 	@return String: html della tabella contenente le attività formative
 */
 function get_percorso($conn, $year, $course) {
-	$result = pg_prepare($conn, 
-									"querypercorso", 
-									'SELECT af.nome as nomeatt, p.anno, p.semestre, a.canale, a.anno_accademico, 
-													d.nome as nomedoc, d.cognome as cognomedoc, af.codice, d.matricola
-									FROM propone as p 
-									JOIN attivita_formativa as af ON p.attivita_formativa = af.codice
-									LEFT JOIN attiva as a 
-											ON p.corso_laurea = a.corso_laurea
-													AND p.curriculum = a.curriculum
-													AND p.coorte = a.coorte
-													AND p.attivita_formativa = a.attivita_formativa
-									LEFT JOIN docente as d ON a.responsabile = d.matricola
-									WHERE p.coorte = $1 and p.corso_laurea = $2
-									ORDER BY p.anno ASC, p.semestre ASC;');
+	$sql = 'SELECT af.nome as nomeatt, p.anno, p.semestre, a.canale, a.anno_accademico, 
+						d.nome as nomedoc, d.cognome as cognomedoc, af.codice, d.matricola
+					FROM propone as p 
+					JOIN attivita_formativa as af ON p.attivita_formativa = af.codice
+					LEFT JOIN attiva as a 
+					ON p.corso_laurea = a.corso_laurea
+						AND p.curriculum = a.curriculum
+						AND p.coorte = a.coorte
+						AND p.attivita_formativa = a.attivita_formativa
+					LEFT JOIN docente as d ON a.responsabile = d.matricola
+					WHERE p.coorte = $1 and p.corso_laurea = $2
+					ORDER BY p.anno ASC, p.semestre ASC;'
+	$result = pg_prepare($conn, "querypercorso", $sql);
 	$result = pg_execute($conn, "querypercorso", array($year, $course));
 	
 	$html_table = "<table class='table' style='width:90%'><thead class='thead-dark'><tr>

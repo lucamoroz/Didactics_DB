@@ -68,7 +68,7 @@ function get_percorso($conn, $year, $course) {
 									ORDER BY p.anno ASC, p.semestre ASC;');
 	$result = pg_execute($conn, "querypercorso", array($year, $course));
 	
-	$html_table = "<table class='table' style='width:80%'><thead class='thead-dark'><tr>
+	$html_table = "<table class='table' style='width:90%'><thead class='thead-dark'><tr>
 											<th>Nome</th>
 											<th>Anno</th>
 											<th>Semestre</th>
@@ -105,10 +105,10 @@ function build_istanza_attform_query($attivita_formativa, $canale, $annoacc, $re
 	$data = array(
 		'attform' => $attivita_formativa,
 		'canale' => $canale,
-		'annoacc' => $responsabile,
+		'annoacc' => $annoacc,
 		'resp' => $responsabile
 	);
-	$url = "schedacorso.php/" . http_build_query($data);
+	$url = "schedacorso.php?" . http_build_query($data);
 	return $url;
 }
 
@@ -164,7 +164,7 @@ function build_istanza_attform_query($attivita_formativa, $canale, $annoacc, $re
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
             <li class="nav-item active">
-              <a class="nav-link" href="index.html">Home <span class="sr-only"></span></a>
+              <a class="nav-link" href="index.php">Home <span class="sr-only"></span></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="https://github.com/lucamoroz/Didactics_DB">Github</a>

@@ -3,6 +3,9 @@ DROP TABLE IF EXISTS classe, ssd, scuola, attivita_formativa, coorte, docente, p
 
 DROP TYPE IF EXISTS tipo_insegnamento, tipo_corso_laurea, semestre, tipo_crediti, ruolo_docente CASCADE;
 
+
+-- Vincoli
+
 -- Definizione tabella Classe ministeriale (MIUR)
 CREATE TABLE classe(
   codice varchar(5) PRIMARY KEY,
@@ -120,7 +123,7 @@ CREATE TABLE istanza_attivita_formativa(
   corso_libero boolean,  --Se e' possiile utilizzare l'insegnamento come libera scelta
   -- Seguono attributi relativi alla scheda del corso
   prerequisiti text, /*dove il prof speifica quali conoscenze servano al di la di corsi specifici*/
-  aquisire text, -- Conoscenze e abilita' da acquisire
+  acquisire text, -- Conoscenze e abilita' da acquisire
   modalita_esame text, 
   criterio_valutazione text,
   contenuti text,
@@ -153,6 +156,7 @@ CREATE TABLE attiva(
   FOREIGN KEY (attivita_formativa, canale, anno_accademico, responsabile) REFERENCES istanza_attivita_formativa(attivita_formativa, canale, anno_accademico, responsabile)
     ON DELETE NO ACTION ON UPDATE CASCADE
 );
+
 
 -- Definizione associazione comprende tra attività formativa e ssd
 

@@ -50,11 +50,11 @@ VALUES
     ('1139049', 'cogDoc2', 'nomeDoc2', 'email', 'dip', '12334', 'Docente', 'ssd', 'DEI A - 8');
     
 
-INSERT INTO istanza_attivita_formativa(attivita_formativa, canale, anno_accademico, responsabile)
+INSERT INTO istanza_attivita_formativa(attivita_formativa, canale, anno_accademico, responsabile, tipo_valutazione, prerequisiti, acquisire, modalita_esame, criterio_valutazione, contenuti)
 VALUES
-    ('IN10100190', 1, 2015, '1139048'),
-    ('IN10100190', 2, 2015, '1139049'),
-    ('IN04111234', 1, 2016, '1139048');
+    ('IN10100190', 1, 2015, '1139048', 'lorem', 'lorem', 'lorem', 'lorem', 'lorem', 'lorem'),
+    ('IN10100190', 2, 2015, '1139049', 'lorem', 'lorem', 'lorem', 'lorem', 'lorem', 'lorem'),
+    ('IN04111234', 1, 2016, '1139048', 'lorem', 'lorem', 'lorem', 'lorem', 'lorem', 'lorem');
     
 INSERT INTO propone(corso_laurea, curriculum, coorte, attivita_formativa, anno, semestre, canali_previsti)
 VALUES
@@ -68,3 +68,23 @@ VALUES
     ('IN0508', 'COMUNE', '2015', 'IN10100190', 1, 2015, '1139048'), -- analisi
     ('IN0508', 'COMUNE', '2015', 'IN10100190', 2, 2015, '1139049'), -- analisi
     ('IN0508', 'COMUNE', '2015', 'IN04111234', 1, 2016, '1139048'); -- dati e alg
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    

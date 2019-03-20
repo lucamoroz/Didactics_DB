@@ -34,8 +34,8 @@ ORDER BY i.anno_accademico ASC;
 -- Dati un percorso e il codice di una attivita' formativa, controlla che una attivita' formativa sia proposta dal percorso. Tale funzione è utilizzata a livello applicativo per controllare che sia possibile attivare un corso per un percorso.
 
 SELECT COUNT(*)
-      FROM propone as p 
-      WHERE p.corso_laurea = cod_corso
-        AND p.coorte = coorte
-        AND p.curriculum = curriculum
-        AND p.attivita_formativa = cod_attivita) = 1
+FROM propone as p 
+WHERE p.corso_laurea = cod_corso
+  AND p.coorte = coorte
+  AND p.curriculum = curriculum
+  AND p.attivita_formativa = cod_attivita_formativa;

@@ -13,11 +13,15 @@
       /**
       @return String: a 'select' form, each option has 'codice' as value and 'nome' as text
       */
+      $selected = (isset($_GET['school']) ? $_GET['school'] : "");
       $ret = pg_query($conn, "SELECT codice, nome FROM scuola;");
     
       $year_form = "<select class='form-control' name='school'>";
       while($row = pg_fetch_assoc($ret)) {
-        $year_form .= "<option value={$row['codice']}>{$row['nome']}</option>";
+        if($selected == $row['codice'])
+          $year_form .= "<option value={$row['codice']} selected>{$row['nome']}</option>";
+        else
+          $year_form .= "<option value={$row['codice']}>{$row['nome']}</option>";
       }
       $year_form .= "</select>";
       
@@ -28,12 +32,17 @@
      * restituisce il codice html della select contenente le tipologie dei corsi di laurea
      */
     function get_tipicorsi_form() {
+      $selected = (isset($_GET['type']) ? $_GET['type'] : "");
       $tipi =  array('LT'=>'Laurea triennale', 
                     'LM'=>'Laurea magistrale', 
                     'CU'=>'Laurea magistrale a ciclo unico');
+                    
       $select_html = "<select class='form-control' name='type'>";
       foreach($tipi as $codice => $nome) {
-        $select_html .= "<option value=$codice>$nome</option>";
+        if($selected == $codice)
+          $select_html .= "<option value=$codice selected>$nome</option>";
+        else
+          $select_html .= "<option value=$codice>$nome</option>";
       }
       $select_html .= "</select>";
       return $select_html;

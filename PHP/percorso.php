@@ -187,7 +187,9 @@ function build_istanza_attform_query($attivita_formativa, $canale, $annoacc, $re
 	
 			<!-- CONTENT -->
 			<div class="container-fluid">
-			<br><br>
+			<br>
+			<h3>Offerta formativa</h3>
+			<br>
 			<form action="#" method="GET" enctype="multipart/form-data">
 				<div class="form-row">
 					<div class="form-group col-md-2">
@@ -204,7 +206,7 @@ function build_istanza_attform_query($attivita_formativa, $canale, $annoacc, $re
 				<input type="submit" class="btn btn-primary" value="Submit">
 			</form>
 			<br>
-	
+			<hr>
 			<?php
 				//show result table if requested
 				if($_SERVER["REQUEST_METHOD"] == "GET" and isset($_GET['year']) and isset($_GET['course'])) {

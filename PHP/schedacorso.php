@@ -134,7 +134,8 @@ function get_tabella_istanze_attivita_formative($conn) {
 	
 	<!-- CONTENT -->
 	<div class="container-fluid">
-	<br><br>
+	<br>
+	
 	
 	<?php
 	//show result table if requested
@@ -160,6 +161,7 @@ function get_tabella_istanze_attivita_formative($conn) {
 		echo $html_table;
 		
 	} else {
+		echo "<h3>Attività formative</h3><br>";
 		echo get_tabella_istanze_attivita_formative($conn);
 	}
 	?>

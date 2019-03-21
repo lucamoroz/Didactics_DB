@@ -158,24 +158,25 @@
       </nav>
 
       <div class="container-fluid">
-          <h3> Corsi di laurea </h3>
-
+          <br>
+          <h3> Corsi di laurea </h3>          
+          <br>
           <form action="#" method="GET" enctype="multipart/form-data">
-            <div class="form-row">
-              <div class="form-group col-md-2">
-                <?php
-                echo get_schools_form($conn);
-                ?>
-              </div>
-              <div class="form-group col-md-2">
-                <?php
-                  echo get_tipicorsi_form();
-                ?>
-              </div>
-              <input type="submit" class="btn btn-primary" value="Submit">
-            </div>
-          </form>
-
+				<div class="form-row">
+					<div class="form-group col-md-2">
+						<?php
+						echo get_schools_form($conn);
+						?>
+					</div>
+					<div class="form-group col-md-2">
+						<?php
+						echo get_tipicorsi_form($conn);
+						?>
+					</div>
+				</div>
+				<input type="submit" class="btn btn-primary" value="Submit">
+			</form>
+	  <br>
           <hr>
 
           <?php

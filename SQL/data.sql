@@ -29,7 +29,10 @@ VALUES
     ('IN04111234', 'Dati e Algoritmi 1', 'insegnamento'),
     ('INN1031400', 'Lingua Inglese B2 (Abilità ricettive)', 'lingua'),
     ('INL1004099', 'Tirocinio', 'tirocinio'),
-    ('INM0014874', 'Prova Finale', 'prova_finale');
+    ('INM0014874', 'Prova Finale', 'prova_finale'),
+    ('IN03122522', 'Elementi di chimica', 'insegnamento'),
+    ('IN08111231', 'Segnali e sistemi', 'insegnamento'),
+    ('IN08101661', 'Controlli automatici', 'insegnamento');
 
 
 
@@ -37,33 +40,40 @@ INSERT INTO corso_laurea (codice,nome,scuola,ordinamento,cfu,tipo)
 VALUES
     ('IN0508', 'Ingegneria Informatica', 'IN', 2011, 180, 'LT'),
     ('IN2374', 'Ingegneria Biomedica', 'IN', 2017, 180, 'LT'),
-    ('SC1167', 'Informatica', 'SC', 2011, 180, 'LT');
+    ('SC1167', 'Informatica', 'SC', 2011, 180, 'LT')
+    ('IN0515', 'Ingegneria Dell''Energia', 'IN', 2014, 180, 'LT');
     
     
 INSERT INTO percorso (corso_laurea, curriculum, coorte)
 VALUES
     ('IN0508', 'COMUNE', '2015'),
-    ('IN0508', '001PD', '2015');
+    ('IN0508', '001PD', '2015'),
+    ('IN0515', '001PD', '2015'),
+    ('IN0515', '002PD', '2015'),
+    ('IN0515', 'COMUNE', '2015');
 
 
 INSERT INTO docente(matricola, cognome, nome, email, dipartimento, telefono, qualifica, ssd, ufficio)
 VALUES
     ('1139048', 'cogDoc', 'nomeDoc', 'email', 'dip', '12334', 'Ricercatore', 'ssd', 'DEI A - 7'),
-    ('1139049', 'cogDoc2', 'nomeDoc2', 'email', 'dip', '12334', 'Docente', 'ssd', 'DEI A - 8');
+    ('1139049', 'cogDoc2', 'nomeDoc2', 'email', 'dip', '12334', 'Docente', 'ssd', 'DEI A - 8'),
+    ('8275599', 'Rossi', 'Marco', 'marco.rossi@unipd.it', '	Dipartimento di Ingegneria Civile', '04966565354', 'Docente', 'ICAR/08', 'IDEA UFF.405');
     
 
 INSERT INTO istanza_attivita_formativa(attivita_formativa, canale, anno_accademico, responsabile, tipo_valutazione, prerequisiti, acquisire, modalita_esame, criterio_valutazione, contenuti)
 VALUES
     ('IN10100190', 1, 2015, '1139048', 'lorem', 'lorem', 'lorem', 'lorem', 'lorem', 'lorem'),
     ('IN10100190', 2, 2015, '1139049', 'lorem', 'lorem', 'lorem', 'lorem', 'lorem', 'lorem'),
-    ('IN04111234', 1, 2016, '1139048', 'lorem', 'lorem', 'lorem', 'lorem', 'lorem', 'lorem');
+    ('IN04111234', 1, 2016, '1139048', 'lorem', 'lorem', 'lorem', 'lorem', 'lorem', 'lorem'),
+    ('IN03122522', 1, 2017, '8275599', 'Voto', 'Nessuno', 'Comprendere le principali strutture organizzative', 'Scritta e orale', 'livello di conoscenza acquisita', 'lorL’azienda come sistema economico-finanziario em');
     
 INSERT INTO propone(corso_laurea, curriculum, coorte, attivita_formativa, anno, semestre, canali_previsti)
 VALUES
     ('IN0508', 'COMUNE', '2015', 'IN05122464', '1', 'II', '2'), -- architettura elab
     ('IN0508', 'COMUNE', '2015', 'IN10100190', '1', 'I', '4'), -- analisi
     ('IN0508', 'COMUNE', '2015', 'IN04111234', '2', 'I', '2'), -- dati e alg
-    ('IN0508', 'COMUNE', '2015', 'INM0014874', '3', 'II', '0'); -- prova finale
+    ('IN0508', 'COMUNE', '2015', 'INM0014874', '3', 'II', '0'), -- prova finale
+    ('IN0515', 'COMUNE', '2015', 'IN03122522', '2', 'I', '2');
     
 INSERT INTO attiva(corso_laurea, curriculum, coorte, attivita_formativa, canale, anno_accademico, responsabile)
 VALUES
@@ -75,11 +85,13 @@ INSERT INTO classe(codice, descrizione)
 VALUES
     ('L-8', 'Ingegneria dell''informazione'),
     ('L-9', 'Ingegneria industriale'),
-    ('L-31', 'Scienze e tecnologie informatiche');
+    ('L-31', 'Scienze e tecnologie informatiche'),
+    ('L-9', 'Classe delle lauree in Ingegneria industriale');
 
 INSERT INTO appartiene(classe, corso_laurea)
 VALUES
     ('L-8','IN0508'),
     ('L-8','IN2374'),
     ('L-9','IN2374'),
-    ('L-31','SC1167');
+    ('L-31','SC1167'),
+    ('L-9', 'IN0515');

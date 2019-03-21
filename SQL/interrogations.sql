@@ -78,3 +78,14 @@ FROM propone AS p
         ON c.ssd = s.codice AND c.descrizione = s.descrizione
 WHERE p.curriculum='COMUNE' AND p.corso_laurea='IN0508' AND p.coorte=2015
 GROUP BY c.ssd, s.descrizione;
+
+--Dati due corsi di laurea e una coorte mostrare le attività formative non in comune tra i due corsi
+SELECT af.nome AS "Attività_Formativa", o1.attivita_formativa AS "codice", cl.nome AS "Corso_di_Laurea", o1.corso_laurea AS "codice"
+FROM offre AS o1
+	LEFT OUTER JOIN offre AS o2
+		ON o1.attivita_formativa=o2.attivita_formativa and not o1.corso_laurea=o2.corso_laurea
+	INNER JOIN attivita_formativa AS af
+		ON o1.attivita_formativa=af.codice
+	INNER JOIN corso_laurea AS cl
+		ON o1.corso_laurea=cl.codice
+WHERE o2.attivita_formativa IS NULL AND o1.coorte=2015;

@@ -42,17 +42,18 @@ INSERT INTO corso_laurea (codice,nome,scuola,ordinamento,cfu,tipo)
 VALUES
     ('IN0508', 'Ingegneria Informatica', 'IN', 2011, 180, 'LT'),
     ('IN2374', 'Ingegneria Biomedica', 'IN', 2017, 180, 'LT'),
-    ('SC1167', 'Informatica', 'SC', 2011, 180, 'LT')
+    ('SC1167', 'Informatica', 'SC', 2011, 180, 'LT'),
     ('IN0515', 'Ingegneria Dell''Energia', 'IN', 2014, 180, 'LT');
     
     
 INSERT INTO percorso (corso_laurea, curriculum, coorte)
 VALUES
-    ('IN0508', 'COMUNE', '2015'),
-    ('IN0508', '001PD', '2015'),
-    ('IN0515', '001PD', '2015'),
-    ('IN0515', '002PD', '2015'),
-    ('IN0515', 'COMUNE', '2015');
+    ('IN0508', 'COMUNE', 2015),
+    ('IN0508', '001PD', 2015),
+    ('IN0515', '001PD', 2015),
+    ('IN0515', '002PD', 2015),
+    ('IN0515', 'COMUNE', 2015),
+    ('IN2374', 'COMUNE', 2015);
 
 
 INSERT INTO docente(matricola, cognome, nome, email, dipartimento, telefono, qualifica, ssd, ufficio)
@@ -67,16 +68,17 @@ VALUES
     ('IN10100190', 1, 2015, '1139048', 'lorem', 'lorem', 'lorem', 'lorem', 'lorem', 'lorem'),
     ('IN10100190', 2, 2015, '1139049', 'lorem', 'lorem', 'lorem', 'lorem', 'lorem', 'lorem'),
     ('IN04111234', 1, 2016, '1139048', 'lorem', 'lorem', 'lorem', 'lorem', 'lorem', 'lorem'),
-    ('IN03122522', 1, 2017, '8275599', 'Voto', 'Nessuno', 'Comprendere le principali strutture organizzative', 'Scritta e orale', 'livello di conoscenza acquisita', 'lorL’azienda come sistema economico-finanziario em');
+    ('IN03122522', 1, 2017, '8275599', 'Voto', 'Nessuno', 'Comprendere le principali strutture organizzative', 'Scritta e orale', 'livello di conoscenza acquisita', 'L’azienda come sistema economico-finanziario em'),
+    ('INM0017605', 1, 2015, '1139048', 'Voto', 'Nessuno', 'Maturare le competenze per lo sviluppo', 'Scritta', 'livello di conoscenza acquisita', 'Il processo di fabbricazione CMOS.');
     
 INSERT INTO propone(corso_laurea, curriculum, coorte, attivita_formativa, anno, semestre, canali_previsti)
 VALUES
-    ('IN0508', 'COMUNE', '2015', 'IN05122464', '1', 'II', '2'), -- architettura elab
-    ('IN0508', 'COMUNE', '2015', 'IN10100190', '1', 'I', '4'), -- analisi
-    ('IN0508', 'COMUNE', '2015', 'IN04111234', '2', 'I', '2'), -- dati e alg
+    ('IN0508', 'COMUNE', 2015, 'IN05122464', '1', 'II', '2'), -- architettura elab
+    ('IN0508', 'COMUNE', 2015, 'IN10100190', '1', 'I', '4'), -- analisi
+    ('IN0508', 'COMUNE', 2015, 'IN04111234', '2', 'I', '2'), -- dati e alg
     ('IN0508', 'COMUNE', 2015, 'INM0017605', '3', 'II', '2'), -- elettronica digitale
-    ('IN0508', 'COMUNE', '2015', 'INM0014874', '3', 'II', '0'), -- prova finale
-    ('IN0515', 'COMUNE', '2015', 'IN03122522', '2', 'I', '2'),
+    ('IN0508', 'COMUNE', 2015, 'INM0014874', '3', 'II', '0'), -- prova finale
+    ('IN0515', 'COMUNE', 2015, 'IN03122522', '2', 'I', '2'),
     ('IN2374', 'COMUNE', 2015, 'IN10100190', '1', 'I', '4'), -- analisi 1 bio
     ('IN2374', 'COMUNE', 2015, 'IN05122464', '1', 'II', '2'), -- architettura bio
     ('IN2374', 'COMUNE', 2015, 'IN04111234', '2', 'I', '2'), -- dati bio
@@ -87,17 +89,17 @@ VALUES
     
 INSERT INTO attiva(corso_laurea, curriculum, coorte, attivita_formativa, canale, anno_accademico, responsabile)
 VALUES
-    ('IN0508', 'COMUNE', '2015', 'IN10100190', 1, 2015, '1139048'), -- analisi
-    ('IN0508', 'COMUNE', '2015', 'IN10100190', 2, 2015, '1139049'), -- analisi
+    ('IN0508', 'COMUNE', 2015, 'IN10100190', 1, 2015, '1139048'), -- analisi
+    ('IN0508', 'COMUNE', 2015, 'IN10100190', 2, 2015, '1139049'), -- analisi
     ('IN0508', 'COMUNE', 2015, 'INM0017605', 1, 2015, '1139048'), -- elettronica digitale
-    ('IN0508', 'COMUNE', '2015', 'IN04111234', 1, 2016, '1139048'); -- dati e alg
+    ('IN0508', 'COMUNE', 2015, 'IN04111234', 1, 2016, '1139048'), -- dati e alg
+    ('IN0515', 'COMUNE', 2015, 'IN03122522', 1, 2017, '8275599');
     
 INSERT INTO classe(codice, descrizione)
 VALUES
     ('L-8', 'Ingegneria dell''informazione'),
     ('L-9', 'Ingegneria industriale'),
-    ('L-31', 'Scienze e tecnologie informatiche'),
-    ('L-9', 'Classe delle lauree in Ingegneria industriale');
+    ('L-31', 'Scienze e tecnologie informatiche');
 
 INSERT INTO appartiene(classe, corso_laurea)
 VALUES

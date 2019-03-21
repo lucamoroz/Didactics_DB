@@ -66,3 +66,15 @@ SELECT cl.codice, cl.descrizione
 FROM classe AS cl
 JOIN appartiene AS a ON cl.codice = a.classe
 WHERE a.corso_laurea = 'IN2374';
+
+
+--Dati un curriculum, un corso di laurea e una coorte mostrare la somma dei
+-- crediti delle attività formative divisi per SSD
+SELECT c.ssd AS ssd, s.descrizione AS descrizione, SUM(c.cfu) AS cfu
+FROM propone AS p
+    JOIN comprende AS c
+	    ON p.attivita_formativa = c.attivita_formativa
+    JOIN ssd AS s
+        ON c.ssd = s.codice AND c.descrizione = s.descrizione
+WHERE p.curriculum='COMUNE' AND p.corso_laurea='IN0508' AND p.coorte=2015
+GROUP BY c.ssd, s.descrizione;

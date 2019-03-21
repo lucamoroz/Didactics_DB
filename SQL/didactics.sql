@@ -14,8 +14,9 @@ CREATE TABLE classe(
 
 -- Definizione tabella SSD
 CREATE TABLE ssd(
-  codice varchar(10) PRIMARY KEY,
-  descrizione text
+  codice varchar(10),
+  descrizione text,
+  PRIMARY KEY( codice, descrizione)
 );
 
 -- Definizione tabella Attivita Formativa
@@ -160,17 +161,18 @@ CREATE TABLE attiva(
 
 -- Definizione associazione comprende tra attività formativa e ssd
 
-CREATE TYPE tipo_crediti AS ENUM ('base', 'affine', 'caratterizzante');
+CREATE TYPE tipo_crediti AS ENUM ('base', 'affine', 'caratterizzante', 'ALTRO');
 
 CREATE TABLE comprende(
 	attivita_formativa varchar(10), --foreign key
 	ssd varchar(10), --foreign key
+	descrizione text, --foreign key
 	gruppo tipo_crediti NOT NULL, --enum
 	cfu smallint NOT NULL, --intero compreso tra 0 e 20/50(?)
-	PRIMARY KEY(attivita_formativa, ssd),
+	PRIMARY KEY(attivita_formativa, ssd, descrizione),
 	FOREIGN KEY (attivita_formativa) REFERENCES attivita_formativa(codice)
 		ON DELETE NO ACTION ON UPDATE CASCADE,
-	FOREIGN KEY (ssd) REFERENCES ssd(codice)
+	FOREIGN KEY (ssd, descrizione) REFERENCES ssd(codice, descrizione)
 		ON DELETE NO ACTION ON UPDATE CASCADE
 );
 

@@ -32,7 +32,7 @@ VALUES
     ('INM0014874', 'Prova Finale', 'prova_finale'),
     ('IN03122522', 'Elementi di chimica', 'insegnamento'),
     ('IN08111231', 'Segnali e sistemi', 'insegnamento'),
-    ('IN08101661', 'Controlli automatici', 'insegnamento'),
+    ('SC02105452', 'Logica', 'insegnamento'),
     ('INM0017605', 'Elettronica Digitale', 'insegnamento'),
 	('INL1000216', 'Bioeletromagnetismo', 'insegnamento');
 
@@ -53,13 +53,15 @@ VALUES
     ('IN0515', '001PD', 2015, 'Termomeccanico'),
     ('IN0515', '002PD', 2015, 'Dell''energia elettrica'),
     ('IN0515', 'COMUNE', 2015, 'Percorso Comune'),
-    ('IN2374', 'COMUNE', 2015, 'Percorso Comune');
+    ('IN2374', 'COMUNE', 2015, 'Percorso Comune'),
+    ('SC1167', 'COMUNE', 2015, 'Percorso Comune');
 
 
 INSERT INTO docente(matricola, cognome, nome, email, dipartimento, telefono, qualifica, ssd, ufficio)
 VALUES
     ('1139048', 'cogDoc', 'nomeDoc', 'email', 'dip', '12334', 'Ricercatore', 'ssd', 'DEI A - 7'),
     ('1139049', 'cogDoc2', 'nomeDoc2', 'email', 'dip', '12334', 'Docente', 'ssd', 'DEI A - 8'),
+    ('1216568', 'Verdi', 'Luigi', 'luigi.verdi@unipd.it', 'Dipartimento di matematica', '654321', 'Docente', 'ABCD/09', 'TA UFF.87'),
     ('8275599', 'Rossi', 'Marco', 'marco.rossi@unipd.it', '	Dipartimento di Ingegneria Civile', '04966565354', 'Docente', 'ICAR/08', 'IDEA UFF.405');
     
 
@@ -79,6 +81,8 @@ VALUES
     ('IN0508', 'COMUNE', 2015, 'INM0017605', '3', 'II', '2'), -- elettronica digitale
     ('IN0508', 'COMUNE', 2015, 'INM0014874', '3', 'II', '0'), -- prova finale
     ('IN0515', 'COMUNE', 2015, 'IN03122522', '2', 'I', '2'), -- elementi di chimica energia
+    ('IN0515', '001PD', 2015,'IN08111231', '2', 'II', '1'), -- segnali e sistemi
+    ('SC1167', 'COMUNE', 2015,'SC02105452', '1', 'I', '3'), -- logica
     ('IN2374', 'COMUNE', 2015, 'IN10100190', '1', 'I', '4'), -- analisi 1 bio
     ('IN2374', 'COMUNE', 2015, 'IN05122464', '1', 'II', '2'), -- architettura bio
     ('IN2374', 'COMUNE', 2015, 'IN04111234', '2', 'I', '2'), -- dati bio
@@ -125,12 +129,15 @@ VALUES
     ('IN2374','INL1004099', 2015),
     ('IN2374','INM0014874', 2015),
     ('IN2374','INL1000216', 2015),
-    ('IN0515','IN03122522', 2015);
+    ('IN0515','IN03122522', 2015),
+    ('IN0515','IN08111231', 2015),
+    ('SC1167','SC02105452', 2015);
     
 INSERT INTO ssd(codice, ambito)
 VALUES 
     ('ING-INF/05', 'Matematica, informatica e statistica'),
     ('ING-INF/05', 'Abilità informatiche e telematiche'),
+    ('MAT/01', 'Attivita formative affini o integrative'),
     ('MAT/05', 'Matematica, informatica e statistica'),
     ('ING-INF/01', 'Ingegneria Elettronica'),
     ('ING-INF/02', 'Ingegneria Elettronica'),
@@ -145,5 +152,5 @@ VALUES
     ('INM0017605', 'ING-INF/01', 'Ingegneria Elettronica', 'caratterizzante', 6), -- elettronica digitale
     ('INM0014874', 'PROVA_FIN', 'Prova finale', 'ALTRO', 3), -- prova finale
     ('INL1000216', 'ING-INF/02', 'Ingegneria Elettronica', 'caratterizzante', 6), -- bioelettromagnetismo 
-    ('IN03122522', 'CHIM/07', 'Fisica e chimica', 'base', 6); -- elementi di chimica
-
+    ('IN03122522', 'CHIM/07', 'Fisica e chimica', 'base', 6), -- elementi di chimica
+    ('SC02105452', 'MAT/01', 'Attivita formative affini o integrative', 'base', 6);

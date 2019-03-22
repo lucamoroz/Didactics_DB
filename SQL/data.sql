@@ -15,11 +15,11 @@ VALUES
     ('SC', 'Scuola di Scienze');
     
     
-INSERT INTO curriculum (codice, nome)
+INSERT INTO curriculum (codice)
 VALUES
-    ('COMUNE', 'Percorso Comune'),
-    ('001PD', 'Curriculum Generale'),
-    ('002PD', 'Curriculum Applicativo');
+    ('COMUNE'),
+    ('001PD'),
+    ('002PD');
 
 
 INSERT INTO attivita_formativa(codice, nome, tipo)
@@ -46,14 +46,14 @@ VALUES
     ('IN0515', 'Ingegneria Dell''Energia', 'IN', 2014, 180, 'LT');
     
     
-INSERT INTO percorso (corso_laurea, curriculum, coorte)
+INSERT INTO percorso (corso_laurea, curriculum, coorte, descrizione)
 VALUES
-    ('IN0508', 'COMUNE', 2015),
-    ('IN0508', '001PD', 2015),
-    ('IN0515', '001PD', 2015),
-    ('IN0515', '002PD', 2015),
-    ('IN0515', 'COMUNE', 2015),
-    ('IN2374', 'COMUNE', 2015);
+    ('IN0508', 'COMUNE', 2015, 'Percorso Comune'),
+    ('IN0508', '001PD', 2015, 'Curriculum Generale'),
+    ('IN0515', '001PD', 2015, 'Termomeccanico'),
+    ('IN0515', '002PD', 2015, 'Dell''energia elettrica'),
+    ('IN0515', 'COMUNE', 2015, 'Percorso Comune'),
+    ('IN2374', 'COMUNE', 2015, 'Percorso Comune');
 
 
 INSERT INTO docente(matricola, cognome, nome, email, dipartimento, telefono, qualifica, ssd, ufficio)
@@ -127,7 +127,7 @@ VALUES
     ('IN2374','INL1000216', 2015),
     ('IN0515','IN03122522', 2015);
     
-INSERT INTO ssd(codice, descrizione)
+INSERT INTO ssd(codice, ambito)
 VALUES 
     ('ING-INF/05', 'Matematica, informatica e statistica'),
     ('ING-INF/05', 'Abilità informatiche e telematiche'),
@@ -137,7 +137,7 @@ VALUES
     ('PROVA_FIN', 'Prova finale'),
     ('CHIM/07', 'Fisica e chimica');
     
-INSERT INTO comprende(attivita_formativa, ssd, descrizione, gruppo, cfu)
+INSERT INTO comprende(attivita_formativa, ssd, ambito, gruppo, cfu)
 VALUES
     ('IN05122464', 'ING-INF/05', 'Matematica, informatica e statistica', 'base', 9), -- architettura elab
     ('IN10100190', 'MAT/05', 'Matematica, informatica e statistica', 'base', 12), -- analisi

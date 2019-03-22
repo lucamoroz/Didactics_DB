@@ -83,11 +83,17 @@
               </tr></thead><tbody>";
 
         while($row = pg_fetch_assoc($result)) {
+          $url_offerta = build_link_offerta($conn, $row['codice']);
+          
           $html_table .= "<tr>
-                    <td>{$row['codice']}</td>
-                    <td>{$row['nome']}</td>
-                    <td>{$row['ordinamento']}</td>
-                    <td>{$row['cfu']}</td>";
+                    <td>{$row['codice']}</td>";
+          if($url_offerta == "")
+                    $html_table .= "<td>{$row['nome']}</td>";
+          else
+          	$html_table .= "<td><a href=\"$url_offerta\">{$row['nome']}</a></td>";
+          
+          $html_table .= "<td>{$row['ordinamento']}</td>
+                          <td>{$row['cfu']}</td>";
           $html_table .= '<td><ul class="list-unstyled">';
           $classi = get_classi_appartenenza($conn, $row['codice']);
           foreach($classi as $classe)
@@ -98,6 +104,23 @@
 
         return $html_table;
     }
+    function build_link_offerta($conn, $codice) {
+    	$query = "SELECT MAX(coorte) as coorte
+    		  FROM percorso
+    		  WHERE corso_laurea = $1";
+    	$result = pg_prepare($conn, "", $query);
+    	$result = pg_execute($conn, "", array($codice));
+    	
+    	$max_coorte = pg_fetch_assoc($result)['coorte'];
+    	if($max_coorte == NULL)
+    		return "";
+	$data = array(
+		'year' => $max_coorte,
+		'course' => $codice
+	);
+	$url = "percorso.php?" . http_build_query($data);
+	return $url;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

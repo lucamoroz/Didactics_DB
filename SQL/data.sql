@@ -78,14 +78,14 @@ VALUES
     ('IN0508', 'COMUNE', 2015, 'IN04111234', '2', 'I', '2'), -- dati e alg
     ('IN0508', 'COMUNE', 2015, 'INM0017605', '3', 'II', '2'), -- elettronica digitale
     ('IN0508', 'COMUNE', 2015, 'INM0014874', '3', 'II', '0'), -- prova finale
-    ('IN0515', 'COMUNE', 2015, 'IN03122522', '2', 'I', '2'),
+    ('IN0515', 'COMUNE', 2015, 'IN03122522', '2', 'I', '2'), -- elementi di chimica energia
     ('IN2374', 'COMUNE', 2015, 'IN10100190', '1', 'I', '4'), -- analisi 1 bio
     ('IN2374', 'COMUNE', 2015, 'IN05122464', '1', 'II', '2'), -- architettura bio
     ('IN2374', 'COMUNE', 2015, 'IN04111234', '2', 'I', '2'), -- dati bio
     ('IN2374', 'COMUNE', 2015, 'INN1031400', '3', 'II', '2'), -- lingua bio
     ('IN2374', 'COMUNE', 2015, 'INL1004099', '3', 'II', '0'), -- tirocinio bio
     ('IN2374', 'COMUNE', 2015, 'INM0014874', '3', 'II', '0'), -- prova finale bio
-	('IN2374', 'COMUNE', 2015, 'INL1000216', '3', 'II', '1'); -- bioelettromagnetismo
+    ('IN2374', 'COMUNE', 2015, 'INL1000216', '3', 'II', '1'); -- bioelettromagnetismo
     
 INSERT INTO attiva(corso_laurea, curriculum, coorte, attivita_formativa, canale, anno_accademico, responsabile)
 VALUES
@@ -93,7 +93,7 @@ VALUES
     ('IN0508', 'COMUNE', 2015, 'IN10100190', 2, 2015, '1139049'), -- analisi
     ('IN0508', 'COMUNE', 2015, 'INM0017605', 1, 2015, '1139048'), -- elettronica digitale
     ('IN0508', 'COMUNE', 2015, 'IN04111234', 1, 2016, '1139048'), -- dati e alg
-    ('IN0515', 'COMUNE', 2015, 'IN03122522', 1, 2017, '8275599');
+    ('IN0515', 'COMUNE', 2015, 'IN03122522', 1, 2017, '8275599'); -- elementi di chimica energia
     
 INSERT INTO classe(codice, descrizione)
 VALUES
@@ -117,30 +117,33 @@ VALUES
     ('IN0508','INN1031400', 2015),
     ('IN0508','INL1004099', 2015),
     ('IN0508','INM0014874', 2015),
-	('IN0508','INM0017605', 2015),
-	('IN2374','IN10100190', 2015),
+    ('IN0508','INM0017605', 2015),
+    ('IN2374','IN10100190', 2015),
     ('IN2374','IN05122464', 2015),
     ('IN2374','IN04111234', 2015),
     ('IN2374','INN1031400', 2015),
     ('IN2374','INL1004099', 2015),
     ('IN2374','INM0014874', 2015),
-	('IN2374','INL1000216', 2015);
+    ('IN2374','INL1000216', 2015),
+    ('IN0515','IN03122522', 2015);
     
 INSERT INTO ssd(codice, descrizione)
 VALUES 
     ('ING-INF/05', 'Matematica, informatica e statistica'),
-	('ING-INF/05', 'Abilità informatiche e telematiche'),
+    ('ING-INF/05', 'Abilità informatiche e telematiche'),
     ('MAT/05', 'Matematica, informatica e statistica'),
     ('ING-INF/01', 'Ingegneria Elettronica'),
-	('ING-INF/02', 'Ingegneria Elettronica'),
-	('PROVA_FIN', 'Prova finale');
+    ('ING-INF/02', 'Ingegneria Elettronica'),
+    ('PROVA_FIN', 'Prova finale'),
+    ('CHIM/07', 'Fisica e chimica');
     
 INSERT INTO comprende(attivita_formativa, ssd, descrizione, gruppo, cfu)
 VALUES
     ('IN05122464', 'ING-INF/05', 'Matematica, informatica e statistica', 'base', 9), -- architettura elab
     ('IN10100190', 'MAT/05', 'Matematica, informatica e statistica', 'base', 12), -- analisi
     ('IN04111234', 'ING-INF/05', 'Matematica, informatica e statistica', 'base', 9), -- dati e alg
-	('INM0017605', 'ING-INF/01', 'Ingegneria Elettronica', 'caratterizzante', 6), -- elettronica digitale
+    ('INM0017605', 'ING-INF/01', 'Ingegneria Elettronica', 'caratterizzante', 6), -- elettronica digitale
     ('INM0014874', 'PROVA_FIN', 'Prova finale', 'ALTRO', 3), -- prova finale
-	('INL1000216', 'ING-INF/02', 'Ingegneria Elettronica', 'caratterizzante', 6); -- bioelettromagnetismo 
+    ('INL1000216', 'ING-INF/02', 'Ingegneria Elettronica', 'caratterizzante', 6), -- bioelettromagnetismo 
+    ('IN03122522', 'CHIM/07', 'Fisica e chimica', 'base', 6); -- elementi di chimica
 

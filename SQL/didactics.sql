@@ -15,8 +15,8 @@ CREATE TABLE classe(
 -- Definizione tabella SSD
 CREATE TABLE ssd(
   codice varchar(10),
-  descrizione text,
-  PRIMARY KEY( codice, descrizione)
+  ambito text,
+  PRIMARY KEY(codice, ambito)
 );
 
 -- Definizione tabella Attivita Formativa
@@ -36,8 +36,7 @@ CREATE TABLE coorte(
 
 -- Definizione tabella curriculum
 CREATE TABLE curriculum(
-  codice varchar(10) PRIMARY KEY,
-  nome varchar(30) NOT NULL
+  codice varchar(10) PRIMARY KEY
 );
 
 -- Definizione tabella docente
@@ -83,6 +82,7 @@ CREATE TABLE percorso(
   corso_laurea varchar(10),
   curriculum varchar(10),
   coorte smallint,
+  descrizione varchar(30) NOT NULL,
   PRIMARY KEY (corso_laurea, curriculum, coorte),
   FOREIGN KEY (corso_laurea) REFERENCES corso_laurea(codice)
     ON DELETE NO ACTION ON UPDATE CASCADE,
@@ -166,13 +166,13 @@ CREATE TYPE tipo_crediti AS ENUM ('base', 'affine', 'caratterizzante', 'ALTRO');
 CREATE TABLE comprende(
 	attivita_formativa varchar(10), --foreign key
 	ssd varchar(10), --foreign key
-	descrizione text, --foreign key
+	ambito text, --foreign key
 	gruppo tipo_crediti NOT NULL, --enum
 	cfu smallint NOT NULL, --intero compreso tra 0 e 20/50(?)
-	PRIMARY KEY(attivita_formativa, ssd, descrizione),
+	PRIMARY KEY(attivita_formativa, ssd, ambito),
 	FOREIGN KEY (attivita_formativa) REFERENCES attivita_formativa(codice)
 		ON DELETE NO ACTION ON UPDATE CASCADE,
-	FOREIGN KEY (ssd, descrizione) REFERENCES ssd(codice, descrizione)
+	FOREIGN KEY (ssd, ambito) REFERENCES ssd(codice, ambito)
 		ON DELETE NO ACTION ON UPDATE CASCADE
 );
 

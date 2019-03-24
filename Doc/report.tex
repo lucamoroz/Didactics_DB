@@ -133,7 +133,7 @@ Ogni Ateneo identifica un Curriculum con un codice univoco.
 \begin{table}[!h] %!h forza la figura sotto il titolo
 	\resizebox{\textwidth}{!}{%
 		\begin{tabular}{lll}
-			\hline
+			
 			\textbf{Operazione} & \textbf{Tipo} & \textbf{Frequenza} \\ \hline \hline
 			Lista dei prodotti pi`u richiesti & Interrogazione & 4/Mese \\ \hline
 			Lista delle materie prime pi`u utilizzate & interrogazione & 1/Mese \\ \hline
@@ -158,7 +158,7 @@ Ogni Ateneo identifica un Curriculum con un codice univoco.
 \begin{table}[!h] %!h forza la figura sotto il titolo
 	\resizebox{\textwidth}{!}{%
 		\begin{tabular}{llll}
-			\hline
+			
 			\multicolumn{1}{c}{\textbf{Termine}} & \multicolumn{1}{c}{\textbf{Descrizione}} & \multicolumn{1}{c}{\textbf{Sinonimi}} & \multicolumn{1}{c}{\textbf{Collegamenti}} \\ \hline \hline
 			Corso di  Laurea & \begin{tabular}[c]{@{}l@{}}Insieme di tutte le attivita formative ne-\\ cessarie a Laurearsi.\end{tabular} & Corso di studi. & \begin{tabular}[c]{@{}l@{}}Scuola, Classe, \\ Attività formativa, \\ Curriculum.\end{tabular} \\ \hline
 			\begin{tabular}[c]{@{}l@{}}Istanza attività \\ formativa\end{tabular} & \begin{tabular}[c]{@{}l@{}}Insegnamento, Prova finale, Tirocino o \\ Lingua che uno studente troverà effetti-\\ vamente nel suo piando si studi.\end{tabular} & Esame, Corso. & \begin{tabular}[c]{@{}l@{}}Docente, Percorso,\\ Attività formativa\end{tabular} \\ \hline
@@ -194,10 +194,10 @@ Di seguito lo schema concettuale prodotto per la rappresentazione della realt`a 
 \begin{table}[!h]
 \resizebox{\textwidth}{!}{%
 	\begin{tabular}{llll}
-		\hline
-		\textbf{Entità} & \textbf{Descrizione} & \textbf{Attributi} & \textbf{Identificatore} \\ \hline
+		
+		\textbf{Entità} & \textbf{Descrizione} & \textbf{Attributi} & \textbf{Identificatore} \\ \hline \hline
 		Classe & Raggruppa Corsi di Laurea. & Codice, Descrizione. & Codice. \\ \hline
-		SSD & Suddivide le attività. & Codice, Descrizione. & Codice. \\ \hline
+		SSD & Suddivide le attività. & Codice, Ambito. &  Codice, Ambito. \\ \hline
 		Attività formativa & Attività formativa ancora da istanziare. & Codice, Nome, Tipo insegnamento, CFU. & Codice. \\ \hline
 		Coorte & \begin{tabular}[c]{@{}l@{}}Dato un Corso di Laurea offre attività \\ Formative e le istanzia.\end{tabular} & Anno. & Anno. \\ \hline
 		Curriculum & Specializza Corso di Laurea. & Codice, Nome. & Codice. \\ \hline
@@ -216,7 +216,27 @@ Di seguito lo schema concettuale prodotto per la rappresentazione della realt`a 
 
 \subsubsection{Associzioni}
 
-Your text goes here...
+% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+\begin{table}[!h]
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{lll}
+			\textbf{Associazione} & \textbf{Attributi} & \textbf{Entità collegate} \\ \hline \hline
+			Attiva &  & Istanza Attività formativa (1,N), Percorso(1,N). \\ \hline
+			Comprende & CFU, Gruppo. & Attività Formativa (0,N), SSD (0,N). \\ \hline
+			Requisito &  & \begin{tabular}[c]{@{}l@{}}Attività formativa {[}richiesta{]} (0,N), \\ Attività formativa {[}richiede{]} (0,N).\end{tabular} \\ \hline
+			Responsabile &  & Istanza Attività Formativa (1,1), Docente (0,N). \\ \hline
+			Partecipa & Ruolo. & Docente (0,N), Istanza Attività Formativa(0,N). \\ \hline
+			Appartiene &  & Corso di Laurea (1,N), Classe (0,N). \\ \hline
+			Offre &  & \begin{tabular}[c]{@{}l@{}}Corso di Laurea (1,N),  Attività formativa (0,N),\\ Coorte (0,N).\end{tabular} \\ \hline
+			Propone &  & Scuola (0,N), Corso di Laurea (1,1). \\ \hline
+			Realizza &  & Corso di Laurea (0,N), Coorte (0,N), Percorso (1,1). \\ \hline
+			Attiva2 &  & Curriculum (0,N), Percorso (1,1). \\ \hline
+			Propone & \begin{tabular}[c]{@{}l@{}}Semestre, Anno, \\ Canali Previsti.\end{tabular} & Percorso (1,N) Attività Formativa (0,N). \\ \hline
+			Istanzia &  & Attività Formativa (0,N), Istanza Attività formativa (1,1). \\ \hline
+		\end{tabular}%
+	}
+\end{table}
 
 \subsection{Schema concettuale, regole di vincolo}
 

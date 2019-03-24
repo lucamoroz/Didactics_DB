@@ -34,44 +34,57 @@ VALUES
     ('IN08111231', 'Segnali e sistemi', 'insegnamento'),
     ('SC02105452', 'Logica', 'insegnamento'),
     ('INM0017605', 'Elettronica Digitale', 'insegnamento'),
-	('INL1000216', 'Bioeletromagnetismo', 'insegnamento');
-
+    ('INL1000216', 'Bioeletromagnetismo', 'insegnamento'),
+    ('INP3050962', 'Computer networks', 'insegnamento'),
+    ('INP7079338', 'Digital signal processing', 'insegnamento'),
+    ('IN11112347', 'Ricerca operativa', 'insegnamento'),
+    ('INP7079233', 'Big data computing', 'insegnamento');
+    
+    
 
 
 INSERT INTO corso_laurea (codice,nome,scuola,ordinamento,cfu,tipo)
 VALUES
     ('IN0508', 'Ingegneria Informatica', 'IN', 2011, 180, 'LT'),
+    ('IN0521', 'Ingegneria Informatica', 'IN', 2009, 120, 'LM'),
     ('IN2374', 'Ingegneria Biomedica', 'IN', 2017, 180, 'LT'),
     ('SC1167', 'Informatica', 'SC', 2011, 180, 'LT'),
+    ('IF0375', 'Scienze Motorie', 'ME', '2013', '180', 'LT'),
+    ('ME1853', 'Dietistica', 'ME', '2011', '180', 'LT'),
     ('IN0515', 'Ingegneria Dell''Energia', 'IN', 2014, 180, 'LT');
     
     
 INSERT INTO percorso (corso_laurea, curriculum, coorte, descrizione)
 VALUES
-    ('IN0508', 'COMUNE', 2015, 'Percorso Comune'),
+    ('IN0508', 'COMUNE', 2015, 'Percorso Comune'), -- Ing informatica triennale
     ('IN0508', '001PD', 2015, 'Curriculum Generale'),
     ('IN0515', '001PD', 2015, 'Termomeccanico'),
     ('IN0515', '002PD', 2015, 'Dell''energia elettrica'),
+    ('IN0521', 'COMUNE', 2018, 'Percorso comune'), -- Ing informatica magistrale
     ('IN0515', 'COMUNE', 2015, 'Percorso Comune'),
     ('IN2374', 'COMUNE', 2015, 'Percorso Comune'),
     ('SC1167', 'COMUNE', 2015, 'Percorso Comune');
+    
 
 
 INSERT INTO docente(matricola, cognome, nome, email, dipartimento, telefono, qualifica, ssd, ufficio)
 VALUES
-    ('1139048', 'cogDoc', 'nomeDoc', 'email', 'dip', '12334', 'Ricercatore', 'ssd', 'DEI A - 7'),
-    ('1139049', 'cogDoc2', 'nomeDoc2', 'email', 'dip', '12334', 'Docente', 'ssd', 'DEI A - 8'),
+    ('1139048', 'von Neumann', 'John', 'john.neumann@unipd.it', 'Dipartimento di informatica', '12334', 'Ricercatore', 'ssd', 'DEI A - 7'),
+    ('1139049', 'Bayes', 'Thomas', 'thomas.bayes@unipd.it', 'Dipartimento di matematica', '12334', 'Ricercatore', 'ssd', 'Paolotti A - 8'),
     ('1216568', 'Verdi', 'Luigi', 'luigi.verdi@unipd.it', 'Dipartimento di matematica', '654321', 'Docente', 'ABCD/09', 'TA UFF.87'),
     ('8275599', 'Rossi', 'Marco', 'marco.rossi@unipd.it', '	Dipartimento di Ingegneria Civile', '04966565354', 'Docente', 'ICAR/08', 'IDEA UFF.405');
     
 
 INSERT INTO istanza_attivita_formativa(attivita_formativa, canale, anno_accademico, responsabile, tipo_valutazione, prerequisiti, acquisire, modalita_esame, criterio_valutazione, contenuti)
 VALUES
-    ('IN10100190', 1, 2015, '1139048', 'lorem', 'lorem', 'lorem', 'lorem', 'lorem', 'lorem'),
-    ('IN10100190', 2, 2015, '1139049', 'lorem', 'lorem', 'lorem', 'lorem', 'lorem', 'lorem'),
-    ('IN04111234', 1, 2016, '1139048', 'lorem', 'lorem', 'lorem', 'lorem', 'lorem', 'lorem'),
+    ('IN10100190', 1, 2015, '1139048', 'Voto', 'Nessun prerequisito', 'Calcolo di base, analisi funzioni, integrali', 'Esame scritto + orale', 'Scritto per essere ammessi all orale', 'Analisi matematica di base'),
+    ('IN10100190', 2, 2015, '1139049', 'Voto', 'Nessun prerequisito', 'Numeri complessi, serie e funzioni', 'Esame scritto + orale', 'Scritto per essere ammessi all orale', 'Analisi matematica di base'),
+    ('IN04111234', 1, 2016, '1139048', 'Voto ', 'Analisi di funzioni', 'Strutture dati e algoritmi efficienti', 'Scritto', 'Esame scritto + orale opzionale', 'Complessità computazionale, algoritmi di ricerca, strutture dati: lista, hash map, alberi, grafi'),
     ('IN03122522', 1, 2017, '8275599', 'Voto', 'Nessuno', 'Comprendere le principali strutture organizzative', 'Scritta e orale', 'livello di conoscenza acquisita', 'L’azienda come sistema economico-finanziario em'),
-    ('INM0017605', 1, 2015, '1139048', 'Voto', 'Nessuno', 'Maturare le competenze per lo sviluppo', 'Scritta', 'livello di conoscenza acquisita', 'Il processo di fabbricazione CMOS.');
+    ('INM0017605', 1, 2015, '1139048', 'Voto', 'Nessuno', 'Maturare le competenze per lo sviluppo', 'Scritta', 'livello di conoscenza acquisita', 'Il processo di fabbricazione CMOS.'),
+    ('INP3050962', 1, 2018, '1139048', 'Voto', 'Nessuno', 'Capire le reti', 'Scritta', 'livello di conoscenza acquisita', 'Comunicazione delle reti'),
+    ('INP7079338', 1, 2018, '8275599', 'Voto', 'Nessuno', 'Segnali digitali', 'Scritta', 'livello di conoscenza acquisita', 'I segnali digitali'),
+    ('IN11112347', 1, 2018, '1216568', 'Voto', 'Nessuno', 'Constraint programming, SAT, ..', 'Scritta', 'livello di conoscenza acquisita', 'Definizione problemi con vincoli e algoritmi');
     
 INSERT INTO propone(corso_laurea, curriculum, coorte, attivita_formativa, anno, semestre, canali_previsti)
 VALUES
@@ -89,7 +102,10 @@ VALUES
     ('IN2374', 'COMUNE', 2015, 'INN1031400', '3', 'II', '2'), -- lingua bio
     ('IN2374', 'COMUNE', 2015, 'INL1004099', '3', 'II', '0'), -- tirocinio bio
     ('IN2374', 'COMUNE', 2015, 'INM0014874', '3', 'II', '0'), -- prova finale bio
-    ('IN2374', 'COMUNE', 2015, 'INL1000216', '3', 'II', '1'); -- bioelettromagnetismo
+    ('IN2374', 'COMUNE', 2015, 'INL1000216', '3', 'II', '1'), -- bioelettromagnetismo
+    ('IN0521', 'COMUNE', 2018, 'INP3050962', '1', 'I', '1'),
+    ('IN0521', 'COMUNE', 2018, 'INP7079338', '1', 'I', '1'),
+    ('IN0521', 'COMUNE', 2018, 'IN11112347', '1', 'I', '1');
     
 INSERT INTO attiva(corso_laurea, curriculum, coorte, attivita_formativa, canale, anno_accademico, responsabile)
 VALUES
@@ -97,7 +113,11 @@ VALUES
     ('IN0508', 'COMUNE', 2015, 'IN10100190', 2, 2015, '1139049'), -- analisi
     ('IN0508', 'COMUNE', 2015, 'INM0017605', 1, 2015, '1139048'), -- elettronica digitale
     ('IN0508', 'COMUNE', 2015, 'IN04111234', 1, 2016, '1139048'), -- dati e alg
-    ('IN0515', 'COMUNE', 2015, 'IN03122522', 1, 2017, '8275599'); -- elementi di chimica energia
+    ('IN0515', 'COMUNE', 2015, 'IN03122522', 1, 2017, '8275599'), -- elementi di chimica energia
+    ('IN0521', 'COMUNE', 2018, 'INP3050962', '1', '2018', '1139048'), --Reti
+    ('IN0521', 'COMUNE', 2018, 'INP7079338', '1', '2018', '8275599'), --Segnali digitali
+    ('IN0521', 'COMUNE', 2018, 'IN11112347', '1', '2018', '1216568'); -- Ricerca operativa
+    
     
 INSERT INTO classe(codice, descrizione)
 VALUES

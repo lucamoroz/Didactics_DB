@@ -38,20 +38,20 @@ function get_year_form($conn) {
 function get_course_form($conn) {
 	/**
 	@return String: a 'select' form, each option has 'codice' as value and 'nome' as text
-	*/
-	$courses = array();
+	*/	
 	//set field as selected if present
 	$selected = (isset($_GET['course']) ? $_GET['course'] : "");
-	$ret = pg_query($conn, "SELECT codice, nome FROM corso_laurea;");
-	while($row = pg_fetch_row($ret)) {
-		$courses[$row[1]] = $row[0];
-	}
+	$result = pg_query($conn, "SELECT codice, nome, tipo FROM corso_laurea;");
+	
 	$course_form = "<select class='form-control' name='course'>";
-	foreach($courses as $c_name => $c_cod) {
-		if($selected == $c_cod)
-			$course_form .= "<option value='$c_cod' selected>$c_name</option>";
+	while($row = pg_fetch_assoc($result)) {
+		$cod = $row["codice"];
+		$name = $row["nome"];
+		$type = $row["tipo"];
+		if($selected == $row['codice']) 
+			$course_form .= "<option value='$cod' selected>$name - $type</option>";
 		else
-			$course_form .= "<option value='$c_cod'>$c_name</option>";
+			$course_form .= "<option value='$cod'>$name - $type</option>";
 	}
 	$course_form .= "</select>";
 	return $course_form;

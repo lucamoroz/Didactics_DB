@@ -130,29 +130,29 @@ Ogni Ateneo identifica un Curriculum con un codice univoco.
 \newpage
 \subsection{Operazioni sulle basi di dati}
 
-\begin{table}[!h] %!h forza la figura sotto il titolo
+% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+\begin{table}[!h]
 	\resizebox{\textwidth}{!}{%
-		\begin{tabular}{lll}
-			
-			\textbf{Operazione} & \textbf{Tipo} & \textbf{Frequenza} \\ \hline \hline
-			Lista dei prodotti pi`u richiesti & Interrogazione & 4/Mese \\ \hline
-			Lista delle materie prime pi`u utilizzate & interrogazione & 1/Mese \\ \hline
-			Lista clienti che, pur avendone richiesto almeno uno, non richiedono un ordine da almeno 10 anni & Interrogazione & 1/Anno \\ \hline
-			Catalogo di prodotti divisi per categoria con nome e prezzo & Interrogazione & 1/Mese \\ \hline
-			Lista ordini non ancora evasi in ordine temporale & Interrogazione & 1/Giorno \\ \hline
-			Elenco prodotti con numero di dipendenti dedicati & Interrogazione & 1/Mese \\ \hline
-			Lista dipendenti addetti dato un codice prodotto & Interrogazione & 1/Mese \\ \hline
-			Aggiornamento Dipendenti & Modifica & 1/Mese \\ \hline
-			Aggiornamento Clienti & Modifica & 1/Mese \\ \hline
-			Aggiornamento Fornitori & Modifica & 1/Mese \\ \hline
-			Aggiornamento Categorie & Modifica & 1/Anno \\ \hline
-			Aggiornamento Prodotti & Modifica & 1/Settimana \\ \hline
-			Aggiornamento Materie Prime & Modifica & 1/Settimana \\ \hline
-			Aggiornamento Ordini & Modifica & 10/Giorno \\ \hline
-			Inserimento Forniture & Modifica & 10/Giorno \\ \hline
+		\begin{tabular}{ll}
+			\textbf{Operazione} & \textbf{Tipo} \\ \hline
+			Dati un Corso di Studi e una Coorte trovare tutte le Attività Formative ordinate per anno e semestre. & Interrogazione \\ \hline
+			\begin{tabular}[c]{@{}l@{}}Dati un Corso di Studi e una Coorte trovare tutte le Attività Formative ordinate per anno e semestre,\\ mostrare canale, anno accademico, nome e cognome del docente se il corso è attivato.\end{tabular} & Interrogazione \\ \hline
+			\begin{tabular}[c]{@{}l@{}}Dati un Corso di Studi e una Coorte: trovare le Attività Formative attivate ordinate per anno\\ mostrando codice, nome, canale e anno accademico dell'istanza attività formativa con nome e\\ cognome del responsabile.\end{tabular} & Interrogazione \\ \hline
+			\begin{tabular}[c]{@{}l@{}}Dati il codice di una Attività Formativa, il canale, l'anno accademico e il responsabile ritorna i \\ dettagli dell'Attività Formativa.\end{tabular} & Interrogazione \\ \hline
+			Ritorna tutti i Corsi attivati con il relativo Codice, Nome, Anno Accademico, Canale e Responsabile. & Interrogazione \\ \hline
+			Dati una Scuola e un tipo (LT/LM/CU) elencare i Corsi di Laurea. & Interrogazione \\  \hline
+			\begin{tabular}[c]{@{}l@{}}Dati un Curriculum, un Corso di Laurea e una Coorte mostrare la somma dei crediti delle attività \\ formative divisi per SSD.\end{tabular} & Interrogazione \\ \hline
+			Dati due Corsi di Laurea e una Coorte mostrare le Attività Formative non in comune tra i due Corsi. & Interrogazione \\ \hline
+			Inserimento di un nuovo Curriculum. & Modifica \\ \hline
+			Inserimento di un nuovo Corso di Laurea. & Modifica \\ \hline
+			Inserimento di una nova Coorte. & Modifica \\ \hline
+			Inserimento di una nuova Attività Fomrativa. & Modifica \\ \hline
+			Inserimento di un Docente. & Modifica \\ \hline
 		\end{tabular}%
 	}
 \end{table}
+
 
 \subsection{Glossario}
 \begin{table}[!h] %!h forza la figura sotto il titolo

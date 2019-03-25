@@ -1,6 +1,11 @@
 -- Pulitura db
 DROP TABLE IF EXISTS classe, ssd, scuola, attivita_formativa, coorte, docente, percorso, corso_laurea, curriculum, istanza_attivita_formativa, attiva, propone, comprende, requisito, partecipa, appartiene, offre CASCADE;
 
+DROP TYPE IF EXISTS tipo_insegnamento, tipo_corso_laurea, semestre, tipo_crediti, ruolo_docente CASCADE;
+
+
+-- Vincoli
+
 -- Definizione tabella Classe ministeriale (MIUR)
 CREATE TABLE classe(
   codice varchar(5) PRIMARY KEY,
@@ -9,18 +14,18 @@ CREATE TABLE classe(
 
 -- Definizione tabella SSD
 CREATE TABLE ssd(
-  codice varchar(10) PRIMARY KEY,
-  descrizione text
+  codice varchar(10),
+  ambito text,
+  PRIMARY KEY(codice, ambito)
 );
 
 -- Definizione tabella Attivita Formativa
 -- Enumerazione tipi di insegnamento
 CREATE TYPE tipo_insegnamento AS ENUM ('insegnamento', 'tirocinio', 'lingua', 'prova_finale');
-
 CREATE TABLE attivita_formativa(
   codice varchar(10) PRIMARY KEY,
-  descrizione text,
-  tipo tipo_insegnamento NOT NULL, -- ENUM
+  nome text,
+  tipo tipo_insegnamento NOT NULL -- ENUM
 );
 
 -- Definizione tabella coorte
@@ -31,8 +36,7 @@ CREATE TABLE coorte(
 
 -- Definizione tabella curriculum
 CREATE TABLE curriculum(
-  codice varchar(10) PRIMARY KEY,
-  nome varchar(20) NOT NULL
+  codice varchar(10) PRIMARY KEY
 );
 
 -- Definizione tabella docente
@@ -56,13 +60,14 @@ CREATE TABLE docente(
 -- Definizione entita' scuola
 CREATE TABLE scuola(
   codice varchar(5) PRIMARY KEY, -- sul sito i codici sono tutti lunghi 2, scelgo 5 per sicurezza
-  nome varchar(30)
+  nome varchar(50)
 );
 
 -- Definizione entita' corso di laurea
 CREATE TYPE tipo_corso_laurea AS ENUM ('LT', 'LM', 'CU');
 CREATE TABLE corso_laurea(
   codice varchar(10) PRIMARY KEY, -- sul sito i codici sono tutti lunghi 6, scelgo 10 per sicurezza
+  nome varchar(40) NOT NULL,
   scuola varchar(5) NOT NULL, -- FK scuola
   ordinamento smallint NOT NULL, -- dovrebbe essere un anno, controllare
   cfu smallint NOT NULL, -- potrebbe essere un ENUM
@@ -77,6 +82,7 @@ CREATE TABLE percorso(
   corso_laurea varchar(10),
   curriculum varchar(10),
   coorte smallint,
+  descrizione varchar(30) NOT NULL,
   PRIMARY KEY (corso_laurea, curriculum, coorte),
   FOREIGN KEY (corso_laurea) REFERENCES corso_laurea(codice)
     ON DELETE NO ACTION ON UPDATE CASCADE,
@@ -97,11 +103,7 @@ CREATE TABLE propone(
   semestre semestre NOT NULL, -- potrebbe essere anche varchar: 'I', 'II'
   canali_previsti smallint NOT NULL,
   PRIMARY KEY (corso_laurea, curriculum, coorte, attivita_formativa),
-  FOREIGN KEY (corso_laurea) REFERENCES corso_laurea(codice)
-    ON DELETE NO ACTION ON UPDATE CASCADE,
-  FOREIGN KEY (curriculum) REFERENCES curriculum(codice)
-    ON DELETE NO ACTION ON UPDATE CASCADE,
-  FOREIGN KEY (coorte) REFERENCES coorte(anno)
+  FOREIGN KEY (corso_laurea, curriculum, coorte) REFERENCES percorso(corso_laurea,curriculum,coorte)
     ON DELETE NO ACTION ON UPDATE CASCADE,
   FOREIGN KEY (attivita_formativa) REFERENCES attivita_formativa(codice)
     ON DELETE NO ACTION ON UPDATE CASCADE
@@ -122,7 +124,7 @@ CREATE TABLE istanza_attivita_formativa(
   corso_libero boolean,  --Se e' possiile utilizzare l'insegnamento come libera scelta
   -- Seguono attributi relativi alla scheda del corso
   prerequisiti text, /*dove il prof speifica quali conoscenze servano al di la di corsi specifici*/
-  aquisire text, -- Conoscenze e abilita' da acquisire
+  acquisire text, -- Conoscenze e abilita' da acquisire
   modalita_esame text, 
   criterio_valutazione text,
   contenuti text,
@@ -156,19 +158,21 @@ CREATE TABLE attiva(
     ON DELETE NO ACTION ON UPDATE CASCADE
 );
 
+
 -- Definizione associazione comprende tra attività formativa e ssd
 
-CREATE TYPE tipo_crediti AS ENUM ('base', 'affine', 'caratterizzante');
+CREATE TYPE tipo_crediti AS ENUM ('base', 'affine', 'caratterizzante', 'ALTRO');
 
 CREATE TABLE comprende(
 	attivita_formativa varchar(10), --foreign key
 	ssd varchar(10), --foreign key
+	ambito text, --foreign key
 	gruppo tipo_crediti NOT NULL, --enum
 	cfu smallint NOT NULL, --intero compreso tra 0 e 20/50(?)
-	PRIMARY KEY(attivita_formativa, ssd),
+	PRIMARY KEY(attivita_formativa, ssd, ambito),
 	FOREIGN KEY (attivita_formativa) REFERENCES attivita_formativa(codice)
 		ON DELETE NO ACTION ON UPDATE CASCADE,
-	FOREIGN KEY (ssd) REFERENCES ssd(codice)
+	FOREIGN KEY (ssd, ambito) REFERENCES ssd(codice, ambito)
 		ON DELETE NO ACTION ON UPDATE CASCADE
 );
 
@@ -225,3 +229,8 @@ CREATE TABLE offre(
   FOREIGN KEY (attivita_formativa) REFERENCES attivita_formativa(codice)
     ON DELETE NO ACTION ON UPDATE CASCADE
 );
+
+
+
+
+

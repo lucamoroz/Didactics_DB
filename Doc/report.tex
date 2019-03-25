@@ -1,0 +1,309 @@
+\documentclass[a4paper,12pt,italian,towside]{article}
+\usepackage[latin1]{inputenc}
+% Comment the following line to deny the usage of umlauts and other non-ASCII characters
+%\usepackage[italian]{babel}
+
+%pack per link
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue}
+
+%pack per colori
+\usepackage{xcolor}
+\usepackage{xcolor,listings}
+
+%pack tabelle
+\usepackage{graphicx}
+
+
+
+\setcounter{tocdepth}{3}
+
+%titolo e autore
+\title{Progettazione Base di Dati}
+\author{Francesco Luca Piero Giovanni}
+\date{}
+
+%intestazioni e pie pagina
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\chead{}
+\cfoot{\thepage}
+\lhead{}
+\renewcommand{\headrulewidth}{0.4pt}
+
+%Formattazione per codice SQL
+\usepackage{textcomp}
+\usepackage{color}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{HTML}{C42043}
+\definecolor{codeblue}{HTML}{0000FF}
+\definecolor{backcolour}{HTML}{F2F2F2}
+\definecolor{bookColor}{cmyk}{0,0,0,0.90}  
+\color{bookColor}
+
+\lstset{upquote=true}
+
+\lstdefinestyle{mystyle}{  
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{codeblue},
+	numberstyle=\footnotesize\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                                   
+	numbersep=-10pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,      
+}
+\lstset{style=mystyle} 
+
+
+%*************************************************************************%
+% Start the document
+\begin{document}
+
+
+%generiamo il titolo
+\maketitle
+\newpage
+
+%indice
+\tableofcontents
+
+\newpage
+% *****sezione1*****
+\section{Descrizione del progetto}
+Si vuole realizzare una base di dati per modellare correttamete i Corsi di Caurea dell'Universit\'a di Padova.
+Si vogliono rappresentare tutti i dati funzionali ai Corso di Laurea come Scuole, Classi, Curriculum, Attivit\'a formative e relativi SSD, Coorti, Percorsi e Docenti.
+In questo progetto non vengono coinvolti studenti o piani di studio.
+\par
+La modellazione viene fatta coerentemente al sito  \href{https://didattica.unipd.it/}{didattica.unipd.it}, fonte partanto di tutti i requisiti del progetto.
+
+
+
+\subsection{Requisiti strutturati}
+
+\textbf{Scuola}
+\par Le Scuole hanno funzioni di coordinamento e di razionalizzazione delle attivit\'a didattiche, compresa la proposta di istituzione, attivazione, modifica, disattivazione o soppressione di corsi di laurea, nonch\'e di gestione dei servizi comuni.\textcolor{red!50}{Ogni Scuola pu\'o attivare diversi corsi di laurea in linea con il settore accademico di interesse. Ad ogni Scuola è assegnato un codice a livello Universitario.}
+\newline
+
+\textbf{Classe}
+\par
+\textcolor{red!50}{Le Classi sono dei contenitori che raggruppano i Corsi di Laurea dello stesso ciclo, comunque denominati dagli Atenei, aventi gli stessi obiettivi formativi qualificanti e attivit\'a formative attivate per un numero di crediti e in settori individuati come indispensabili. Le caratteristiche delle Classi sono fissate a livello nazionale, con appositi Decreti Ministeriali e identificate da codici, e sono quindi comuni a tutti gli atenei. I corsi di laurea appartenenti alla stessa Classe hanno identico valore legale.}
+\\
+
+\textbf{Corso di Laurea}
+\par
+\textcolor{red!50} { I Corsi di Laure sono l'insieme di tutte le attivit\'a formative, obbligatorie e non, proposte da un ateneo per conseguire la laurea. La laurea rilasciata \'e coerente al Corso di Laurea scelto. I Corsi di Laurea sono inquadrati in Classi ministeriali, possono prvedere più percorsi e afferiscono a una scuola. Per il conseguimento della Laurea, e quindi il completamento del relativo corso, lo studente deve conseguire un numero prefissato di CFU (180 per le lauree triennali). Ogni corso di Laurea appartiene ad un ordinamento legislativo che ne definisce la struttura e la valiidità legale. Ogni Corso di Laurea pu\'o avere, a driscrezione della Suola, più Curricula. Ogni Ateneo identifica un Corso di Laurea con un codice univoco.
+} 
+\\
+\\
+\\
+
+
+\textbf{Curriculum}
+\par
+\textcolor{red!50} { Un Curriculum è una denominazione di un Corso di Laurea che ne definisce gli obbiettivi oltre che a diffirenziare lo stesso in un insieme di attivit\'a formative differenti. Più studenti possono dunque conseguire la stessa larea con percorsi alternativi a seconda dei loro interessi e attitudini scegliendo, ad esempio, un Curriculum Generale piuttosto che un Curriculum Applicativo.
+Ogni Ateneo identifica un Curriculum con un codice univoco.
+} 
+\\
+
+
+\textbf{Attivit\'a Formativa}
+\par
+\textcolor{red!50} {Le Attivit\'a Formative sono il cuore di un Corso di Laure e rappresentano tutti gli step che uno studente deve superare per conseguire la Laurea. Le Attivit\'a formative possono essere di quattro tipi: Tirocinio, Lingua, Prova Finale e Insegnamenti. Ogni attivit\'a  formativa si inserisce in un Corso di Laurea in un anno (I, II, II IV o V a seconda del tipo di Laurea) e in un semestre ( I o II). Ogni Attivit\'a Formativa \'e riferita a un Docente responsabile che ha il compito di definirla in termini di: tipo di valutazione, prerequisiti, conoscenze e abilit\'a da acquisire, modalit\'a di esame, criterio di valutazione, contenuti, attivit\'a, materiali, testi consigliati e lingua di emissione. Ogni Attivit\'a formativa si riferisce poi a un Dipartimento some sede fisica delle lezioni. Infine ogni Attivit\'a formativa  legata a uno o pi\'u SSD dai quali, al conseguimento da parte dello studente dell' esame, vengono rilasciati CFU. Le Attivit\'a Formative sono sono soggette a vincoli, decisi dalla Scuola, in termini di superamento di altre Attivit\'a formative precedenti. All'iterno di ogni ateneo le Attivit\'a formative sono identificate da un codice.
+} 
+\\
+
+\textbf{Docente}
+\par
+\textcolor{red!50} { I Docenti sono gli attuatori di un Attivit\'a Formativa. Piu Docenti possono essere coinvolti in una stessa Attivit\'a Formativa con ruoli differenti. Dei Docenti coinvolti di un Attivit\'a, uno e uno solo è il Responsabile della stessa e ha il compito di definirla come descritto dal paragrafo Attivit\'a formativa. Dei docenti si vogliono poi poter conoscere tutti i dati relativi ai contatti e agli ambiti di ricerca. Ogni docente può partecipare a più attività formative. Ogni Docente ha una matricola identificativa decisa dall Ateneo.
+} 
+\\
+
+
+\newpage
+\subsection{Operazioni sulle basi di dati}
+
+% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+\begin{table}[!h]
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{ll}
+			\textbf{Operazione} & \textbf{Tipo} \\ \hline
+			Dati un Corso di Studi e una Coorte trovare tutte le Attività Formative ordinate per anno e semestre. & Interrogazione \\ \hline
+			\begin{tabular}[c]{@{}l@{}}Dati un Corso di Studi e una Coorte trovare tutte le Attività Formative ordinate per anno e semestre,\\ mostrare canale, anno accademico, nome e cognome del docente se il corso è attivato.\end{tabular} & Interrogazione \\ \hline
+			\begin{tabular}[c]{@{}l@{}}Dati un Corso di Studi e una Coorte: trovare le Attività Formative attivate ordinate per anno\\ mostrando codice, nome, canale e anno accademico dell'istanza attività formativa con nome e\\ cognome del responsabile.\end{tabular} & Interrogazione \\ \hline
+			\begin{tabular}[c]{@{}l@{}}Dati il codice di una Attività Formativa, il canale, l'anno accademico e il responsabile ritorna i \\ dettagli dell'Attività Formativa.\end{tabular} & Interrogazione \\ \hline
+			Ritorna tutti i Corsi attivati con il relativo Codice, Nome, Anno Accademico, Canale e Responsabile. & Interrogazione \\ \hline
+			Dati una Scuola e un tipo (LT/LM/CU) elencare i Corsi di Laurea. & Interrogazione \\  \hline
+			\begin{tabular}[c]{@{}l@{}}Dati un Curriculum, un Corso di Laurea e una Coorte mostrare la somma dei crediti delle attività \\ formative divisi per SSD.\end{tabular} & Interrogazione \\ \hline
+			Dati due Corsi di Laurea e una Coorte mostrare le Attività Formative non in comune tra i due Corsi. & Interrogazione \\ \hline
+			Inserimento di un nuovo Curriculum. & Modifica \\ \hline
+			Inserimento di un nuovo Corso di Laurea. & Modifica \\ \hline
+			Inserimento di una nova Coorte. & Modifica \\ \hline
+			Inserimento di una nuova Attività Fomrativa. & Modifica \\ \hline
+			Inserimento di un Docente. & Modifica \\ \hline
+		\end{tabular}%
+	}
+\end{table}
+
+
+\subsection{Glossario}
+\begin{table}[!h] %!h forza la figura sotto il titolo
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{llll}
+			
+			\multicolumn{1}{c}{\textbf{Termine}} & \multicolumn{1}{c}{\textbf{Descrizione}} & \multicolumn{1}{c}{\textbf{Sinonimi}} & \multicolumn{1}{c}{\textbf{Collegamenti}} \\ \hline \hline
+			Corso di  Laurea & \begin{tabular}[c]{@{}l@{}}Insieme di tutte le attivita formative ne-\\ cessarie a Laurearsi.\end{tabular} & Corso di studi. & \begin{tabular}[c]{@{}l@{}}Scuola, Classe, \\ Attività formativa, \\ Curriculum.\end{tabular} \\ \hline
+			\begin{tabular}[c]{@{}l@{}}Istanza attività \\ formativa\end{tabular} & \begin{tabular}[c]{@{}l@{}}Insegnamento, Prova finale, Tirocino o \\ Lingua che uno studente troverà effetti-\\ vamente nel suo piando si studi.\end{tabular} & Esame, Corso. & \begin{tabular}[c]{@{}l@{}}Docente, Percorso,\\ Attività formativa\end{tabular} \\ \hline
+			Responsabile & \begin{tabular}[c]{@{}l@{}}Docente incaricato di istanziare un'at-\\ tività formativa e responsabile di tale \\ attività per quell anno.\end{tabular} & \multicolumn{1}{c}{-} & \begin{tabular}[c]{@{}l@{}}Atttività formativa,\\ Istanza Attività \\ formativa, ruolo\end{tabular} \\ \hline
+			Coorte & \begin{tabular}[c]{@{}l@{}}Insieme di studenti immatricolatisi nl \\ medesimo anno. Riferendosi a Coorte\\ come anno si identifica il momento di \\ di schedulazione di tutti le Attività che\\ gli studenti di quella Coorte vedranno \\ proposte durantela propria carriera.\end{tabular} & Anno, Classe. & \begin{tabular}[c]{@{}l@{}}Attività formativa,\\ Percorso, Corso di\\ Laurea.\end{tabular} \\ \hline
+			SSD & \begin{tabular}[c]{@{}l@{}}Settore Scentifico Disciplinare:\\ Distinzione disciplinare utilizzata nell\\ università in Italia per organizzare l'is-\\ truzione superiore.\end{tabular} & \multicolumn{1}{c}{-} & \begin{tabular}[c]{@{}l@{}}Attività formativa,\\ CFU.\end{tabular} \\ \hline
+			CFU & \begin{tabular}[c]{@{}l@{}}Credito Formativo Universitario:\\ modalità utilizzata nelle università ita-\\ liane per misurare il carico di lavoro \\ richiesto allo studente.\end{tabular} & Crediti. & \begin{tabular}[c]{@{}l@{}}SSD, Prcorso,\\ Attività formativa\end{tabular} \\ \hline
+			Percorso & \begin{tabular}[c]{@{}l@{}}Istanza del Corso di Laurea relativa ad\\ un dato Curriculum e a una Coorte.\end{tabular} & Indirizzo. & \begin{tabular}[c]{@{}l@{}}Attività formativa,\\ Curriculum Corso \\ di Laurea, Coorte.\end{tabular} \\ \hline
+		\end{tabular}%
+	}
+\end{table}
+
+
+\newpage
+
+% *****sezione2*****
+\section{Progettazione concettuale}
+
+\subsection{Modello concettuale: Entit\`a-Associazione(E-R)}
+Di seguito lo schema concettuale prodotto per la rappresentazione della realt`a di interesse:
+
+\begin{figure}[!h] %!h forza la figura sotto il titolo
+	\caption{Schema E-R completo}
+	\begin{center}
+		\includegraphics[scale=0.5,angle=90]{../Schemas/ERdiagram.jpg}
+	\end{center}
+\end{figure}
+
+\subsection{Dizionario dei dati}
+
+\subsubsection{Entit\`a}
+
+\begin{table}[!h]
+\resizebox{\textwidth}{!}{%
+	\begin{tabular}{llll}
+		
+		\textbf{Entità} & \textbf{Descrizione} & \textbf{Attributi} & \textbf{Identificatore} \\ \hline \hline
+		Classe & Raggruppa Corsi di Laurea. & Codice, Descrizione. & Codice. \\ \hline
+		SSD & Suddivide le attività. & Codice, Ambito. &  Codice, Ambito. \\ \hline
+		Attività formativa & Attività formativa ancora da istanziare. & Codice, Nome, Tipo insegnamento, CFU. & Codice. \\ \hline
+		Coorte & \begin{tabular}[c]{@{}l@{}}Dato un Corso di Laurea offre attività \\ Formative e le istanzia.\end{tabular} & Anno. & Anno. \\ \hline
+		Curriculum & Specializza Corso di Laurea. & Codice, Nome. & Codice. \\ \hline
+		Docente & \begin{tabular}[c]{@{}l@{}}Il responsabile del corso o un docente \\ che ne prende parte.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Matricola, Cognome, Nome, Email, Diparti-\\ mento, Telefono, Qualifica, SSD, Ufficio, \\ Tesi, Aree di Ricerca, Curriculum, Pubblicazioni.\end{tabular} & Matricola. \\ \hline
+		Scuola & Attiva Corsi di Laurea. & Codice, Nome. & Codice. \\ \hline
+		Corso di Laurea & \begin{tabular}[c]{@{}l@{}}Offre Attività Formative, struttura gli \\ indirizzi.\end{tabular} & Codice, Nome,Scuola; Ordinamento & Codice \\ \hline
+		Percorso & \begin{tabular}[c]{@{}l@{}}Istanza del Corso di Laurea relativa ad \\ un dato Curriculum e a una Coorte.\end{tabular} & Corso di Laurea, Curriculum, Coorte & \begin{tabular}[c]{@{}l@{}}Corso di Laurea, \\ Curriculum, \\ Coorte\end{tabular} \\ \hline
+		\begin{tabular}[c]{@{}l@{}}Istanza Attività\\ Formativa\end{tabular} & \begin{tabular}[c]{@{}l@{}}Esame vero e proprio che gli studenti \\ \\ dovranno superare.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Attività Formativa, Canale, Anno Accademico,\\  Responsabile, Tipo Valutazione, Dipartimento, \\ a Frequenza Obbligatoria, Corso Singolo, Corso \\ Libero, Prerequisiti, Acquisire, Modalità Esame, \\ Criteri Valutazione, Contenuti, Attività, Materiali, \\ Testi, Lingua.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Attività Formativa, Canale, Anno \\ Accademico, Responsabile.\end{tabular} \\ \hline
+		&  &  &  \\
+		&  &  &  \\
+		&  &  &  \\
+		&  &  & 
+	\end{tabular}%
+}
+\end{table}
+
+\subsubsection{Associzioni}
+
+% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+\begin{table}[!h]
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{lll}
+			\textbf{Associazione} & \textbf{Attributi} & \textbf{Entità collegate} \\ \hline \hline
+			Attiva &  & Istanza Attività formativa (1,N), Percorso(1,N). \\ \hline
+			Comprende & CFU, Gruppo. & Attività Formativa (0,N), SSD (0,N). \\ \hline
+			Requisito &  & \begin{tabular}[c]{@{}l@{}}Attività formativa {[}richiesta{]} (0,N), \\ Attività formativa {[}richiede{]} (0,N).\end{tabular} \\ \hline
+			Responsabile &  & Istanza Attività Formativa (1,1), Docente (0,N). \\ \hline
+			Partecipa & Ruolo. & Docente (0,N), Istanza Attività Formativa(0,N). \\ \hline
+			Appartiene &  & Corso di Laurea (1,N), Classe (0,N). \\ \hline
+			Offre &  & \begin{tabular}[c]{@{}l@{}}Corso di Laurea (1,N),  Attività formativa (0,N),\\ Coorte (0,N).\end{tabular} \\ \hline
+			Propone &  & Scuola (0,N), Corso di Laurea (1,1). \\ \hline
+			Realizza &  & Corso di Laurea (0,N), Coorte (0,N), Percorso (1,1). \\ \hline
+			Attiva2 &  & Curriculum (0,N), Percorso (1,1). \\ \hline
+			Propone & \begin{tabular}[c]{@{}l@{}}Semestre, Anno, \\ Canali Previsti.\end{tabular} & Percorso (1,N) Attività Formativa (0,N). \\ \hline
+			Istanzia &  & Attività Formativa (0,N), Istanza Attività formativa (1,1). \\ \hline
+		\end{tabular}%
+	}
+\end{table}
+
+\subsection{Schema concettuale, regole di vincolo}
+
+\'E necessario definire alcune regole di vincolo per una corretta rappresentazione della realt\'a  di interesse:
+\begin{itemize}
+	\item RV1: i CFU assegnati ad un corso di laurea devono essere minori della somma dei CFU delle attivit'a formative proposte dai percorsi che realizzano il corso di laurea.
+	\item RV2: i CFU totali assegnati ad una attivit\'a formativa devono essere pari alla somma dei CFU assegnati agli SSD che compongono l'attivit\'a formativa.
+	\item RV3: la somma dei CFU delle attivit\'a formative offerte per un corso di laurea deve essere maggiore dei CFU richiesti dal corso di laurea per ogni coorte.
+	\item RV4: le attivit\'a formative proposte da un percorso per una coorte devono essere offerte dal relativo corso di laurea per la stessa coorte.
+	\item RV5: le istanze attivate per un percorso devono essere proposte dallo stesso. 
+	\item RV6: le istanze delle attivit\'a formative attivate per un percorso devono svolgersi in un anno accademico uguale o maggiore all'anno della coorte associata al percorso sommato all'anno in cui l'attivit\'a  formativa \'e prevista.
+	\item RV7: gli insegnamenti devono avere almeno un SSD e dei crediti.
+\end{itemize}
+
+\newpage
+% *****sezione3****
+\section{Progettazione logica}
+
+\subsection{Ristrutturazione schema E-R}
+
+Your text goes here...
+
+\newpage
+\subsection{Modello logico: Relazionale}
+
+\begin{figure} [!h] %!h forza la figura sotto il titolo
+	\caption{Schema E-R completo}
+	\begin{center}
+		\includegraphics[scale=0.455,angle=90]{../Schemas/relationalmodel.png} %file va rinominato senza spazio senno viene plottato il nome file
+	\end{center}
+\end{figure}
+
+\subsection{Schema logico e regole di vincolo}
+
+\begin{itemize}
+	\item RV1: i corsi di laurea devono essere proposti da una scuola.
+	\item RV2: i corsi di laurea devono appartenere ad una classe.
+	\item RV3: i corsi di laurea devono offrire almeno una attivit\'a formativa.
+	\item RV4: i percorsi devono proporre almeno una attivit\'a formativa.
+	\item RV5: le istanze delle attivit\'a formative devono essere attivate per almeno un percorso.
+	\item RVX: \textcolor{red!50}{SCRIVERE TUTTE LE REGOLE DI VINCOLO DI NON NULLIT\'A}
+\end{itemize}
+
+\newpage
+% *****sezione4****
+\section{SQL}
+
+
+
+\subsection{Struttura}
+
+\lstinputlisting[language=SQL]{../SQL/didactics.sql}
+
+\subsection{Query}
+
+\lstinputlisting[language=SQL]{../SQL/interrogations.sql}
+\newpage
+% *****sezione 5*****
+
+\section{Note}
+
+Your text goes here...
+
+
+% Uncomment the following two lines if you want to have a bibliography. Please do not forget to add an entry to your bibliography and reference it by using the \cite{} command
+%\bibliographystyle{alphadin}
+%\bibliography{document}
+
+% End of the document
+\end{document}

@@ -31,7 +31,7 @@ JOIN docente as d ON i.responsabile = d.matricola
 WHERE a.coorte = 2015 and a.corso_laurea = 'IN0508'
 ORDER BY i.anno_accademico ASC;
 
--- Dati il codice di una attivita' formativa, il canale, l'anno accademico e il responsabile ritorna i dettagli dell'attivita' formativa
+-- Dati il codice di una attivita' formativa, il canale, l'anno accademico e il responsabile trovare i dettagli dell'attivita' formativa
 SELECT af.nome as nome, iaf.canale as canale, iaf.anno_accademico as anno_accademico, CONCAT(d.nome, ' ', d.cognome) as responsabile, iaf.acquisire as acquisire, iaf.contenuti as contenuti, iaf.testi as testi
 FROM istanza_attivita_formativa as iaf JOIN attivita_formativa as af
 	ON iaf.attivita_formativa = af.codice
@@ -47,15 +47,6 @@ FROM istanza_attivita_formativa as iaf JOIN attivita_formativa as af
 	ON iaf.attivita_formativa =af.codice
 	JOIN docente as d ON d.matricola = iaf.responsabile;
 
--- Dati un percorso e il codice di una attivita' formativa, controlla che una attivita' formativa sia proposta dal percorso. Tale funzione è utilizzata a livello applicativo per controllare che sia possibile attivare un corso per un percorso.
-
-SELECT COUNT(*)
-FROM propone as p 
-WHERE p.corso_laurea = cod_corso
-  AND p.coorte = coorte
-  AND p.curriculum = curriculum
-  AND p.attivita_formativa = cod_attivita_formativa;
-
 -- dato una scuola e un tipo (LT/LM/CU) elencare i corsi di laurea
 SELECT c.codice, c.nome, c.ordinamento, c.cfu
 FROM corso_laurea AS c
@@ -66,7 +57,6 @@ SELECT cl.codice, cl.descrizione
 FROM classe AS cl
 JOIN appartiene AS a ON cl.codice = a.classe
 WHERE a.corso_laurea = 'IN2374';
-
 
 --Dati un curriculum, un corso di laurea e una coorte mostrare la somma dei
 -- crediti delle attività formative divisi per SSD
@@ -93,3 +83,22 @@ FROM (	SELECT *
 		INNER JOIN corso_laurea AS cl
 			ON o1.corso_laurea=cl.codice
 WHERE o2.attivita_formativa IS NULL AND o1.coorte=2015;
+
+--QUERY REGOLA DI VINCOLO RV4
+-- Data una attivita' formativa che vuole essere proposta per un percorso, permette di controllare che il corso di laurea associato al percorso preveda l'attivita' formativa
+SELECT COUNT(*)
+FROM offre
+WHERE corso_laurea = $1
+    AND coorte = $2
+    AND attivita_formativa = $3;
+
+-- QUERY REGOLA DI VINCOLO RV5
+-- Dati un percorso e il codice di una attivita' formativa, permette di controllare che una attivita' formativa sia proposta dal percorso. Tale funzione è utilizzata a livello applicativo per controllare che sia possibile attivare un corso per un percorso.
+SELECT COUNT(*)
+FROM propone as p 
+WHERE p.corso_laurea = $1
+  AND p.coorte = $2
+  AND p.curriculum = $3
+  AND p.attivita_formativa = $4;
+
+

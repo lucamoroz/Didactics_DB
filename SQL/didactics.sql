@@ -4,23 +4,20 @@ DROP TABLE IF EXISTS classe, ssd, scuola, attivita_formativa, coorte, docente, p
 DROP TYPE IF EXISTS tipo_insegnamento, tipo_corso_laurea, semestre, tipo_crediti, ruolo_docente CASCADE;
 
 
--- Vincoli
-
 -- Definizione tabella Classe ministeriale (MIUR)
 CREATE TABLE classe(
   codice varchar(5) PRIMARY KEY,
   descrizione text
 );
 
--- Definizione tabella SSD
+-- Definizione entita' SSD
 CREATE TABLE ssd(
   codice varchar(10),
   ambito text,
   PRIMARY KEY(codice, ambito)
 );
 
--- Definizione tabella Attivita Formativa
--- Enumerazione tipi di insegnamento
+-- -- Definizione entita' Attivita Formativa con relativa enumerazione
 CREATE TYPE tipo_insegnamento AS ENUM ('insegnamento', 'tirocinio', 'lingua', 'prova_finale');
 CREATE TABLE attivita_formativa(
   codice varchar(10) PRIMARY KEY,
@@ -28,23 +25,22 @@ CREATE TABLE attivita_formativa(
   tipo tipo_insegnamento NOT NULL -- ENUM
 );
 
--- Definizione tabella coorte
-
+-- Definizione entita' coorte
 CREATE TABLE coorte(
   anno smallint PRIMARY KEY
 );
 
--- Definizione tabella curriculum
+-- Definizione entita' curriculum
 CREATE TABLE curriculum(
   codice varchar(10) PRIMARY KEY
 );
 
--- Definizione tabella docente
+-- Definizione entita' docente
 CREATE TABLE docente(
   matricola varchar(10) PRIMARY KEY,
   cognome varchar(20) NOT NULL,
   nome varchar(20) NOT NULL,
-  email varchar(30),
+  email varchar(30) NOT NULL,
   dipartimento text  NOT NULL, /*sarebbe da legare a entita*/
   telefono varchar(15)  NOT NULL,
   qualifica varchar(100)  NOT NULL,
@@ -56,14 +52,13 @@ CREATE TABLE docente(
   publicazioni text  
 );
 
-
 -- Definizione entita' scuola
 CREATE TABLE scuola(
   codice varchar(5) PRIMARY KEY, -- sul sito i codici sono tutti lunghi 2, scelgo 5 per sicurezza
-  nome varchar(50)
+  nome varchar(50) NOT NULL
 );
 
--- Definizione entita' corso di laurea
+-- Definizione entita' corso di laurea e relativa enumerazione
 CREATE TYPE tipo_corso_laurea AS ENUM ('LT', 'LM', 'CU');
 CREATE TABLE corso_laurea(
   codice varchar(10) PRIMARY KEY, -- sul sito i codici sono tutti lunghi 6, scelgo 10 per sicurezza
@@ -76,8 +71,7 @@ CREATE TABLE corso_laurea(
     ON DELETE NO ACTION ON UPDATE CASCADE
 );
 
--- Definizione entita' percorso
-
+-- Definizione associazione percorso
 CREATE TABLE percorso(
   corso_laurea varchar(10),
   curriculum varchar(10),
@@ -92,7 +86,7 @@ CREATE TABLE percorso(
     ON DELETE NO ACTION ON UPDATE CASCADE
 );
 
--- Definizione relazione propone
+-- Definizione associazione propone con relativa enumerazione semestre
 CREATE TYPE semestre AS ENUM ('I', 'II');
 CREATE TABLE propone(
   corso_laurea varchar(10),
@@ -115,13 +109,12 @@ CREATE TABLE istanza_attivita_formativa(
   canale smallint,
   anno_accademico smallint,
   responsabile varchar(10),
-
   tipo_valutazione text,
   dipartimento text, /*sul sito didattica specificano il dipartimento sarebbe da inserire come entita*/
   frequenza_obbligo boolean,
   sede text, /* se e' un indirizzo va modificato*/
   corso_singolo boolean, --Se e' possibile iscriversi come corso singolo
-  corso_libero boolean,  --Se e' possiile utilizzare l'insegnamento come libera scelta
+  corso_libero boolean,  --Se e' possibile utilizzare l'insegnamento come libera scelta
   -- Seguono attributi relativi alla scheda del corso
   prerequisiti text, /*dove il prof speifica quali conoscenze servano al di la di corsi specifici*/
   acquisire text, -- Conoscenze e abilita' da acquisire
@@ -132,7 +125,6 @@ CREATE TABLE istanza_attivita_formativa(
   materiali text,
   testi text,
   lingua varchar(10),
-
   PRIMARY KEY (attivita_formativa, canale, anno_accademico, responsabile),
   FOREIGN KEY (attivita_formativa) REFERENCES attivita_formativa(codice)
     ON DELETE NO ACTION ON UPDATE CASCADE,
@@ -140,7 +132,7 @@ CREATE TABLE istanza_attivita_formativa(
     ON DELETE NO ACTION ON UPDATE CASCADE
 );
 
--- Definizione relazione attiva
+-- Definizione associazione attiva
 CREATE TABLE attiva(
   corso_laurea varchar(10),
   coorte smallint,
@@ -158,11 +150,8 @@ CREATE TABLE attiva(
     ON DELETE NO ACTION ON UPDATE CASCADE
 );
 
-
--- Definizione associazione comprende tra attività formativa e ssd
-
+-- Definizione associazione comprende e relativa enumerazione tipo di crediti
 CREATE TYPE tipo_crediti AS ENUM ('base', 'affine', 'caratterizzante', 'ALTRO');
-
 CREATE TABLE comprende(
 	attivita_formativa varchar(10), --foreign key
 	ssd varchar(10), --foreign key
@@ -177,7 +166,6 @@ CREATE TABLE comprende(
 );
 
 -- Definizione associazione ricorsiva requisito su attività formativa
-
 CREATE TABLE requisito(
 	attivita_formativa varchar(10), --foreign key attivita con requisito
 	attivita_formativa_richiesta varchar(10), --foreign key attivita richiesta
@@ -188,7 +176,7 @@ CREATE TABLE requisito(
 		ON DELETE NO ACTION ON UPDATE CASCADE
 );
 
--- Definizione associazione partecipa tra istanza dell'attività formativa e docente
+-- Definizione associazione partecipa e relativa enumerazione ruolo docente
 CREATE TYPE ruolo_docente AS ENUM ('presidente', 'membro_effettivo', 'supplente');
 CREATE TABLE partecipa(
 	attivita_formativa varchar(10),
@@ -204,8 +192,7 @@ CREATE TABLE partecipa(
 		ON DELETE NO ACTION ON UPDATE CASCADE
 );
 
-
--- Definizione tabella APPARTIENE
+-- Definizione associazione appartiene
 CREATE TABLE appartiene(
   classe varchar(5),
   corso_laurea varchar(6),
@@ -216,7 +203,7 @@ CREATE TABLE appartiene(
     ON DELETE NO ACTION ON UPDATE CASCADE
 );
 
--- Definizione tabella OFFRE
+-- Definizione associazione OFFRE
 CREATE TABLE offre(
   corso_laurea varchar(6),
   attivita_formativa varchar(10),
@@ -229,8 +216,5 @@ CREATE TABLE offre(
   FOREIGN KEY (attivita_formativa) REFERENCES attivita_formativa(codice)
     ON DELETE NO ACTION ON UPDATE CASCADE
 );
-
-
-
 
 

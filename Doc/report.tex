@@ -78,58 +78,48 @@
 \newpage
 % *****sezione1*****
 \section{Descrizione del progetto}
-Si vuole realizzare una base di dati per modellare correttamete i Corsi di Caurea dell'Universit\'a di Padova.
+Si vuole realizzare una base di dati per modellare correttamete i Corsi di Laurea dell'Universit\'a di Padova.
 Si vogliono rappresentare tutti i dati funzionali ai Corso di Laurea come Scuole, Classi, Curriculum, Attivit\'a formative e relativi SSD, Coorti, Percorsi e Docenti.
 In questo progetto non vengono coinvolti studenti o piani di studio.
 \par
-La modellazione viene fatta coerentemente al sito  \href{https://didattica.unipd.it/}{didattica.unipd.it}, fonte partanto di tutti i requisiti del progetto.
+La modellazione viene fatta coerentemente al sito  \href{https://didattica.unipd.it/}{didattica.unipd.it}, fonte partanto del minimondo di interesse.
 
 
 
 \subsection{Requisiti strutturati}
 
 \textbf{Scuola}
-\par Le Scuole hanno funzioni di coordinamento e di razionalizzazione delle attivit\'a didattiche, compresa la proposta di istituzione, attivazione, modifica, disattivazione o soppressione di corsi di laurea, nonch\'e di gestione dei servizi comuni.\textcolor{red!50}{Ogni Scuola pu\'o attivare diversi corsi di laurea in linea con il settore accademico di interesse. Ad ogni Scuola è assegnato un codice a livello Universitario.}
+\par Le Scuole hanno funzioni di coordinamento e di razionalizzazione delle attivit\'a didattiche, compresa la proposta di istituzione, attivazione, modifica, disattivazione o soppressione di corsi di laurea, nonch\'e di gestione dei servizi comuni. Ogni Scuola pu\'o attivare diversi corsi di laurea in linea con il settore accademico di interesse. Ad ogni Scuola è assegnato un codice a livello Universitario.
 \newline
 
 \textbf{Classe}
 \par
-\textcolor{red!50}{Le Classi sono dei contenitori che raggruppano i Corsi di Laurea dello stesso ciclo, comunque denominati dagli Atenei, aventi gli stessi obiettivi formativi qualificanti e attivit\'a formative attivate per un numero di crediti e in settori individuati come indispensabili. Le caratteristiche delle Classi sono fissate a livello nazionale, con appositi Decreti Ministeriali e identificate da codici, e sono quindi comuni a tutti gli atenei. I corsi di laurea appartenenti alla stessa Classe hanno identico valore legale.}
+Le Classi sono dei contenitori che raggruppano i Corsi di Laurea dello stesso ciclo, comunque denominati dagli Atenei, aventi gli stessi obiettivi formativi qualificanti e attivit\'a formative attivate per un numero di crediti e in settori individuati come indispensabili. Le caratteristiche delle Classi sono fissate a livello nazionale, con appositi Decreti Ministeriali e identificate da codici, e sono quindi comuni a tutti gli atenei. I corsi di laurea appartenenti alla stessa Classe hanno identico valore legale.
 \\
 
 \textbf{Corso di Laurea}
 \par
-\textcolor{red!50} { I Corsi di Laure sono l'insieme di tutte le attivit\'a formative, obbligatorie e non, proposte da un ateneo per conseguire la laurea. La laurea rilasciata \'e coerente al Corso di Laurea scelto. I Corsi di Laurea sono inquadrati in Classi ministeriali, possono prvedere più percorsi e afferiscono a una scuola. Per il conseguimento della Laurea, e quindi il completamento del relativo corso, lo studente deve conseguire un numero prefissato di CFU (180 per le lauree triennali). Ogni corso di Laurea appartiene ad un ordinamento legislativo che ne definisce la struttura e la valiidità legale. Ogni Corso di Laurea pu\'o avere, a driscrezione della Suola, più Curricula. Ogni Ateneo identifica un Corso di Laurea con un codice univoco.
-} 
-\\
-\\
-\\
+I Corsi di Laure sono l'insieme di tutte le attivit\'a formative, obbligatorie e non, proposte da un ateneo per conseguire la laurea. La laurea rilasciata \'e coerente al Corso di Laurea scelto. I Corsi di Laurea sono inquadrati in Classi ministeriali, possono prvedere più percorsi e afferiscono a una scuola. Per il conseguimento della Laurea, e quindi il completamento del relativo corso, lo studente deve conseguire un numero prefissato di CFU (180 per le lauree triennali). Ogni corso di Laurea appartiene ad un ordinamento legislativo che ne definisce la struttura e la validità legale. Ogni Corso di Laurea pu\'o avere, a driscrezione della Suola, più Curricula. Ogni Ateneo identifica un Corso di Laurea con un codice univoco.\\
 
 
 \textbf{Curriculum}
 \par
-\textcolor{red!50} { Un Curriculum è una denominazione di un Corso di Laurea che ne definisce gli obbiettivi oltre che a diffirenziare lo stesso in un insieme di attivit\'a formative differenti. Più studenti possono dunque conseguire la stessa larea con percorsi alternativi a seconda dei loro interessi e attitudini scegliendo, ad esempio, un Curriculum Generale piuttosto che un Curriculum Applicativo.
-Ogni Ateneo identifica un Curriculum con un codice univoco.
-} 
-\\
+Un Curriculum è una denominazione di un Corso di Laurea che ne definisce gli obbiettivi oltre che a diffirenziare lo stesso in un insieme di attivit\'a formative differenti. Più studenti possono dunque conseguire la stessa larea con percorsi alternativi a seconda dei loro interessi e attitudini scegliendo, ad esempio, un Curriculum Generale piuttosto che un Curriculum Applicativo.
+Ogni Ateneo identifica un Curriculum con un codice univoco.\\
 
 
 \textbf{Attivit\'a Formativa}
 \par
-\textcolor{red!50} {Le Attivit\'a Formative sono il cuore di un Corso di Laure e rappresentano tutti gli step che uno studente deve superare per conseguire la Laurea. Le Attivit\'a formative possono essere di quattro tipi: Tirocinio, Lingua, Prova Finale e Insegnamenti. Ogni attivit\'a  formativa si inserisce in un Corso di Laurea in un anno (I, II, II IV o V a seconda del tipo di Laurea) e in un semestre ( I o II). Ogni Attivit\'a Formativa \'e riferita a un Docente responsabile che ha il compito di definirla in termini di: tipo di valutazione, prerequisiti, conoscenze e abilit\'a da acquisire, modalit\'a di esame, criterio di valutazione, contenuti, attivit\'a, materiali, testi consigliati e lingua di emissione. Ogni Attivit\'a formativa si riferisce poi a un Dipartimento some sede fisica delle lezioni. Infine ogni Attivit\'a formativa  legata a uno o pi\'u SSD dai quali, al conseguimento da parte dello studente dell' esame, vengono rilasciati CFU. Le Attivit\'a Formative sono sono soggette a vincoli, decisi dalla Scuola, in termini di superamento di altre Attivit\'a formative precedenti. All'iterno di ogni ateneo le Attivit\'a formative sono identificate da un codice.
-} 
-\\
+Le Attivit\'a Formative sono il cuore di un Corso di Laure e rappresentano tutti gli step che uno studente deve superare per conseguire la Laurea. Le Attivit\'a formative possono essere di quattro tipi: Tirocinio, Lingua, Prova Finale e Insegnamento. Ogni attivit\'a  formativa si inserisce in un Corso di Laurea in un anno (I, II, II IV o V a seconda del tipo di Laurea) e in un semestre ( I o II). Ogni Attivit\'a Formativa \'e riferita a un Docente responsabile che ha il compito di definirla in termini di: tipo di valutazione, prerequisiti, conoscenze e abilit\'a da acquisire, modalit\'a di esame, criterio di valutazione, contenuti, attivit\'a, materiali, testi consigliati e lingua di emissione. Ogni Attivit\'a formativa si riferisce poi a un Dipartimento some sede fisica delle lezioni. Infine ogni Attivit\'a formativa  legata a uno o pi\'u SSD dai quali, al conseguimento da parte dello studente dell' esame, vengono rilasciati CFU. Le Attivit\'a Formative sono sono soggette a vincoli, decisi dalla Scuola, in termini di superamento di altre Attivit\'a formative precedenti. All'interno di ogni ateneo le Attivit\'a formative sono identificate da un codice.\\
 
 \textbf{Docente}
 \par
-\textcolor{red!50} { I Docenti sono gli attuatori di un Attivit\'a Formativa. Piu Docenti possono essere coinvolti in una stessa Attivit\'a Formativa con ruoli differenti. Dei Docenti coinvolti di un Attivit\'a, uno e uno solo è il Responsabile della stessa e ha il compito di definirla come descritto dal paragrafo Attivit\'a formativa. Dei docenti si vogliono poi poter conoscere tutti i dati relativi ai contatti e agli ambiti di ricerca. Ogni docente può partecipare a più attività formative. Ogni Docente ha una matricola identificativa decisa dall Ateneo.
-} 
-\\
+I Docenti sono gli attuatori di un Attivit\'a Formativa. Pi\'u Docenti possono essere coinvolti in una stessa Attivit\'a Formativa con ruoli differenti. Dei Docenti coinvolti di un Attivit\'a, uno e uno solo è il Responsabile della stessa e ha il compito di definirla come descritto dal paragrafo Attivit\'a formativa. Dei docenti si vogliono poi poter conoscere tutti i dati relativi ai contatti e agli ambiti di ricerca. Ogni docente può partecipare a più attività formative. Ogni Docente ha una matricola identificativa assegnata dall'Ateneo.\\
 
 
 \newpage
 \subsection{Operazioni sulle basi di dati}
-
+Vengono presentate le seguenti operazioni esemplificative della capacit\'a espressiva della base di dati, sprovviste del campo 'frequenza' in quanto non conosciuto.
 % Please add the following required packages to your document preamble:
 % \usepackage{graphicx}
 \begin{table}[!h]
@@ -139,7 +129,7 @@ Ogni Ateneo identifica un Curriculum con un codice univoco.
 			Dati un Corso di Studi e una Coorte trovare tutte le Attività Formative ordinate per anno e semestre. & Interrogazione \\ \hline
 			\begin{tabular}[c]{@{}l@{}}Dati un Corso di Studi e una Coorte trovare tutte le Attività Formative ordinate per anno e semestre,\\ mostrare canale, anno accademico, nome e cognome del docente se il corso è attivato.\end{tabular} & Interrogazione \\ \hline
 			\begin{tabular}[c]{@{}l@{}}Dati un Corso di Studi e una Coorte: trovare le Attività Formative attivate ordinate per anno\\ mostrando codice, nome, canale e anno accademico dell'istanza attività formativa con nome e\\ cognome del responsabile.\end{tabular} & Interrogazione \\ \hline
-			\begin{tabular}[c]{@{}l@{}}Dati il codice di una Attività Formativa, il canale, l'anno accademico e il responsabile ritorna i \\ dettagli dell'Attività Formativa.\end{tabular} & Interrogazione \\ \hline
+			\begin{tabular}[c]{@{}l@{}}Dati il codice di una Attività Formativa, il canale, l'anno accademico e il responsabile trovare i \\ dettagli dell'Attività Formativa.\end{tabular} & Interrogazione \\ \hline
 			Ritorna tutti i Corsi attivati con il relativo Codice, Nome, Anno Accademico, Canale e Responsabile. & Interrogazione \\ \hline
 			Dati una Scuola e un tipo (LT/LM/CU) elencare i Corsi di Laurea. & Interrogazione \\  \hline
 			\begin{tabular}[c]{@{}l@{}}Dati un Curriculum, un Corso di Laurea e una Coorte mostrare la somma dei crediti delle attività \\ formative divisi per SSD.\end{tabular} & Interrogazione \\ \hline
@@ -173,7 +163,7 @@ Ogni Ateneo identifica un Curriculum con un codice univoco.
 
 
 \newpage
-
+\clearpage
 % *****sezione2*****
 \section{Progettazione concettuale}
 
@@ -277,7 +267,6 @@ Your text goes here...
 	\item RV3: i corsi di laurea devono offrire almeno una attivit\'a formativa.
 	\item RV4: i percorsi devono proporre almeno una attivit\'a formativa.
 	\item RV5: le istanze delle attivit\'a formative devono essere attivate per almeno un percorso.
-	\item RVX: \textcolor{red!50}{SCRIVERE TUTTE LE REGOLE DI VINCOLO DI NON NULLIT\'A}
 \end{itemize}
 
 \newpage
@@ -291,6 +280,7 @@ Your text goes here...
 \lstinputlisting[language=SQL]{../SQL/didactics.sql}
 
 \subsection{Query}
+\label{sql:query}
 
 \lstinputlisting[language=SQL]{../SQL/interrogations.sql}
 \newpage
@@ -298,7 +288,7 @@ Your text goes here...
 
 \section{Note}
 
-Your text goes here...
+Le regole di vincolo RV4, RV5 vengono implementate a livello applicativo utilizzando l'interrogazione proposta nella sezione \hyperref[sql:query]{query}.
 
 
 % Uncomment the following two lines if you want to have a bibliography. Please do not forget to add an entry to your bibliography and reference it by using the \cite{} command

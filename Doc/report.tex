@@ -78,8 +78,8 @@
 \newpage
 % *****sezione1*****
 \section{Descrizione del progetto}
-Si vuole realizzare una base di dati per modellare correttamete i Corsi di Laurea dell'Universit\'a di Padova.
-Si vogliono rappresentare tutti i dati funzionali ai Corso di Laurea come Scuole, Classi, Curriculum, Attivit\'a formative e relativi SSD, Coorti, Percorsi e Docenti.
+Si vuole realizzare una base di dati per modellare correttamente i Corsi di Laurea dell'Universit\'a di Padova.
+Si vogliono rappresentare tutti i dati funzionali ai Corsi di Laurea come Scuole, Classi, Curriculum, Attivit\'a formative e relativi SSD, Coorti, Percorsi e Docenti.
 In questo progetto non vengono coinvolti studenti o piani di studio.
 \par
 La modellazione viene fatta coerentemente al sito  \href{https://didattica.unipd.it/}{didattica.unipd.it}, fonte partanto del minimondo di interesse.
@@ -99,18 +99,18 @@ Le Classi sono dei contenitori che raggruppano i Corsi di Laurea dello stesso ci
 
 \textbf{Corso di Laurea}
 \par
-I Corsi di Laure sono l'insieme di tutte le attivit\'a formative, obbligatorie e non, proposte da un ateneo per conseguire la laurea. La laurea rilasciata \'e coerente al Corso di Laurea scelto. I Corsi di Laurea sono inquadrati in Classi ministeriali, possono prvedere pi� percorsi e afferiscono a una scuola. Per il conseguimento della Laurea, e quindi il completamento del relativo corso, lo studente deve conseguire un numero prefissato di CFU (180 per le lauree triennali). Ogni corso di Laurea appartiene ad un ordinamento legislativo che ne definisce la struttura e la validit� legale. Ogni Corso di Laurea pu\'o avere, a driscrezione della Suola, pi� Curricula. Ogni Ateneo identifica un Corso di Laurea con un codice univoco.\\
+I Corsi di Laurea sono l'insieme di tutte le attivit\'a formative, obbligatorie e non, proposte da un ateneo per conseguire la laurea. La laurea rilasciata \'e coerente al Corso di Laurea scelto. I Corsi di Laurea sono inquadrati in Classi ministeriali, possono prvedere pi� percorsi e afferiscono a una scuola. Per il conseguimento della Laurea, e quindi il completamento del relativo corso, lo studente deve conseguire un numero prefissato di CFU (180 per le lauree triennali). Ogni corso di Laurea appartiene ad un ordinamento legislativo che ne definisce la struttura e la validit� legale. Ogni Corso di Laurea pu\'o avere, a discrezione della Scuola, pi� Curricula. Ogni Ateneo identifica un Corso di Laurea con un codice univoco.\\
 
 
 \textbf{Curriculum}
 \par
-Un Curriculum � una denominazione di un Corso di Laurea che ne definisce gli obbiettivi oltre che a diffirenziare lo stesso in un insieme di attivit\'a formative differenti. Pi� studenti possono dunque conseguire la stessa larea con percorsi alternativi a seconda dei loro interessi e attitudini scegliendo, ad esempio, un Curriculum Generale piuttosto che un Curriculum Applicativo.
+Un Curriculum � una denominazione di un Corso di Laurea che ne definisce gli obbiettivi oltre che a differenziare lo stesso in un insieme di attivit\'a formative differenti. Pi� studenti possono dunque conseguire la stessa laurea con percorsi alternativi a seconda dei loro interessi e attitudini scegliendo, ad esempio, un Curriculum Generale piuttosto che un Curriculum Applicativo.
 Ogni Ateneo identifica un Curriculum con un codice univoco.\\
 
 
 \textbf{Attivit\'a Formativa}
 \par
-Le Attivit\'a Formative sono il cuore di un Corso di Laure e rappresentano tutti gli step che uno studente deve superare per conseguire la Laurea. Le Attivit\'a formative possono essere di quattro tipi: Tirocinio, Lingua, Prova Finale e Insegnamento. Ogni attivit\'a� formativa si inserisce in un Corso di Laurea in un anno (I, II, II IV o V a seconda del tipo di Laurea) e in un semestre ( I o II). Ogni Attivit\'a Formativa \'e riferita a un Docente responsabile che ha il compito di definirla in termini di: tipo di valutazione, prerequisiti, conoscenze e abilit\'a da acquisire, modalit\'a di esame, criterio di valutazione, contenuti, attivit\'a, materiali, testi consigliati e lingua di emissione. Ogni Attivit\'a formativa si riferisce poi a un Dipartimento some sede fisica delle lezioni. Infine ogni Attivit\'a formativa  legata a uno o pi\'u SSD dai quali, al conseguimento da parte dello studente dell' esame, vengono rilasciati CFU. Le Attivit\'a Formative sono sono soggette a vincoli, decisi dalla Scuola, in termini di superamento di altre Attivit\'a formative precedenti. All'interno di ogni ateneo le Attivit\'a formative sono identificate da un codice.\\
+Le Attivit\'a Formative sono il cuore di un Corso di Laure e rappresentano tutti gli step che uno studente deve superare per conseguire la Laurea. Le Attivit\'a formative possono essere di quattro tipi: Tirocinio, Lingua, Prova Finale e Insegnamento. Ogni attivit\'a� formativa si inserisce in un Corso di Laurea in un anno (I, II, II IV o V a seconda del tipo di Laurea) e in un semestre ( I o II). Ogni Attivit\'a Formativa \'e riferita a un Docente responsabile che ha il compito di definirla in termini di: tipo di valutazione, prerequisiti, conoscenze e abilit\'a da acquisire, modalit\'a di esame, criterio di valutazione, contenuti, attivit\'a, materiali, testi consigliati e lingua di emissione. Ogni Attivit\'a formativa si riferisce poi a un Dipartimento some sede fisica delle lezioni. Infine ogni Attivit\'a formativa \'e legata a uno o pi\'u SSD dai quali, al conseguimento da parte dello studente dell' esame, vengono rilasciati CFU. Le Attivit\'a Formative sono sono soggette a vincoli, decisi dalla Scuola, in termini di superamento di altre Attivit\'a formative precedenti. All'interno di ogni ateneo le Attivit\'a formative sono identificate da un codice.\\
 
 \textbf{Docente}
 \par
@@ -129,7 +129,7 @@ Vengono presentate le seguenti operazioni esemplificative della capacit\'a espre
 			Dati un Corso di Studi e una Coorte trovare tutte le Attivit� Formative ordinate per anno e semestre. & Interrogazione \\ \hline
 			\begin{tabular}[c]{@{}l@{}}Dati un Corso di Studi e una Coorte trovare tutte le Attivit� Formative ordinate per anno e semestre,\\ mostrare canale, anno accademico, nome e cognome del docente se il corso � attivato.\end{tabular} & Interrogazione \\ \hline
 			\begin{tabular}[c]{@{}l@{}}Dati il codice di una Attivit� Formativa, il canale, l'anno accademico e il responsabile trovare i \\ dettagli dell'Attivit� Formativa.\end{tabular} & Interrogazione \\ \hline
-			Ritorna tutti i Corsi attivati con il relativo Codice, Nome, Anno Accademico, Canale e Responsabile. & Interrogazione \\ \hline
+			Mostrare tutti i Corsi attivati con il relativo Codice, Nome, Anno Accademico, Canale e Responsabile. & Interrogazione \\ \hline
 			Dati una Scuola e un tipo (LT/LM/CU) elencare i Corsi di Laurea. & Interrogazione \\  \hline
 			\begin{tabular}[c]{@{}l@{}}Dati un Curriculum, un Corso di Laurea e una Coorte mostrare la somma dei crediti delle attivit� \\ formative divisi per SSD.\end{tabular} & Interrogazione \\ \hline
 			Dati due Corsi di Laurea e una Coorte mostrare le Attivit� Formative non in comune tra i due Corsi. & Interrogazione \\ \hline
@@ -152,9 +152,9 @@ Vengono presentate le seguenti operazioni esemplificative della capacit\'a espre
 			Corso di  Laurea & \begin{tabular}[c]{@{}l@{}}Insieme di tutte le attivita formative ne-\\ cessarie a Laurearsi.\end{tabular} & Corso di studi. & \begin{tabular}[c]{@{}l@{}}Scuola, Classe, \\ Attivit� formativa, \\ Curriculum.\end{tabular} \\ \hline
 			\begin{tabular}[c]{@{}l@{}}Istanza attivit� \\ formativa\end{tabular} & \begin{tabular}[c]{@{}l@{}}Insegnamento, Prova finale, Tirocino o \\ Lingua che uno studente trover� effetti-\\ vamente nel suo piando si studi.\end{tabular} & Esame, Corso. & \begin{tabular}[c]{@{}l@{}}Docente, Percorso,\\ Attivit� formativa\end{tabular} \\ \hline
 			Responsabile & \begin{tabular}[c]{@{}l@{}}Docente incaricato di istanziare un'at-\\ tivit� formativa e responsabile di tale \\ attivit� per quell anno.\end{tabular} & \multicolumn{1}{c}{-} & \begin{tabular}[c]{@{}l@{}}Atttivit� formativa,\\ Istanza Attivit� \\ formativa, ruolo\end{tabular} \\ \hline
-			Coorte & \begin{tabular}[c]{@{}l@{}}Insieme di studenti immatricolatisi nl \\ medesimo anno. Riferendosi a Coorte\\ come anno si identifica il momento di \\ di schedulazione di tutti le Attivit� che\\ gli studenti di quella Coorte vedranno \\ proposte durantela propria carriera.\end{tabular} & Anno, Classe. & \begin{tabular}[c]{@{}l@{}}Attivit� formativa,\\ Percorso, Corso di\\ Laurea.\end{tabular} \\ \hline
+			Coorte & \begin{tabular}[c]{@{}l@{}}Insieme di studenti immatricolatisi nel \\ medesimo anno. Riferendosi a Coorte\\ come anno si identifica il momento di \\ di schedulazione di tutti le Attivit� che\\ gli studenti di quella Coorte vedranno \\ proposte durantela propria carriera.\end{tabular} & Anno, Classe. & \begin{tabular}[c]{@{}l@{}}Attivit� formativa,\\ Percorso, Corso di\\ Laurea.\end{tabular} \\ \hline
 			SSD & \begin{tabular}[c]{@{}l@{}}Settore Scentifico Disciplinare:\\ Distinzione disciplinare utilizzata nell\\ universit� in Italia per organizzare l'is-\\ truzione superiore.\end{tabular} & \multicolumn{1}{c}{-} & \begin{tabular}[c]{@{}l@{}}Attivit� formativa,\\ CFU.\end{tabular} \\ \hline
-			CFU & \begin{tabular}[c]{@{}l@{}}Credito Formativo Universitario:\\ modalit� utilizzata nelle universit� ita-\\ liane per misurare il carico di lavoro \\ richiesto allo studente.\end{tabular} & Crediti. & \begin{tabular}[c]{@{}l@{}}SSD, Prcorso,\\ Attivit� formativa\end{tabular} \\ \hline
+			CFU & \begin{tabular}[c]{@{}l@{}}Credito Formativo Universitario:\\ modalit� utilizzata nelle universit� ita-\\ liane per misurare il carico di lavoro \\ richiesto allo studente.\end{tabular} & Crediti. & \begin{tabular}[c]{@{}l@{}}SSD, Percorso,\\ Attivit� formativa\end{tabular} \\ \hline
 			Percorso & \begin{tabular}[c]{@{}l@{}}Istanza del Corso di Laurea relativa ad\\ un dato Curriculum e a una Coorte.\end{tabular} & Indirizzo. & \begin{tabular}[c]{@{}l@{}}Attivit� formativa,\\ Curriculum Corso \\ di Laurea, Coorte.\end{tabular} \\ \hline
 		\end{tabular}%
 	}
@@ -167,7 +167,7 @@ Vengono presentate le seguenti operazioni esemplificative della capacit\'a espre
 \section{Progettazione concettuale}
 
 \subsection{Modello concettuale: Entit\`a-Associazione(E-R)}
-Di seguito lo schema concettuale prodotto per la rappresentazione della realt`a di interesse:
+Di seguito lo schema concettuale prodotto per la rappresentazione della realt\`a di interesse:
 
 \begin{figure}[!h] %!h forza la figura sotto il titolo
 	\caption{Schema E-R completo}
@@ -231,7 +231,7 @@ Di seguito lo schema concettuale prodotto per la rappresentazione della realt`a 
 
 \'E necessario definire alcune regole di vincolo per una corretta rappresentazione della realt\'a� di interesse:
 \begin{itemize}
-	\item RV1: i CFU assegnati ad un corso di laurea devono essere minori della somma dei CFU delle attivit'a formative proposte dai percorsi che realizzano il corso di laurea.
+	\item RV1: i CFU assegnati ad un corso di laurea devono essere minori della somma dei CFU delle attivit\'a formative proposte dai percorsi che realizzano il corso di laurea.
 	\item RV2: i CFU totali assegnati ad una attivit\'a formativa devono essere pari alla somma dei CFU assegnati agli SSD che compongono l'attivit\'a formativa.
 	\item RV3: la somma dei CFU delle attivit\'a formative offerte per un corso di laurea deve essere maggiore dei CFU richiesti dal corso di laurea per ogni coorte.
 	\item RV4: le attivit\'a formative proposte da un percorso per una coorte devono essere offerte dal relativo corso di laurea per la stessa coorte.

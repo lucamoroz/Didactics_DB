@@ -1,11 +1,11 @@
--- Dati un 'corso di studi' e una 'coorte' trovare tutte le attività formative ordinate per anno e semestre;
+-- Dati un 'corso di studi' e una 'coorte' trovare tutte le attivita' formative ordinate per anno e semestre;
 SELECT a.nome, p.anno, p.semestre
 FROM propone as p JOIN attivita_formativa as a ON p.attivita_formativa = a.codice
 WHERE p.coorte = 2015 and p.corso_laurea = 'IN0508'
 ORDER BY p.anno ASC, p.semestre ASC;
 
--- Dati un 'corso di studi' e una 'coorte' trovare tutte le attività formative ordinate per anno e semestre,
--- mostrare canale, anno accademico, nome e cognome del docente se il corso è attivato
+-- Dati un 'corso di studi' e una 'coorte' trovare tutte le attivita' formative ordinate per anno e semestre,
+-- mostrare canale, anno accademico, nome e cognome del docente se il corso e' attivato
 SELECT af.nome, p.anno, p.semestre, a.canale, a.anno_accademico, d.nome, d.cognome
 FROM propone as p 
 JOIN attivita_formativa as af ON p.attivita_formativa = af.codice
@@ -28,25 +28,25 @@ WHERE iaf.attivita_formativa = $1
 	AND iaf.anno_accademico = $3
 	AND iaf.responsabile = $4;
 
--- Ritorna tutti i corsi attivati con il relativo codice, nome, anno accademico, canale e responsabile
+-- Mostrare tutti i corsi attivati con il relativo codice, nome, anno accademico, canale e responsabile
 SELECT iaf.attivita_formativa as codice, af.nome as nome, iaf.anno_accademico as anno_accademico, iaf.canale as canale, CONCAT(d.nome, ' ', d.cognome) as responsabile, d.matricola as matricola
 FROM istanza_attivita_formativa as iaf JOIN attivita_formativa as af
 	ON iaf.attivita_formativa =af.codice
 	JOIN docente as d ON d.matricola = iaf.responsabile;
 
--- dato una scuola e un tipo (LT/LM/CU) elencare i corsi di laurea
+-- Dati una scuola e un tipo (LT/LM/CU) elencare i corsi di laurea
 SELECT c.codice, c.nome, c.ordinamento, c.cfu
 FROM corso_laurea AS c
 WHERE c.scuola = 'IN' AND c.tipo = 'LT';
 
--- dato un corso di laurea elencare le classi di appartenenza
+-- Dato un corso di laurea elencare le classi di appartenenza
 SELECT cl.codice, cl.descrizione
 FROM classe AS cl
 JOIN appartiene AS a ON cl.codice = a.classe
 WHERE a.corso_laurea = 'IN2374';
 
---Dati un curriculum, un corso di laurea e una coorte mostrare la somma dei
--- crediti delle attività formative divisi per SSD
+-- Dati un curriculum, un corso di laurea e una coorte mostrare la somma dei
+-- crediti delle attivita' formative divisi per SSD
 SELECT c.ssd AS ssd, s.descrizione AS descrizione, SUM(c.cfu) AS cfu
 FROM propone AS p
     JOIN comprende AS c
@@ -56,7 +56,7 @@ FROM propone AS p
 WHERE p.curriculum='COMUNE' AND p.corso_laurea='IN0508' AND p.coorte=2015
 GROUP BY c.ssd, s.descrizione;
 
---Dati due corsi di laurea e una coorte mostrare le attività formative non in comune tra i due corsi
+-- Dati due corsi di laurea e una coorte mostrare le attivita' formative non in comune tra i due corsi
 SELECT af.nome AS "Attivita_Formativa", o1.attivita_formativa AS "codice", cl.nome AS "Corso_di_Laurea", o1.corso_laurea AS "codice"
 FROM (	SELECT *
 	FROM offre

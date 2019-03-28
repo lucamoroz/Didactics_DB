@@ -170,9 +170,10 @@ Vengono presentate le seguenti operazioni esemplificative della capacit\'a espre
 Di seguito lo schema concettuale prodotto per la rappresentazione della realt\`a di interesse:
 
 \begin{figure}[!h] %!h forza la figura sotto il titolo
-	\caption{Schema E-R completo}
+	
 	\begin{center}
 		\includegraphics[scale=0.5,angle=90]{../Schemas/ER_diagram.jpg}
+		\caption{Schema E-R completo}
 	\end{center}
 \end{figure}
 
@@ -247,9 +248,11 @@ Di seguito lo schema concettuale prodotto per la rappresentazione della realt\`a
 \subsection{Ristrutturazione schema E-R}
 
 \begin{figure} [!h] %!h forza la figura sotto il titolo
-	\caption{Schema E-R completo}
+	
 	\begin{center}
-		\includegraphics[scale=0.455,angle=90]{../Schemas/ER_diagram_restructured.jpg} %file va rinominato senza spazio senno viene plottato il nome file
+		\includegraphics[scale=0.455,angle=90]{../Schemas/ER_diagram_restructured.jpg}
+		\caption{Schema E-R ristrutturato}
+		 %file va rinominato senza spazio senno viene plottato il nome file
 	\end{center}
 \end{figure}
 
@@ -257,9 +260,11 @@ Di seguito lo schema concettuale prodotto per la rappresentazione della realt\`a
 \subsection{Modello logico: Relazionale}
 
 \begin{figure} [!h] %!h forza la figura sotto il titolo
-	\caption{Schema E-R completo}
+	
 	\begin{center}
-		\includegraphics[scale=0.455,angle=90]{../Schemas/relational_model.jpg} %file va rinominato senza spazio senno viene plottato il nome file
+		\includegraphics[scale=0.455,angle=90]{../Schemas/relational_model.jpg}
+		\caption{Schema E-R completo}
+		 %file va rinominato senza spazio senno viene plottato il nome file
 	\end{center}
 \end{figure}
 
@@ -290,12 +295,57 @@ Di seguito lo schema concettuale prodotto per la rappresentazione della realt\`a
 \newpage
 % *****sezione 5*****
 \section{Descrizione dell'applicativo}
+A completamento del progetto è stato realizzato un applicativo con lo scopo di interrogare i dati. Il linguaggio di implementazione è PHP e il sito è reperibile \href{https://frankinfotech.it/basi19/data/index.php}{qui}.
+
+L'applicativo è stato concepito per semplificare l'interrogazione del Data Base da parte degli utenti interessati (in particolar modo studenti e personale universitario): esso fornisce in maniera chiara tutte le informazioni di interesse.
+Un Toggle menu nel lato sinistro della schermata guida l'utente nella navigazione e nell'interrogazione fornendo tre macro-strumenti di interrogazione e uno di inserimento dati:
+\begin{itemize}
+	\item Corsi di Laurea: in questa sezione viene chiesto all'utente di specificare una Scuola e un tipo di laurea (triennale, magistrale,ciclo unico). Il sistema mostrerà a video tutti Corsi di Laurea attivati da quella Scuola facenti parte di quel tipo di laurea. Premendo su di un Corso di Laurea si verr\'a indirizziati alla sezione Offerta Formativa. \begin{figure}[!h] %!h forza la figura sotto il titolo
+		
+		\begin{center}
+			\includegraphics[scale=0.3,angle=0]{../Screenshots/S1.png}
+			\caption{Pagina Corsi di laurea}
+		\end{center}
+	\end{figure}
+	
+	\item Offerta Formativa: in questa sezione viene chiesto all'utente si specificare una Coorte (nel caso di uno studente, l'anno di immatricolazione) e un Corso di Laurea. Se si arriva a questa schermata da un Corso di Laurea il relativo campo sar\'a gi\'a settato correttamente. Premendo Submit il sistema risponde tutte le Attivit\'a Formative che lo studente potr\'a o dovr\'a sostenere nella sua carriera. Vengono mostrati i dati pi\'u significativi per ogni Attivit\'a formativa: anno in corso, semestre, canale, anno accademico, responsabile e scheda del corso. Scheda corso è un link ad una pagina che mostra nei dettagli tutti i dati relativi all'Attivit\'a Formativa.
+	\begin{figure}[!h] %!h forza la figura sotto il titolo
+		
+		\begin{center}
+			\includegraphics[scale=0.3,angle=0]{../Screenshots/S2.png}
+			\caption{Pagina Offerta Formativa}
+		\end{center}
+	\end{figure}
+	
+	\item Attivit\'a Formative: questa pagina mostra tutte le Attivit\'a Formative presenti nel database. Premendo sul nome dell'Attivit\'a vengono mostrati nel dettagio tutti i dati relativi all'Attivit\'a Formativa di interesse.
+	\begin{figure}[!h] %!h forza la figura sotto il titolo
+		
+		\begin{center}
+			\includegraphics[scale=0.3,angle=0]{../Screenshots/S3.png} 
+			\caption{Pagina dettaglio di un'Attivit\'a Formativa}
+		\end{center}
+	\end{figure}
+
+
+
+
+
+	\item Inserimento attività formativa: in questa sezione vengono chiesti all'utente i dati codice, nome e tipo di attivit\'a formativi necessari alla creazione di una nuova Attivit\'a formativa nel data base. Questa è la fase di nascita di un attivit\'a formativa che verr\'a poi istanziata quando si designer\'a il Docente responsabile. Si prevede che questa sezione sar\'a visibile solo a personale autorizzato dall'Ateneo.
+	
+	 \begin{figure}[!h] %!h forza la figura sotto il titolo	
+		\begin{center}
+			\includegraphics[scale=0.3,angle=0]{../Screenshots/S4.png}
+			\caption{Pagina Inserimento attività formativa}
+		\end{center}
+	\end{figure}
+
+\end{itemize}
+
 % *****sezione 6*****
 \section{Note}
-
 Le frequenze delle operazioni non vengono riportate poic\'e non sono note.
-Le regole di vincolo RV4, RV5 vengono implementate a livello applicativo utilizzando l'interrogazione proposta nella sezione \hyperref[sql:query]{query}.
-
+\par Le regole di vincolo RV4, RV5 vengono implementate a livello applicativo utilizzando l'interrogazione proposta nella sezione \hyperref[sql:query]{query}.\par \vspace{5mm} %5mm vertical space
+Strumenti utilizzati: PostgreSQL, TeX Studio, PHP, javascript, CSS, bootstrap.
 
 % Uncomment the following two lines if you want to have a bibliography. Please do not forget to add an entry to your bibliography and reference it by using the \cite{} command
 %\bibliographystyle{alphadin}

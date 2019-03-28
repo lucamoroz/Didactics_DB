@@ -15,7 +15,7 @@
       */
       $selected = (isset($_GET['school']) ? $_GET['school'] : "");
       $ret = pg_query($conn, "SELECT codice, nome FROM scuola;");
-    
+
       $year_form = "<select class='form-control' name='school'>";
       while($row = pg_fetch_assoc($ret)) {
         if($selected == $row['codice'])
@@ -24,7 +24,7 @@
           $year_form .= "<option value={$row['codice']}>{$row['nome']}</option>";
       }
       $year_form .= "</select>";
-      
+
       return $year_form;
     }
 
@@ -33,10 +33,10 @@
      */
     function get_tipicorsi_form() {
       $selected = (isset($_GET['type']) ? $_GET['type'] : "");
-      $tipi =  array('LT'=>'Laurea triennale', 
-                    'LM'=>'Laurea magistrale', 
+      $tipi =  array('LT'=>'Laurea triennale',
+                    'LM'=>'Laurea magistrale',
                     'CU'=>'Laurea magistrale a ciclo unico');
-                    
+
       $select_html = "<select class='form-control' name='type'>";
       foreach($tipi as $codice => $nome) {
         if($selected == $codice)
@@ -84,14 +84,14 @@
 
         while($row = pg_fetch_assoc($result)) {
           $url_offerta = build_link_offerta($conn, $row['codice']);
-          
+
           $html_table .= "<tr>
                     <td>{$row['codice']}</td>";
           if($url_offerta == "")
                     $html_table .= "<td>{$row['nome']}</td>";
           else
           	$html_table .= "<td><a href=\"$url_offerta\">{$row['nome']}</a></td>";
-          
+
           $html_table .= "<td>{$row['ordinamento']}</td>
                           <td>{$row['cfu']}</td>";
           $html_table .= '<td><ul class="list-unstyled">';
@@ -110,7 +110,7 @@
     		  WHERE corso_laurea = $1";
     	$result = pg_prepare($conn, "", $query);
     	$result = pg_execute($conn, "", array($codice));
-    	
+
     	$max_coorte = pg_fetch_assoc($result)['coorte'];
     	if($max_coorte == NULL)
     		return "";
@@ -153,7 +153,7 @@
         <a href="corsilaurea.php" class="list-group-item list-group-item-action bg-light">Corsi di laurea</a>
         <a href="percorso.php" class="list-group-item list-group-item-action bg-light">Offerta formativa</a>
         <a href="schedacorso.php" class="list-group-item list-group-item-action bg-light">Attività formative</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Query3</a>
+        <a href="inserimento_attivita.php" class="list-group-item list-group-item-action bg-light">Inserimento attività</a>
       </div>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -182,7 +182,7 @@
 
       <div class="container-fluid">
           <br>
-          <h3> Corsi di laurea </h3>          
+          <h3> Corsi di laurea </h3>
           <br>
           <form action="#" method="GET" enctype="multipart/form-data">
 				<div class="form-row">

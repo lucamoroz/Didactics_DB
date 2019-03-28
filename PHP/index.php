@@ -29,7 +29,7 @@
         <a href="corsilaurea.php" class="list-group-item list-group-item-action bg-light">Corsi di laurea</a>
         <a href="percorso.php" class="list-group-item list-group-item-action bg-light">Offerta formativa</a>
         <a href="schedacorso.php" class="list-group-item list-group-item-action bg-light">Attività formative</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Query3</a>
+        <a href="inserimento_attivita.php" class="list-group-item list-group-item-action bg-light">Inserimento attività</a>
       </div>
     </div>
     <!-- /#sidebar-wrapper -->

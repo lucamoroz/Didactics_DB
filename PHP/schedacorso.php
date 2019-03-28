@@ -11,8 +11,8 @@ $conn=pg_connect($GLOBALS['connection_string']) or die('Could not connect: ' . p
 
 
 function get_istanza_attivita_formativa($conn, $cod, $can, $year, $resp) {
-	$result = pg_prepare($conn, 
-            			"queryistanza", 
+	$result = pg_prepare($conn,
+            			"queryistanza",
             			"SELECT af.nome as nome, iaf.canale as canale, iaf.anno_accademico as anno_accademico, CONCAT(d.nome, ' ', d.cognome) as responsabile, iaf.acquisire as acquisire, iaf.contenuti as contenuti, iaf.testi as testi
             			 FROM istanza_attivita_formativa as iaf JOIN attivita_formativa as af
             			 	ON iaf.attivita_formativa = af.codice
@@ -27,7 +27,7 @@ function get_istanza_attivita_formativa($conn, $cod, $can, $year, $resp) {
 	} else {
 		return array();
 	}
-	
+
 }
 function build_istanza_attform_query($attivita_formativa, $canale, $annoacc, $responsabile) {
 	$data = array(
@@ -41,13 +41,13 @@ function build_istanza_attform_query($attivita_formativa, $canale, $annoacc, $re
 }
 
 function get_tabella_istanze_attivita_formative($conn) {
-	
+
 	$result = pg_query($conn,
 				"SELECT iaf.attivita_formativa as codice, af.nome as nome, iaf.anno_accademico as anno_accademico, iaf.canale as canale, CONCAT(d.nome, ' ', d.cognome) as responsabile, d.matricola as matricola
 				 FROM istanza_attivita_formativa as iaf JOIN attivita_formativa as af
 				 	ON iaf.attivita_formativa =af.codice
 				 	JOIN docente as d ON d.matricola = iaf.responsabile;");
-				 	
+
 	//build table
 	$html_table = "<table class='table' style='width:90%'><thead class='thead-dark'><tr>
 											<th>Nome</th>
@@ -57,18 +57,18 @@ function get_tabella_istanze_attivita_formative($conn) {
 										</tr></thead><tbody>";
 	while($row = pg_fetch_assoc($result)) {
 		$url_scheda_corso = build_istanza_attform_query($row['codice'], $row['canale'], $row['anno_accademico'], $row['matricola']);
-		
+
 		$html_table .= "<tr>";
 		$html_table .= "<td><a href=\"$url_scheda_corso\">{$row['nome']}</a></td>
 				<td>{$row['anno_accademico']}</td>
 				<td>{$row['canale']}</td>
 				<td>{$row['responsabile']}</td>";
-		
+
 		$html_table .= "</tr>";
 	}
 	$html_table .= "</tbody></table>";
 	return $html_table;
-	
+
 }
 ?>
 
@@ -104,7 +104,7 @@ function get_tabella_istanze_attivita_formative($conn) {
 				<a href="corsilaurea.php" class="list-group-item list-group-item-action bg-light">Corsi di laurea</a>
         <a href="percorso.php" class="list-group-item list-group-item-action bg-light">Offerta formativa</a>
         <a href="schedacorso.php" class="list-group-item list-group-item-action bg-light">Attività formative</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Query3</a>
+        <a href="inserimento_attivita.php" class="list-group-item list-group-item-action bg-light">Inserimento attività</a>
       </div>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -130,23 +130,23 @@ function get_tabella_istanze_attivita_formative($conn) {
           </ul>
         </div>
       </nav>
-	
-	
+
+
 	<!-- CONTENT -->
 	<div class="container-fluid">
 	<br>
-	
-	
+
+
 	<?php
 	//show result table if requested
 	if($_SERVER["REQUEST_METHOD"] == "GET" and isset($_GET['attform']) and isset($_GET['canale']) and isset($_GET['annoacc']) and isset($_GET['resp'])) {
 		$data_corso = get_istanza_attivita_formativa($conn, $_GET['attform'], $_GET['canale'], $_GET['annoacc'], $_GET['resp']);
-		
+
 		if(sizeof($data_corso)==0) {
 			echo "Corso non trovato.";
 			exit;
 		}
-		
+
 		$html_table = "<table class='table' style='width:90%'>
 				<thead class='thead-dark'><tr>
 				  <th>Campo</th>
@@ -156,10 +156,10 @@ function get_tabella_istanze_attivita_formative($conn) {
 			//$html_table .= "<th>{$key}</th>";
 			$html_table .= "<tr><td style='width: 30%'>{$key}</td><td style='width: 70%'>{$value}</td></tr>";
 		}
-		
+
 		$html_table .= "</tbody></table>";
 		echo $html_table;
-		
+
 	} else {
 		echo "<h3>Attività formative</h3><br>";
 		echo get_tabella_istanze_attivita_formative($conn);
@@ -187,8 +187,3 @@ function get_tabella_istanze_attivita_formative($conn) {
 </body>
 
 </html>
-
-
-
-
-

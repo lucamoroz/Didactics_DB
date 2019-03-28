@@ -20,9 +20,9 @@ function get_year_form($conn) {
 	$ret = pg_query($conn, "SELECT anno FROM coorte;");
 
 	while($row = pg_fetch_row($ret)) {
-		array_push($years, $row[0]);	
+		array_push($years, $row[0]);
 	}
-	
+
 	$year_form = "<select class='form-control' name='year'>";
 	foreach($years as $year) {
 		if ($selected == $year)
@@ -31,24 +31,24 @@ function get_year_form($conn) {
 			$year_form .= "<option value='$year'>$year</option>";
 	}
 	$year_form .= "</select>";
-	
+
 	return $year_form;
 }
 
 function get_course_form($conn) {
 	/**
 	@return String: a 'select' form, each option has 'codice' as value and 'nome' as text
-	*/	
+	*/
 	//set field as selected if present
 	$selected = (isset($_GET['course']) ? $_GET['course'] : "");
 	$result = pg_query($conn, "SELECT codice, nome, tipo FROM corso_laurea;");
-	
+
 	$course_form = "<select class='form-control' name='course'>";
 	while($row = pg_fetch_assoc($result)) {
 		$cod = $row["codice"];
 		$name = $row["nome"];
 		$type = $row["tipo"];
-		if($selected == $row['codice']) 
+		if($selected == $row['codice'])
 			$course_form .= "<option value='$cod' selected>$name - $type</option>";
 		else
 			$course_form .= "<option value='$cod'>$name - $type</option>";
@@ -63,11 +63,11 @@ function get_course_form($conn) {
 	@return String: html della tabella contenente le attività formative
 */
 function get_percorso($conn, $year, $course) {
-	$sql = 'SELECT af.nome as nomeatt, p.anno, p.semestre, a.canale, a.anno_accademico, 
+	$sql = 'SELECT af.nome as nomeatt, p.anno, p.semestre, a.canale, a.anno_accademico,
 						d.nome as nomedoc, d.cognome as cognomedoc, af.codice, d.matricola
-					FROM propone as p 
+					FROM propone as p
 					JOIN attivita_formativa as af ON p.attivita_formativa = af.codice
-					LEFT JOIN attiva as a 
+					LEFT JOIN attiva as a
 					ON p.corso_laurea = a.corso_laurea
 						AND p.curriculum = a.curriculum
 						AND p.coorte = a.coorte
@@ -77,7 +77,7 @@ function get_percorso($conn, $year, $course) {
 					ORDER BY p.anno ASC, p.semestre ASC;';
 	$result = pg_prepare($conn, "querypercorso", $sql);
 	$result = pg_execute($conn, "querypercorso", array($year, $course));
-	
+
 	$html_table = "<table class='table' style='width:90%'><thead class='thead-dark'><tr>
 											<th>Nome</th>
 											<th>Anno</th>
@@ -157,7 +157,7 @@ function build_istanza_attform_query($attivita_formativa, $canale, $annoacc, $re
 				<a href="corsilaurea.php" class="list-group-item list-group-item-action bg-light">Corsi di laurea</a>
         <a href="percorso.php" class="list-group-item list-group-item-action bg-light">Offerta formativa</a>
         <a href="schedacorso.php" class="list-group-item list-group-item-action bg-light">Attività formative</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Query3</a>
+        <a href="inserimento_attivita.php" class="list-group-item list-group-item-action bg-light">Inserimento attività</a>
       </div>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -183,8 +183,8 @@ function build_istanza_attform_query($attivita_formativa, $canale, $annoacc, $re
           </ul>
         </div>
       </nav>
-	
-	
+
+
 			<!-- CONTENT -->
 			<div class="container-fluid">
 			<br>
@@ -236,8 +236,3 @@ function build_istanza_attform_query($attivita_formativa, $canale, $annoacc, $re
 </body>
 
 </html>
-
-
-
-
-
